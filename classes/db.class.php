@@ -19,17 +19,17 @@ Class DB {
 		$this->method = $method;
 	}
 
-	public function connect($log_script, $die = true) {
+	public function connect(/*$log_script, */$die = true) {
 		switch ($this->method) {
 			case 'mysql':
 				$this->link = mysql_connect($this->host.':'.$this->port, $this->login, $this->password);
 				if (!$this->link) {
 					if ($die)
-						die(lng('BD_ERROR').lng('BD_AUTH_FAIL')); else return 1;
+						die("Не могу авторизацоваться в БД"); else return 1;
 				}
 				if (!mysql_select_db($this->database, $this->link)) {
 					if ($die)
-						die(lng('BD_ERROR').lng('BD_AUTH_FAIL')); else return 2;
+						die("Не могу выбрать базу данных"); else return 2;
 				}
 				break;
 			case 'mysqli':
@@ -38,19 +38,19 @@ Class DB {
 
 				if (!$this->link) {
 					if ($die)
-						die(lng('BD_ERROR').lng('BD_AUTH_FAIL')); else return 1;
+						die("Не могу авторизацоваться в БД"); else return 1;
 				}
 				if (!mysqli_select_db($this->link, $this->database)) {
 					if ($die)
-						die(lng('BD_ERROR').lng('BD_AUTH_FAIL')); else return 2;
+						die("Не могу выбрать базу данных"); else return 2;
 				}
 		}
 		$this->execute("SET time_zone = '".date('P')."'");
 		$this->execute("SET character_set_client='utf8'");
 		$this->execute("SET character_set_results='utf8'");
 		$this->execute("SET collation_connection='utf8_general_ci'");
-		if ($die)
-			CanAccess(2);
+//		if ($die)
+//			CanAccess(2);
 		return 0;
 	}
 
