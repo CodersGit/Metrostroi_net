@@ -13,7 +13,7 @@ Class DB {
 	public function DB($database, $host, $user, $password = '', $port = 3306, $method = 'mysqli') {
 		$this->database = $database;
 		$this->host = $host;
-		$this->user = $user;
+		$this->login = $user;
 		$this->password = $password;
 		$this->port = $port;
 		$this->method = $method;
