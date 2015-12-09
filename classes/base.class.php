@@ -42,7 +42,7 @@ class Mitrastroi {
 		$l = $link . $page;
 		include Mitrastroi::PathTPL("pagination/pagin_item_active");
 		if ($pages_count - $page <= 5){
-			for ($p = 1; $p < $page; $p++){
+			for ($p = $page + 1; $p <= $pages_count; $p++){
 				$l = $link . $p;
 				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
 			}
