@@ -10,6 +10,15 @@ Class DB {
 	private $method;
 	private $sql_config;
 
+	/**
+	 * DB constructor. Only variables definition
+	 * @param string $database - database name
+	 * @param string $host - hostname
+	 * @param string $user - database user
+	 * @param string $password - database user password
+	 * @param int $port - database server port
+	 * @param string $method - connect method; only 'mysql' or 'mysqli'
+	 */
 	public function DB($database, $host, $user, $password = '', $port = 3306, $method = 'mysqli') {
 		$this->database = $database;
 		$this->host = $host;
@@ -18,6 +27,12 @@ Class DB {
 		$this->port = $port;
 		$this->method = $method;
 	}
+
+	/**
+	 * Connects to MySQL server, selects DB, sets basic parameters
+	 * @param bool|true $die - die when unable to connect
+	 * @return int
+	 */
 
 	public function connect(/*$log_script, */$die = true) {
 		switch ($this->method) {
@@ -54,7 +69,13 @@ Class DB {
 		return 0;
 	}
 
-	public function execute($query, $log = true) {
+	/**
+	 * Like mysqli_query()
+	 * @param $query - MySQL order
+	 * @return bool|mysqli_result|resource
+	 */
+
+	public function execute($query) {
 		global $queries;
 		$queries++;
 		switch ($this->method) {
@@ -71,6 +92,12 @@ Class DB {
 		return $result;
 	}
 
+	/**
+	 * Like mysqli_real_escape_string()
+	 * @param $text - text
+	 * @return string
+	 */
+
 	public function safe($text) {
 		switch ($this->method) {
 			case 'mysql':
@@ -82,6 +109,12 @@ Class DB {
 				break;
 		}
 	}
+
+	/**
+	 * Like mysqli_fetch_assoc()
+	 * @param $query - Result after order execution
+	 * @return array|null
+	 */
 
 	public function fetch_assoc($query) {
 		switch ($this->method) {
@@ -95,7 +128,14 @@ Class DB {
 		}
 	}
 
-	public function fetch_array($query, $result_type = MYSQL_BOTH) {
+	/**
+	 * Like mysqli_fetch_array()
+	 * @param $query - Result after order execution
+	 * @param int $result_type
+	 * @return array|null
+	 */
+
+	public function fetch_array($query, $result_type = MYSQLI_BOTH) {
 		switch ($this->method) {
 			case 'mysql':
 				return mysql_fetch_array($query, $result_type);
@@ -106,6 +146,12 @@ Class DB {
 				break;
 		}
 	}
+
+	/**
+	 * Like mysqli_num_rows()
+	 * @param $query - Result after order execution
+	 * @return int
+	 */
 
 	public function num_rows($query) {
 		switch ($this->method) {
@@ -119,6 +165,11 @@ Class DB {
 		}
 	}
 
+	/**
+	 * Like mysqli_error()
+	 * @return string
+	 */
+
 	public function error() {
 		switch ($this->method) {
 			case 'mysql':
@@ -130,6 +181,11 @@ Class DB {
 				break;
 		}
 	}
+
+	/**
+	 * Like mysqli_insert_id()
+	 * @return int|string
+	 */
 
 	public function insert_id() {
 		switch ($this->method) {
@@ -143,6 +199,11 @@ Class DB {
 		}
 	}
 
+	/**
+	 * Like mysqli_affected_rows()
+	 * @return int
+	 */
+
 	public function affected_rows() {
 		switch ($this->method) {
 			case 'mysql':
@@ -154,6 +215,12 @@ Class DB {
 				break;
 		}
 	}
+
+	/**
+	 * Like mysqli_fetch_array()
+	 * @param $query - Result after order execution
+	 * @return array|null
+	 */
 
 	public function fetch_row($query) {
 		switch ($this->method) {
