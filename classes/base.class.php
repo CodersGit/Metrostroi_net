@@ -14,17 +14,16 @@ class Mitrastroi {
 		}
 	}
 
-	public static function TakeAuth() {
-		global $tox1n_lenvaya_jopa, $db;
-		$user = new User($_COOKIE['mitrastroi_sid'], 'session');
-		if($user->uid() <= 0) {
-			$tox1n_lenvaya_jopa = false;
-			return;
+	public static function ToSteamID($id) {
+		if (is_numeric($id) && strlen($id) >= 16) {
+			$z = bcdiv(bcsub($id, '76561197960265728'), '2');
+		} elseif (is_numeric($id)) {
+			$z = bcdiv($id, '2'); // Actually new User ID format
+		} else {
+			return $id; // We have no idea what this is, so just return it.
 		}
-		$tox1n_lenvaya_jopa = $user;
-		$sessionID = Mitrastroi::randString(128);
-		$db->execute("UPDATE `players` SET `session`='$sessionID' WHERE `id`='{$tox1n_lenvaya_jopa->uid()}'");
-		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
+		$y = bcmod($id, '2');
+		return 'STEAM_0:' . $y . ':' . floor($z);
 	}
 
 	public static function randString($pass_len = 50) {
@@ -39,16 +38,21 @@ class Mitrastroi {
 		return $string;
 	}
 
-		public static function ToSteamID($id) {
-		if (is_numeric($id) && strlen($id) >= 16) {
-			$z = bcdiv(bcsub($id, '76561197960265728'), '2');
-		} elseif (is_numeric($id)) {
-			$z = bcdiv($id, '2'); // Actually new User ID format
-		} else {
-			return $id; // We have no idea what this is, so just return it.
+	public static function TakeAuth() {
+		global $tox1n_lenvaya_jopa, $db;
+		if(!isset($_COOKIE['mitrastroi_sid'])) {
+			$tox1n_lenvaya_jopa = false;
+			return;
 		}
-		$y = bcmod($id, '2');
-		return 'STEAM_0:' . $y . ':' . floor($z);
+		$user = new User($_COOKIE['mitrastroi_sid'], 'session');
+		if($user->uid() <= 0) {
+			$tox1n_lenvaya_jopa = false;
+			return;
+		}
+		$tox1n_lenvaya_jopa = $user;
+		$sessionID = Mitrastroi::randString(128);
+		$db->execute("UPDATE `players` SET `session`='$sessionID' WHERE `id`='{$tox1n_lenvaya_jopa->uid()}'");
+		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
 	}
 
 	public static function TakeClass ($class) {
