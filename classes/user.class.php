@@ -22,7 +22,7 @@ class User {
 		$this->SID = $user['SID'];
 		$this->up_info = json_decode($user['status']);
 		$this->id = $user['id'];
-		foreach (Mitrastroi::RIGHTS as $right)
+		foreach (Mitrastroi::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
 	}
 	public function uid() {
