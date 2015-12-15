@@ -1,11 +1,12 @@
 <?php
 $amount_by_page = 25;
-$page = (!isset($lnk[1]))? 1: (int) $lnk[1];
+$page = (!isset($lnk[1]) or $lnk[1] <= 0)? 1: (int) $lnk[1];
+include Mitrastroi::PathTPL("side");
 $first = ($page - 1) * $amount_by_page;
 $query = $db->execute("SELECT * FROM `groups`");
 while ($gr = $db->fetch_array($query))
 	$groups[$gr['txtid']] = $gr['name'];
-$query = $db->execute("SELECT * FROM `players` LIMIT $first, $amount_by_page");
+$query = $db->execute("SELECT * FROM `players` LIMIT $first, $amount_by_page") or die($db->error());
 Mitrastroi::TakeTPL("players/players_head");
 for($c = $first + 1; $typical_ple = $db->fetch_array($query); $c++) {
 	include Mitrastroi::PathTPL("players/player_row");

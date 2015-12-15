@@ -1,6 +1,6 @@
 <?php
 class User {
-	private $siteamid;
+	private $SID;
 	private $group;
 	private $rights;
 	private $id;
@@ -13,18 +13,21 @@ class User {
 	 */
 	public function User($arg, $type = 'id') {
 		global $db;
-		$query = $db->execute("SELECT *  FROM `groups`, `players` WHERE `players`.`group`=`groups` AND `$type`='$arg'");
+		$query = $db->execute("SELECT *  FROM `groups`, `players` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
 		if (!$query and $db->num_rows($query) != 1) {
 			$this->id = -1;
 			return;
 		}
 		$user = $db->fetch_array($query);
 		$this->id = $user['id'];
-		$this->steamid = $user['SID'];
+		$this->SID = $user['SID'];
 		$this->up_info = json_decode($user['status']);
 		$this->id = $user['id'];
 	}
-	public function login() {
-
+	public function uid() {
+		return $this->id;
+	}
+	public function steamid() {
+		return $this->SID;
 	}
 }

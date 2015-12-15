@@ -1,61 +1,60 @@
 <?php
 Mitrastroi::TakeClass('openid');
+if($tox1n_lenvaya_jopa) {
+	include MITRASTROI_ROOT . "page/404.php";
+	return;
+}
 $_STEAMAPI = $config['steam_api_key'];
-try
-{
-	$openid = new LightOpenID('http://metrorank.morescripts.ru/login/');
-if(!$openid->mode)
-{
-if(isset($_GET['login']))
-{
-$openid->identity = 'http://steamcommunity.com/openid/?l=english';
-header('Location: ' . $openid->authUrl());
-}
-?>
-<form action="?login" method="post">
-	<input type="image" src="http://cdn.steamcommunity.com/public/images/signinthroughsteam/sits_small.png">
-</form>
-<?php
-}
-elseif($openid->mode == 'cancel')
-    {
-	    echo 'User has canceled authentication!';
-    }
-    else
-    {
-	    if($openid->validate())
-	    {
-		    $id = $openid->identity;
-		    // identity is something like: http://steamcommunity.com/openid/id/76561197960435530
-		    // we only care about the unique account ID at the end of the URL.
-		    $ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
-		    preg_match($ptn, $id, $matches);
-		    echo "User is logged in (steamID: $matches[1])\n";
+try {
+	$openid = new LightOpenID('http://' . $_SERVER['SERVER_NAME'] . '/login/');
+	if (!$openid->mode) {
+		if (isset($_GET['login'])) {
+			$openid->identity = 'http://steamcommunity.com/openid/?l=english';
+			header('Location: ' . $openid->authUrl());
+		}
+		include (MITRASTROI_ROOT."pages/404.php");
+	} elseif ($openid->mode == 'cancel') {
+		echo 'User has canceled authentication!';
+	} else {
+		if ($openid->validate()) {
+			$id = $openid->identity;
+			// identity is something like: http://steamcommunity.com/openid/id/76561197960435530
+			// we only care about the unique account ID at the end of the URL.
+			$ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
+			preg_match($ptn, $id, $matches);
+//			echo "User is logged in (steamID: $matches[1])\n";
 
-		    $url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=$matches[1]";
-		    $json_object= file_get_contents($url);
-		    $json_decoded = json_decode($json_object);
+			$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=$matches[1]";
+			$json_object = file_get_contents($url);
+			$json_decoded = json_decode($json_object);
 
-		    foreach ($json_decoded->response->players as $player)
-		    {
-			    echo "
+			foreach ($json_decoded->response->players as $player) {
+				/*echo "
                     <br/>Player ID: $player->steamid
                     <br/>Player Name: $player->personaname
                     <br/>Profile URL: $player->profileurl
                     <br/>SmallAvatar: <img src='$player->avatar'/>
                     <br/>MediumAvatar: <img src='$player->avatarmedium'/>
                     <br/>LargeAvatar: <img src='$player->avatarfull'/>
-                    ";
-		    }
+                    ";*/
+				$status = json_encode(
+					array(
+						'admin'=>'',
+						'nom'=>1,
+						'date'=>time()
+					)
+				);
+				$sessionID = Mitrastroi::randString(128);
+				$db->execute("INSERT INTO `players` (`SID`, `group`, `status`, `session`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', 'user', '$status', '$sessionID')"
+					. "ON DUPLICATE KEY UPDATE `session`='$sessionID'");
+				setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
+				header("Location: /");
+			}
 
-	    }
-	    else
-	    {
-		    echo "User is not logged in.\n";
-	    }
-    }
-}
-catch(ErrorException $e)
-{
+		} else {
+			header("Location: /");
+		}
+	}
+} catch (ErrorException $e) {
 	echo $e->getMessage();
 }
