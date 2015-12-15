@@ -1,7 +1,6 @@
 <?php
 class User {
 	private $SID;
-	private $group;
 	private $rights;
 	private $id;
 	private $up_info;
@@ -23,11 +22,23 @@ class User {
 		$this->SID = $user['SID'];
 		$this->up_info = json_decode($user['status']);
 		$this->id = $user['id'];
+		foreach (Mitrastroi::RIGHTS as $right)
+			$this->rights[$right] = $query[$right];
 	}
 	public function uid() {
 		return $this->id;
 	}
 	public function steamid() {
 		return $this->SID;
+	}
+	public function take_group_info($name) {
+		if (!in_array($name, Mitrastroi::RIGHTS))
+			return '';
+		return $this->rights[$name];
+	}
+	public function take_up_info($name) {
+		if (!isset($this->up_info[$name]))
+			return '';
+		return $this->up_info[$name];
 	}
 }

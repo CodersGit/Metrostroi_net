@@ -1,5 +1,8 @@
 <?php
 class Mitrastroi {
+	const RIGHTS = array(
+		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon'
+	);
 	public static function ToCommunityID($id) {
 		if (preg_match('/^STEAM_/', $id)) {
 			$parts = explode(':', $id);
