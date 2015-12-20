@@ -1,1 +1,1 @@
-<tr><td><?php echo $typical_ple['SID'] ?></td><td><?php echo $typical_ple['group'] ?></td></tr>
+<tr><td><a href="/profile/<?php echo $typical_ple['SID'] ?>"><?php echo ($typical_ple['nickname'] != NULL)? $typical_ple['nickname']: $typical_ple['SID'] ?></a>  <a href="<?php echo ($typical_ple['steam_url'] != NULL)? $typical_ple['steam_url']: ("http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($typical_ple['SID'])) ?>" target="_blank"><i class="fa fa-steam"></i></a></td><td><?php echo $typical_ple['name'] ?></td></tr>
