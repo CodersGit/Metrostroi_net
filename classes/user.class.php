@@ -4,6 +4,7 @@ class User {
 	private $rights;
 	private $id;
 	private $up_info;
+	private $steam_info;
 
 	/**
 	 * User constructor.
@@ -12,8 +13,9 @@ class User {
 	 */
 	public function User($arg, $type = 'id') {
 		global $db;
-		$query = $db->execute("SELECT *  FROM `groups`, `players` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
+		$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
 		if (!$query and $db->num_rows($query) != 1) {
+			print $db->error();
 			$this->id = -1;
 			return;
 		}
@@ -24,6 +26,8 @@ class User {
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
+		foreach (Mitrastroi::$STEAM_INFO as $INFO)
+			$this->steam_info[$INFO] = $user[$INFO];
 	}
 
 	/**
@@ -52,6 +56,18 @@ class User {
 		if (!in_array($name, Mitrastroi::$RIGHTS))
 			throw new BadParameterException();
 		return $this->rights[$name];
+	}
+
+	/**
+	 * Returns some info about user's Steam account
+	 * @param $name -  Name of parameter
+	 * @return string
+	 * @throws BadParameterException
+	 */
+	public function take_steam_info($name) {
+		if (!in_array($name, Mitrastroi::$STEAM_INFO))
+			throw new BadParameterException();
+		return $this->steam_info[$name];
 	}
 
 	/**
