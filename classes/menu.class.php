@@ -48,7 +48,7 @@ class Menu {
 				'right' => 'change_group',
 			),
 			'black_add' => array(
-				'url'=>'/blacklist',
+				'url'=>'/blacklist_add',
 				'title'=>'В список плохишей',
 				'active'=>false,
 				'place' => 0,

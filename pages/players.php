@@ -3,8 +3,8 @@ $amount_by_page = 25;
 $page_fucking_title = "Список игроков";
 $menu->set_item_active('players');
 include Mitrastroi::PathTPL("header");
-$page = (!isset($lnk[1]) or $lnk[1] <= 0)? 1: (int) $lnk[1];
 include Mitrastroi::PathTPL("left_side");
+$page = (!isset($lnk[1]) or $lnk[1] <= 0)? 1: (int) $lnk[1];
 $first = ($page - 1) * $amount_by_page;
 $query = $db->execute("SELECT * FROM `groups`");
 while ($gr = $db->fetch_array($query))
