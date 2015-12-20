@@ -1,7 +1,7 @@
 <?php
 $amount_by_page = 25;
 $page_fucking_title = "Список плохих игроков";
-$menu->set_item_active('blacklist');
+$menu->set_item_active('black');
 include Mitrastroi::PathTPL("header");
 $page = (!isset($lnk[1]) or $lnk[1] <= 0)? 1: (int) $lnk[1];
 include Mitrastroi::PathTPL("left_side");
