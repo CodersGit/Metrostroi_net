@@ -80,6 +80,15 @@ class User {
 			return '';
 		return $this->up_info[$name];
 	}
+
+	/**
+	 * User logout
+	 */
+	public function logout() {
+		global $db;
+		$db->execute("UPDATE `accounts` SET `session`=NULL WHERE `id`={$this->id}");
+		setcookie("mitrastroi_sid", 'null', time(), '/');
+	}
 }
 class BadParameterException extends Exception {
 	protected $message = 'This function got bad parameter';
