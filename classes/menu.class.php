@@ -68,6 +68,7 @@ class Menu {
 				'active'=>false,
 				'place' => 1,
 				'parent' => false,
+				'right' => 'name'
 			),
 		);
 	}
