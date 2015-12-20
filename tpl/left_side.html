@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col-md-3">
+		<?php
+		if($tox1n_lenvaya_jopa) echo $tox1n_lenvaya_jopa->steamid();
+		else {
+			?>
+			<div class="panel panel-default">
+				<div class="panel-heading"><i class="fa fa-sign-in"></i> Войти</div>
+				<div class="panel-body">
+					<form action="/login/?login" method="post">
+						<button class="btn btn-block btn-primary"><i class="fa fa-steam"></i> Вход через Steam</button>
+					</form>
+				</div>
+			</div>
+		<?php } ?>
+	</div>
+	<div class="col-md-9">

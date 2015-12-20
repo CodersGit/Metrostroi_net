@@ -88,7 +88,7 @@ class Mitrastroi {
 				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
 			}
 		} else {
-			$p = "<<";
+			$p = "&laquo;";
 			$l = $link . 1;
 			include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
 			for ($p = $page - 3; $p < $page; $p++){
@@ -109,7 +109,7 @@ class Mitrastroi {
 				$l = $link . $p;
 				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
 			}
-			$p = ">>";
+			$p = "&raquo;";
 			$l = $link . $pages_count;
 			include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
 		}
