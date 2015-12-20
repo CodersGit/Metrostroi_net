@@ -1,5 +1,5 @@
 <?php
-$page_fucking_title = "Добавить пользователя...";
+$page_fucking_title = "Руководство";
 $menu->set_item_active('guide');
 include Mitrastroi::PathTPL("header");
 include Mitrastroi::PathTPL("guide/left_side");
