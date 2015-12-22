@@ -12,7 +12,7 @@ try {
 			$openid->identity = 'http://steamcommunity.com/openid/?l=english';
 			header('Location: ' . $openid->authUrl());
 		}
-		include (MITRASTROI_ROOT."pages/404.php");
+//		include (MITRASTROI_ROOT."pages/404.php");
 	} elseif ($openid->mode == 'cancel') {
 		echo 'User has canceled authentication!';
 	} else {
