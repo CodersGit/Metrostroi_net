@@ -8,6 +8,3 @@ ErrorDocument 403 /403
   RewriteCond %{REQUEST_URI} !=/favicon.ico
   RewriteRule ^(.*)$ index.php?page=$1 [L,QSA]
 </IfModule>
-<Files *.html>
-Deny from all
-</Files>

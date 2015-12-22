@@ -1,6 +1,6 @@
 <?php
 if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("change_group")) {
-	include MITRASTROI_ROOT . "pages/404.php";
+	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
 $query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
