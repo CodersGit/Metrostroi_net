@@ -6,6 +6,9 @@ class Mitrastroi {
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'
 	);
+	public static $GROUPS_UP_DOWN = array(
+		'user', 'driver3class', 'driver2class', 'driver1class'
+	);
 	public static function ToCommunityID($id) {
 		if (preg_match('/^STEAM_/', $id)) {
 			$parts = explode(':', $id);

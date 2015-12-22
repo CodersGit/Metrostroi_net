@@ -3,7 +3,7 @@ class User {
 	private $SID;
 	private $rights;
 	private $id;
-	private $up_info;
+	private $coupon_info;
 	private $steam_info;
 
 	/**
@@ -22,7 +22,7 @@ class User {
 		$user = $db->fetch_array($query);
 		$this->id = $user['id'];
 		$this->SID = $user['SID'];
-		$this->up_info = json_decode($user['status']);
+		$this->coupon_info = json_decode($user['status']);
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
@@ -75,10 +75,10 @@ class User {
 	 * @param $name -  Name of parameter
 	 * @return string
 	 */
-	public function take_up_info($name) {
-		if (!isset($this->up_info[$name]))
+	public function take_coupon_info($name) {
+		if (!isset($this->coupon_info[$name]))
 			return '';
-		return $this->up_info[$name];
+		return $this->coupon_info[$name];
 	}
 
 	/**
