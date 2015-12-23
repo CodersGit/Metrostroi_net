@@ -9,7 +9,7 @@ $first = ($page - 1) * $amount_by_page;
 $query = $db->execute("SELECT * FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `SID`=`steamid` WHERE `group`=`txtid` AND (`SID`='{$db->safe($lnk[1])}' OR `nickname` LIKE '%{$db->safe($lnk[1])}%') LIMIT $first, $amount_by_page");
 $query or die($db->error());
 if (!$db->num_rows($query)) {
-	include MITRASTROI_ROOT . "pages/404.php";
+	header("Location: /player_add/" . $lnk[1]);
 	exit();
 };
 if ($db->num_rows($query) == 1) {

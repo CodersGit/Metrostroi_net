@@ -2,7 +2,7 @@
 <form class="form-horizontal" method="post">
 	<div class="form-group">
 		<label class="control-label" for="steamid">SteamID:</label>
-		<input type="text" class="form-control" id="steamid" name="steamid" aria-describedby="steamid_h" placeholder="STEAM_X:X:XXXXXXXXXX" value="<?php echo $steamid ?>">
+		<input type="text" class="form-control" id="steamid" name="steamid" aria-describedby="steamid_h" placeholder="STEAM_X:X:XXXXXXXXXX" value="<?php echo htmlspecialchars($steamid) ?>">
 		<span id="steamid_h" class="help-block">Можно узнать в профиле пользователя, с помощью консольной команды status, пишется в чат при входе/выходе, присутствует в консоли.</span>
 	</div>
 	<div class="form-group">
