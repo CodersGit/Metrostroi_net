@@ -31,7 +31,7 @@ for($c = $first + 1; $typical_ple = $db->fetch_array($query); $c++) {
 	include Mitrastroi::PathTPL("players/player_row");
 }
 Mitrastroi::TakeTPL("players/players_foot");
-$query = $db->execute("SELECT COUNT(*) FROM `players` LEFT JOIN `user_info_cache` ON `SID`=`steamid` WHERE `SID`='{$db->safe($lnk[2])}' OR `nickname` LIKE '{$db->safe($lnk[2])}'");
+$query = $db->execute("SELECT COUNT(*) FROM `players` LEFT JOIN `user_info_cache` ON `SID`=`steamid` WHERE `SID`='{$db->safe($lnk[1])}' OR `nickname` LIKE '{$db->safe($lnk[1])}'");
 $query = $db->fetch_array($query);
 echo Mitrastroi::GeneratePagination($page, $amount_by_page, $query[0], "/players/");
 include Mitrastroi::PathTPL("right_side");
