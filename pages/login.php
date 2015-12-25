@@ -4,7 +4,6 @@ if($tox1n_lenvaya_jopa) {
 	include MITRASTROI_ROOT . "page/404.php";
 	return;
 }
-$_STEAMAPI = $config['steam_api_key'];
 try {
 	$openid = new LightOpenID('http://' . $_SERVER['SERVER_NAME'] . '/login/');
 	if (!$openid->mode) {

@@ -1,6 +1,7 @@
 <?php
 define('MITRASTROI_ROOT', dirname(__FILE__).'/');
 require ("config.php");
+$_STEAMAPI = $config['steam_api_key'];
 require ("classes/base.class.php");
 echo Mitrastroi::PathTPL("pagination/pagin_item_active.html");
 echo Mitrastroi::PathTPL("pagination/pagin_item_inactive.html");

@@ -29,11 +29,22 @@ if (isset($_POST['reason']) and isset($_POST['steamid']) and isset($_POST['group
 				'date' => time()
 			)
 		);
-		$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('{$db->safe($_POST['steamid'])}','{$db->safe($_POST['group'])}','{$db->safe($status)}')"
-			. " ON DUPLICATE KEY UPDATE `group`='{$db->safe($_POST['group'])}'") or die ($db->error());
-		$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
-			. "VALUES ('{$db->safe($_POST['steamid'])}'," . time() . ",'{$db->safe($_POST['group'])}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
-		$alert = '<div class="alert alert-success">Готово ;)</div>';
+
+		$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=" . Mitrastroi::ToCommunityID($_POST['steamid']);
+		$json_object = file_get_contents($url);
+		if (!$json_object or !strlen($json_object)) die ("werfgjk");
+		$json_decoded = json_decode($json_object);
+		$is = false;
+		foreach ($json_decoded->response->players as $player) {
+			$is = true;
+			$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
+				. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
+			$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['group'])}','{$db->safe($status)}')"
+				. " ON DUPLICATE KEY UPDATE `group`='{$db->safe($_POST['group'])}'") or die ($db->error());
+			$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
+				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}'," . time() . ",'{$db->safe($_POST['group'])}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
+		}
+		$alert = ($is)? '<div class="alert alert-success">Готово ;)</div>': '<div class="alert alert-danger">Ниа, такого стим айди нет :(</div>';
 	}
 }
 

@@ -19,9 +19,20 @@ if (isset($_POST['reason']) and isset($_POST['steamid'])) {
 	} elseif (strlen($_POST['reason']) > 255) {
 		$alert = '<div class="alert alert-danger">Ниа, c такой длинной причиной не получится :(</div>';
 	} else {
-		$db->execute("INSERT INTO `blacklist` (`steam_id`, `reason`, `admin`)"
-			. "VALUES ('{$db->safe($_POST['steamid'])}','{$db->safe($_POST['reason'])}','{$tox1n_lenvaya_jopa->steamid()}')");
-		$alert = '<div class="alert alert-success">Готово ;)</div>';
+
+		$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=" . Mitrastroi::ToCommunityID($_POST['steamid']);
+		$json_object = file_get_contents($url);
+		if (!$json_object or !strlen($json_object)) die ("werfgjk");
+		$json_decoded = json_decode($json_object);
+		$is = false;
+		foreach ($json_decoded->response->players as $player) {
+			$is = true;
+			$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
+				. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
+			$db->execute("INSERT INTO `blacklist` (`steam_id`, `reason`, `admin`)"
+				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['reason'])}','{$tox1n_lenvaya_jopa->steamid()}')");
+		}
+		$alert = ($is)? '<div class="alert alert-success">Готово ;)</div>': '<div class="alert alert-danger">Ниа, такого стим айди нет :(</div>';
 	}
 }
 
