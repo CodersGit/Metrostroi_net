@@ -73,3 +73,48 @@ body > .navbar .navbar-brand:hover {
 	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
 	color: #fff;
 }
+a {
+	outline: none !important;
+}
+
+.coupon {
+	display: block;
+	background: #e9d2a6;
+	text-align: center;
+}
+.coupon1 {
+	background:
+			linear-gradient(to top right,
+			rgba(255,0,0,0) 0%,
+			rgba(255,0,0,0) calc(50% - 10.8px),
+			rgba(0,127,0,1) 50%,
+			rgba(255,0,0,0) calc(50% + 10.8px),
+			rgba(255,0,0,0) 100%);
+	padding: 30px;
+}
+.coupon2 {
+	background:
+			linear-gradient(to top right,
+			rgba(255,0,0,0) 0%,
+			rgba(255,0,0,0) calc(50% - 10.8px),
+			rgba(255,255,0,1) 50%,
+			rgba(255,0,0,0) calc(50% + 10.8px),
+			rgba(255,0,0,0) 100%);
+	padding: 30px;
+}
+.coupon3 {
+	background:
+		linear-gradient(to top right,
+			rgba(255,0,0,0) 0%,
+			rgba(255,0,0,0) calc(50% - 10.8px),
+			rgba(255,0,0,1) 50%,
+			rgba(255,0,0,0) calc(50% + 10.8px),
+			rgba(255,0,0,0) 100%);
+	padding: 30px;
+}
+.coupon > div > p > a {
+	color: black;
+}
+.coupon > div > p > a:hover {
+	color: #222;
+}

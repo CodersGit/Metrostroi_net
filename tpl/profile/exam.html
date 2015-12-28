@@ -1,0 +1,6 @@
+<div class="panel panel-default" style="margin: 10px 0 0;">
+	<div class="panel-heading"><?php echo $pl_exam['name'] ?> | Дата: <?php echo date("H:i:s - d/m/Y", $pl_exam['date']) ?> | Экзаменатор: <?php echo ($pl_exam['nickname'] == null)? $pl_exam['examiner']: $pl_exam['nickname'] ?></div>
+	<div class="panel-body">
+		<?php echo $pl_exam['note'] ?>
+	</div>
+</div>

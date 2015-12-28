@@ -1,0 +1,6 @@
+<div class="panel panel-default" style="margin: 10px 0 0;">
+	<div class="panel-heading">№<?php echo $c ?> | Дата: <?php echo date("H:i:s - d/m/Y", $pl_warn['date']) ?> | Выдал: <?php echo ($pl_warn['nickname'] == null)? $pl_warn['admin']: $pl_warn['nickname'] ?></div>
+	<div class="panel-body">
+		<?php echo $pl_warn['violation'] ?>
+	</div>
+</div>

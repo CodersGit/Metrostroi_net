@@ -1,0 +1,91 @@
+<div class="page-header">
+	<h1>
+		<img src="<?php echo $pl->take_steam_info("avatar_url") ?>" height="64">
+		<?php echo $pl->take_steam_info("nickname") ?>
+		<small><?php echo $pl->steamid() ?></small>
+	</h1>
+</div>
+<div>
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Информация</a></li>
+		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab">Предупреждения</a></li>
+		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab">Экзамены</a></li>
+		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab">Талон</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="info">
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					Логин:
+				</div>
+				<div class="col-xs-9">
+					<?php echo $pl->take_steam_info("nickname") ?>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					SteamID:
+				</div>
+				<div class="col-xs-9">
+					<?php echo $pl->steamid() ?>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					Группа:
+				</div>
+				<div class="col-xs-9">
+					<?php echo $pl->take_group_info("name") ?>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					Профиль в Steam:
+				</div>
+				<div class="col-xs-9">
+					<a href="<?php echo $pl->take_steam_info("steam_url") ?>" target="_blank">Перейти</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					В ЧС:
+				</div>
+				<div class="col-xs-9">
+					<?php if ($pl->take_ban_info("reason")) { ?>
+						<?php echo $pl->take_ban_info("reason")?> (<a href="/profile/<?php echo $pl->take_ban_info("admin")?>">Кто забанил?</a>)
+					<?php } else { ?>
+						Нет.
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="violations">
+			<?php echo $pl_warns ?>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="exams">
+			<?php echo $pl_exams ?>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="coupon">
+			<div class="coupon">
+				<div class="coupon<?php echo $pl->take_coupon_info("nom")?>">
+					<b>ПСКУКС НО «Метрополитен имени Гарри Ньюмена»</b>
+					<h2>ТАЛОН ПРЕДУПРЕЖДЕНИЯ №<?php echo $pl->take_coupon_info("nom")?></h2>
+					<h3>Машиниста, помощника машиниста</h3>
+					<i>
+						<?php echo $pl->take_steam_info("nickname") ?><br />
+						<?php echo $pl->steamid() ?>
+					</i>
+					<p style="margin-top: 20px;">
+						Выдан: <?php echo date("H:i:s - d/m/Y", $pl->take_coupon_info("date")) ?>
+						<?php if (strlen($pl->take_coupon_info("admin"))) { ?>
+							<br /><a href="/profile/<?php echo $pl->take_coupon_info("admin") ?>"><?php echo $pl->take_coupon_info("admin") ?></a>
+						<?php } ?>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

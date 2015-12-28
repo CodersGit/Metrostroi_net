@@ -5,6 +5,7 @@ class User {
 	private $id;
 	private $coupon_info;
 	private $steam_info;
+	private $ban;
 
 	/**
 	 * User constructor.
@@ -13,7 +14,7 @@ class User {
 	 */
 	public function User($arg, $type = 'id') {
 		global $db;
-		$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
+		$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` LEFT JOIN `blacklist` ON `blacklist`.`steam_id`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
 		if (!$query and $db->num_rows($query) != 1) {
 			print $db->error();
 			$this->id = -1;
@@ -26,6 +27,8 @@ class User {
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
+		foreach (Mitrastroi::$BAN_INFO as $ban)
+			$this->ban[$ban] = $user[$ban];
 		foreach (Mitrastroi::$STEAM_INFO as $INFO)
 			$this->steam_info[$INFO] = $user[$INFO];
 	}
@@ -71,14 +74,25 @@ class User {
 	}
 
 	/**
-	 * Returns some info about latest user's UP
+	 * Returns some info about user's coupon
 	 * @param $name -  Name of parameter
 	 * @return string
 	 */
 	public function take_coupon_info($name) {
-		if (!isset($this->coupon_info[$name]))
+		if (!isset($this->coupon_info->$name))
 			return '';
-		return $this->coupon_info[$name];
+		return $this->coupon_info->$name;
+	}
+
+	/**
+	 * Returns some info about user's ban
+	 * @param $name -  Name of parameter
+	 * @return string
+	 */
+	public function take_ban_info($name) {
+		if (!in_array($name, Mitrastroi::$BAN_INFO))
+			return '';
+		return ($this->ban[$name] != null)? $this->ban[$name]: false;
 	}
 
 	/**
