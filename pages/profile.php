@@ -26,6 +26,23 @@ if (!$db->num_rows($pl_exams)) {
 	Mitrastroi::TakeTPL("profile/no_exams");
 } else {
 	while ($pl_exam = $db->fetch_array($pl_exams)) {
+		switch ($pl_exam['type']) {
+			case 1:
+				$class = 'success';
+				break;
+			case 2:
+				$class = 'danger';
+				break;
+			case 3:
+				$class = 'warning';
+				break;
+			case 4:
+				$class = 'info';
+				break;
+			default:
+				$class = 'default';
+				break;
+		}
 		include Mitrastroi::PathTPL("profile/exam");
 	}
 }
