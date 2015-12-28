@@ -3,12 +3,13 @@ class Menu {
 	private $menu;
 	public function Menu() {
 		$this->menu = array(
-			'main' => array(
+			'news' => array(
 				'url' => '/news',
 				'title' => 'Новости',
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
+				'right' => 'news_add',
 			),
 			'lists' => array(
 				'url'=>'/players',
