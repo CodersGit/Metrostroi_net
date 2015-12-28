@@ -6,6 +6,7 @@ class User {
 	private $coupon_info;
 	private $steam_info;
 	private $ban;
+	private $violations;
 
 	/**
 	 * User constructor.
@@ -82,6 +83,19 @@ class User {
 		if (!isset($this->coupon_info->$name))
 			return '';
 		return $this->coupon_info->$name;
+	}
+
+	/**
+	 * Returns number of violations
+	 * @return string
+	 */
+	public function count_violations() {
+		global $db;
+		if (isset($this->violations)) return $this->violations;
+		$query = $db->execute("SELECT COUNT(*) FROM `violations` WHERE `SID`='{$this->SID}'");
+		$query = $db->fetch_array($query);
+		$this->violations = $query[0];
+		return $query[0];
 	}
 
 	/**

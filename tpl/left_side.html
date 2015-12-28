@@ -2,16 +2,16 @@
 	<div class="col-md-4">
 		<?php if($tox1n_lenvaya_jopa) { ?>
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-user"></i> <?php echo $tox1n_lenvaya_jopa->take_steam_info('nickname'); ?></div>
+				<div class="panel-heading"><i class="fa fa-user"></i> <a href="<?php echo $tox1n_lenvaya_jopa->steamid(); ?>" class="black_link"><?php echo $tox1n_lenvaya_jopa->take_steam_info('nickname'); ?></a></div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-xs-5">
 							<img src="<?php echo $tox1n_lenvaya_jopa->take_steam_info('avatar_url'); ?>" class="img-thumbnail">
 						</div>
 						<div class="col-xs-7">
-							<p><b><i class="fa fa-steam"></i> <?php echo $tox1n_lenvaya_jopa->steamid(); ?></b></p>
+							<p><b><i class="fa fa-steam"></i> <a class="black_link" href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>" target="_blank"><?php echo $tox1n_lenvaya_jopa->steamid(); ?></a></b></p>
 							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $tox1n_lenvaya_jopa->take_group_info('name'); ?></p>
-							<p><b><i class="fa fa-steam"></i> Steam:</b> <a href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>">Профиль</a></p>
+							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $tox1n_lenvaya_jopa->count_violations(); ?></p>
 						</div>
 					</div>
 				</div>

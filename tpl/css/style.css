@@ -136,3 +136,14 @@ a {
 .coupon > div > p > a:hover {
 	color: #222;
 }
+.black_link {
+	color: black;
+	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+	-webkit-transition: all .2s linear;
+	-moz-transition: all .2s linear;
+	transition: all .2s linear;
+}
+.black_link:hover {
+	color: #555;
+	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
+}
