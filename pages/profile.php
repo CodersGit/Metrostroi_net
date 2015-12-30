@@ -5,7 +5,7 @@ if ($pl->uid() < 1) {
 	exit();
 }
 
-//TODO ЧС 
+//TODO ЧС
 
 $query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
 $groups = array();
@@ -16,7 +16,7 @@ while ($group = $db->fetch_array($query)) {
 	array_push($groups, $group['txtid']);
 	$groups_options .= "\n\t\t\t<option value=\"{$group['txtid']}\">{$group['name']}</option>";
 }
-if (isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))
+if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))
 	switch ($_POST['submit']) {
 		case "warn":
 			$db->execute("INSERT INTO `violations` (`SID`, `date`, `admin`, `server`, `violation`)"
