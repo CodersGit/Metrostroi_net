@@ -9,6 +9,9 @@ class Mitrastroi {
 	public static $BAN_INFO = array(
 		'steam_id', 'admin', 'reason'
 	);
+	public static $COUPON_INFO = array(
+		'розовый', 'зеленый', 'желтый', 'красный'
+	);
 	public static $GROUPS_UP_DOWN = array(
 		'user', 'driver3class', 'driver2class', 'driver1class'
 	);
