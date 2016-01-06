@@ -77,7 +77,7 @@ class Menu {
 		$this->menu[$id]['active'] = true;
 		if ($this->menu[$id]['parent']) $this->set_item_active($this->menu[$id]['parent']);
 	}
-	private function show_item ($id, $item, $kid = false) {
+	private function show_item ($id, &$item, $kid = false) {
 		global $tox1n_lenvaya_jopa;
 		$c = 0; $sub = '';
 		if (isset($item['right']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info($item['right'])))
