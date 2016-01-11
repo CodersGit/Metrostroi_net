@@ -201,3 +201,6 @@ a {
 	background-color: #140044;
 	border-color: #040034;
 }
+.dropdown {
+	text-shadow: none;
+}
