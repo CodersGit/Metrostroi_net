@@ -93,13 +93,14 @@ class Menu {
 		include Mitrastroi::PathTPL(($c)?($kid)?'menu/item_subdropdown':'menu/item_dropdown':'menu/item');
 		return ob_get_clean();
 	}
-	public function show() {
+	public function show($tpl = 'menu') {
+		global $tox1n_lenvaya_jopa;
 		$menu = array('','');
 		foreach ($this->menu as $id => $item)
 			if (!$item['parent'])
 				$menu[$item['place']] .= $this->show_item($id, $item);
 		ob_start();
-		include Mitrastroi::PathTPL('menu/menu');
+		include Mitrastroi::PathTPL('menu/'. $tpl);
 		return ob_get_clean();
 	}
 }
