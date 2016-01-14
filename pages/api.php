@@ -50,7 +50,7 @@ switch ($lnk[1]) {
 			array_push($pl_exams_array, $pl_exam_array);
 		}
 		$pl_array = array(
-			'nick' => $pl->take_steam_info('nickname'),
+			'Nick' => $pl->take_steam_info('nickname'),
 			'rank' => $pl->take_group_info('txtid'),
 			'status' =>array(
 				'nom' => $pl->take_coupon_info('nom'),
