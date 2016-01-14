@@ -19,6 +19,8 @@ while ($group = $db->fetch_array($query)) {
 if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))
 	switch ($_POST['submit']) {
 		case "warn":
+			if (!$tox1n_lenvaya_jopa->take_group_info("warn"))
+				break;
 			$db->execute("INSERT INTO `violations` (`SID`, `date`, `admin`, `server`, `violation`)"
 				. " VALUES('{$pl->steamid()}', " . time() . ", '{$tox1n_lenvaya_jopa->steamid()}', 'Сайт Метростроя', '{$db->safe($_POST['reason'])}')");
 			break;
