@@ -50,12 +50,15 @@ switch ($lnk[1]) {
 			array_push($pl_exams_array, $pl_exam_array);
 		}
 		$pl_array = array(
-			'group' => $pl->take_group_info('txtid'),
-			'coupon' => $pl->take_coupon_info('nom'),
-			'coupon_admin' => $pl->take_coupon_info('admin'),
-			'coupon_date' => $pl->take_coupon_info('date'),
+			'nick' => $pl->take_steam_info('nickname'),
+			'rank' => $pl->take_group_info('txtid'),
+			'status' =>array(
+				'nom' => $pl->take_coupon_info('nom'),
+				'admin' => $pl->take_coupon_info('admin'),
+				'date' => $pl->take_coupon_info('date'),
+			),
 			'violations' => $pl_warns_array,
-			'exams' => $pl_exams_array,
+			'exam' => $pl_exams_array,
 		);
 		exit(json_encode($pl_array));
 		break;
