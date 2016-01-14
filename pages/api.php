@@ -57,6 +57,7 @@ switch ($lnk[1]) {
 				'admin' => $pl->take_coupon_info('admin'),
 				'date' => (string) $pl->take_coupon_info('date'),
 			),
+			'exam_answers' => array(),
 			'violations' => $pl_warns_array,
 			'exam' => $pl_exams_array,
 		);
