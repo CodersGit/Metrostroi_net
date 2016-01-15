@@ -25,8 +25,8 @@ switch ($lnk[1]) {
 		if ($pl->uid() < 1) {
 			exit;
 		}
-		$pl_warns = $db->execute("SELECT * FROM `violations` LEFT JOIN `user_info_cache` ON `violations`.`admin`=`user_info_cache`.`steamid` WHERE  `SID`='{$pl->steamid()}'") or die ($db->error());
-		$pl_exams = $db->execute("SELECT * FROM `groups`, `examinfo` LEFT JOIN `user_info_cache` ON `examinfo`.`examiner`=`user_info_cache`.`steamid` WHERE `examinfo`.`rank`=`groups`.`txtid` AND `SID`='{$pl->steamid()}'") or die ($db->error());
+		$pl_warns = $db->execute("SELECT * FROM `violations` LEFT JOIN `user_info_cache` ON `violations`.`admin`=`user_info_cache`.`steamid` WHERE `SID`='{$pl->steamid()}' ORDER BY `violations`.`date` DESC") or die ($db->error());
+		$pl_exams = $db->execute("SELECT * FROM `groups`, `examinfo` LEFT JOIN `user_info_cache` ON `examiner`=`user_info_cache`.`steamid` WHERE `examinfo`.`rank`=`groups`.`txtid` AND `SID`='{$pl->steamid()}' ORDER BY `examinfo`.`date` DESC") or die ($db->error());
 		$pl_warns_array = array();
 		while ($pl_warn = $db->fetch_array($pl_warns)) {
 			$pl_warn_array = array(

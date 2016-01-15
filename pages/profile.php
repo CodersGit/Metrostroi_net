@@ -79,7 +79,7 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 			$pl = new User($pl->steamid(), 'SID');
 			break;
 	}
-$pl_warns = $db->execute("SELECT * FROM `violations` LEFT JOIN `user_info_cache` ON `violations`.`admin`=`user_info_cache`.`steamid` WHERE  `SID`='{$pl->steamid()}'") or die ($db->error());
+$pl_warns = $db->execute("SELECT * FROM `violations` LEFT JOIN `user_info_cache` ON `violations`.`admin`=`user_info_cache`.`steamid` WHERE  `SID`='{$pl->steamid()}' ORDER BY `violations`.`date` DESC") or die ($db->error());
 ob_start();
 $c = 1;
 if (!$db->num_rows($pl_warns)) {
@@ -92,7 +92,7 @@ if (!$db->num_rows($pl_warns)) {
 }
 $pl_warns = ob_get_clean();
 
-$pl_exams = $db->execute("SELECT * FROM `groups`, `examinfo` LEFT JOIN `user_info_cache` ON `examinfo`.`examiner`=`user_info_cache`.`steamid` WHERE `examinfo`.`rank`=`groups`.`txtid` AND `SID`='{$pl->steamid()}'") or die ($db->error());
+$pl_exams = $db->execute("SELECT * FROM `groups`, `examinfo` LEFT JOIN `user_info_cache` ON `examinfo`.`examiner`=`user_info_cache`.`steamid` WHERE `examinfo`.`rank`=`groups`.`txtid` AND `SID`='{$pl->steamid()}' ORDER BY `examinfo`.`date` DESC") or die ($db->error());
 ob_start();
 if (!$db->num_rows($pl_exams)) {
 	Mitrastroi::TakeTPL("profile/no_exams");
