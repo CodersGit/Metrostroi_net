@@ -52,12 +52,12 @@ switch ($lnk[1]) {
 		$pl_array = array(
 			'Nick' => $pl->take_steam_info('nickname'),
 			'rank' => $pl->take_group_info('txtid'),
+			'badpl' => ($pl->take_ban_info("reason"))? $pl->take_ban_info("reason"): '',
 			'status' =>array(
 				'nom' => $pl->take_coupon_info('nom'),
 				'admin' => $pl->take_coupon_info('admin'),
 				'date' => (string) $pl->take_coupon_info('date'),
 			),
-			'exam_answers' => array(),
 			'violations' => $pl_warns_array,
 			'exam' => $pl_exams_array,
 		);
