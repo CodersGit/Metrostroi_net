@@ -9,11 +9,11 @@ switch ($lnk[1]) {
 			include MITRASTROI_ROOT . "pages/404.php";
 			exit;
 		}
-		$query = $db->execute("SELECT `reason` FROM `blacklist` WHERE `steam_id`='{$db->safe($lnk[2])}'");
+		$query = $db->execute("SELECT * FROM `blacklist` LEFT JOIN `user_info_cache` ON `blacklist`.`admin`=`user_info_cache`.`steamid` WHERE `steam_id`='{$db->safe($lnk[2])}'");
 		$query or die($db->error());
 		if ($db->num_rows($query)) {
 			$query = $db->fetch_array($query);
-			exit($query['reason']);
+			exit($query['reason'] . '|' . (($query['nickname'] == null)? $query['admin']: $query['nickname']));
 		}
 		break;
 	case 'user':
