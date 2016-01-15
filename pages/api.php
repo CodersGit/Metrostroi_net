@@ -52,7 +52,7 @@ switch ($lnk[1]) {
 		$pl_array = array(
 			'Nick' => $pl->take_steam_info('nickname'),
 			'rank' => $pl->take_group_info('txtid'),
-			'badpl' => ($pl->take_ban_info("reason"))? $pl->take_ban_info("reason"): '',
+			'badpl' => ($pl->take_ban_info('reason'))? ($pl->take_ban_info('reason') . '|' . $pl->take_ban_info('admin')): '',
 			'status' =>array(
 				'nom' => $pl->take_coupon_info('nom'),
 				'admin' => $pl->take_coupon_info('admin'),
