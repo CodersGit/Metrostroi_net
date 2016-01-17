@@ -31,7 +31,7 @@ switch ($lnk[1]) {
 		while ($pl_warn = $db->fetch_array($pl_warns)) {
 			$pl_warn_array = array(
 				'date' => $pl_warn['date'],
-				'admin' => $pl_warn['admin'],
+				'admin' => $pl_warn['nickname'],
 				'server' => $pl_warn['server'],
 				'violation' => $pl_warn['violation']
 			);
@@ -41,7 +41,7 @@ switch ($lnk[1]) {
 		while ($pl_exam = $db->fetch_array($pl_exams)) {
 			$pl_exam_array = array(
 				'date' => $pl_exam['date'],
-				'examiner' => $pl_exam['examiner'],
+				'examiner' => $pl_exam['nickname'],
 				'rank' => $pl_exam['rank'],
 				'server' => $pl_exam['server'],
 				'type' => $pl_exam['type'],
