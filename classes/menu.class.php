@@ -3,6 +3,22 @@ class Menu {
 	private $menu;
 	public function Menu() {
 		$this->menu = array(
+			'admin' => array(
+				'url' => '/admin',
+				'title' => 'Одминка',
+				'active' => false,
+				'place' => 0,
+				'parent' => false,
+				'right' => 'admin_panel',
+			),
+			'admin_data' => array(
+				'url' => '/admin',
+				'title' => 'Константы',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'admin_panel',
+			),
 			'news' => array(
 				'url' => '/news',
 				'title' => 'Новости',

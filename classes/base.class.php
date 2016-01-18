@@ -1,7 +1,7 @@
 <?php
 class Mitrastroi {
 	public static $RIGHTS = array(
-		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down'
+		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel'
 	);
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'
@@ -15,6 +15,7 @@ class Mitrastroi {
 	public static $GROUPS_UP_DOWN = array(
 		'user', 'driver3class', 'driver2class', 'driver1class'
 	);
+	private static $DATA;
 	public static function ToCommunityID($id) {
 		if (preg_match('/^STEAM_/', $id)) {
 			$parts = explode(':', $id);
@@ -67,11 +68,20 @@ class Mitrastroi {
 		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
 	}
 
+	public static function SetData($key, $value) {
+		global $db;
+		$query = $db->execute("INSERT INTO `data` (`key`,`value`) VALUES ('{$db->safe($key)}','{$db->safe($value)}')"
+			. "ON DUPLICATE KEY UPDATE `value`='{$db->safe($value)}'");
+		return self::$DATA[$key] = ($query)? $value:false;
+	}
+
 	public static function GetData($key) {
 		global $db;
+		if (isset(self::$DATA[$key]))
+			return self::$DATA[$key];
 		$query = $db->execute("SELECT `value` FROM `data` WHERE `key`='{$db->safe($key)}'");
 		$value = $db->fetch_array($query);
-		return ($db->num_rows($query))? $value['value']:false;
+		return self::$DATA[$key] = ($db->num_rows($query))? $value['value']:false;
 	}
 
 	public static function TakeClass ($class) {
