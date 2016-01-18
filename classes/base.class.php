@@ -67,6 +67,13 @@ class Mitrastroi {
 		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
 	}
 
+	public static function GetData($key) {
+		global $db;
+		$query = $db->execute("SELECT `value` FROM `data` WHERE `key`='{$db->safe($key)}'");
+		$value = $db->fetch_array($query);
+		return ($db->num_rows($query))? $value['value']:false;
+	}
+
 	public static function TakeClass ($class) {
 		if (file_exists(MITRASTROI_ROOT . "classes/$class.class.php")) {
 			require_once (MITRASTROI_ROOT . "classes/$class.class.php");

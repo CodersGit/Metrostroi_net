@@ -4,6 +4,9 @@ if (!isset($lnk[1])) {
 	exit;
 }
 switch ($lnk[1]) {
+	case 'metadmin_version':
+		echo Mitrastroi::GetData('metadmin_version');
+		break;
 	case 'bad':
 		if (!isset($lnk[2])) {
 			include MITRASTROI_ROOT . "pages/404.php";
