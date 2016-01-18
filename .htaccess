@@ -3,6 +3,7 @@ ErrorDocument 403 /403
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
+  RewriteRule ^metadmin/version/?$ index.php?page=api/metadmin_version [L,NE]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_URI} !=/favicon.ico
