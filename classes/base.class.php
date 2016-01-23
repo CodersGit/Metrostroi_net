@@ -15,6 +15,43 @@ class Mitrastroi {
 	public static $GROUPS_UP_DOWN = array(
 		'user', 'driver3class', 'driver2class', 'driver1class'
 	);
+	public static $ICONS = array(
+		-1 => array(
+			'name'=>'Недоверенный игрок',
+			'color'=>'danger',
+			'icon'=>'star-o',
+		),
+		1 => array(
+			'name'=>'Доверенный игрок',
+			'color'=>'warning',
+			'icon'=>'star-half-o',
+		),
+		2 => array(
+			'name'=>'Заслуженный игрок',
+			'color'=>'success',
+			'icon'=>'star',
+		),
+		3 => array(
+			'name'=>'Владелец партнерского сервера',
+			'color'=>'info',
+			'icon'=>'server',
+		),
+		10 => array(
+			'name'=>'Редактор системы',
+			'color'=>'warning',
+			'icon'=>'edit',
+		),
+		11 => array(
+			'name'=>'Разработчик системы',
+			'color'=>'info',
+			'icon'=>'wrench',
+		),
+		12 => array(
+			'name'=>'Разработчик мода',
+			'color'=>'success',
+			'icon'=>'subway',
+		),
+	);
 	private static $DATA;
 	public static function ToCommunityID($id) {
 		if (preg_match('/^STEAM_/', $id)) {

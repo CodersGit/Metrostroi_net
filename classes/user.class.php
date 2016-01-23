@@ -6,6 +6,7 @@ class User {
 	private $coupon_info;
 	private $steam_info;
 	private $ban;
+	private $icon;
 	private $violations;
 
 	/**
@@ -24,6 +25,7 @@ class User {
 		$user = $db->fetch_array($query);
 		$this->id = $user['id'];
 		$this->SID = $user['SID'];
+		$this->icon = (int) $user['icon'];
 		$this->coupon_info = json_decode($user['status']);
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
@@ -40,6 +42,24 @@ class User {
 	 */
 	public function uid() {
 		return $this->id;
+	}
+
+	/**
+	 * Shows icon
+	 * @param $id - ID of icon
+	 * @return string
+	 */
+	public static function ShowIcon($id) {
+		if (!isset(Mitrastroi::$ICONS[$id])) return '';
+		return "<div class=\"label label-" . Mitrastroi::$ICONS[$id]['color'] . " stt\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"" . Mitrastroi::$ICONS[$id]['name'] . "\"><i class=\"fa fa-" . Mitrastroi::$ICONS[$id]['icon'] . "\"></i></div>";
+	}
+
+	/**
+	 * Shows user's icon
+	 * @return string
+	 */
+	public function show_icon() {
+		return self::ShowIcon($this->icon);
 	}
 
 	/**

@@ -16,6 +16,11 @@ while ($group = $db->fetch_array($query)) {
 	array_push($groups, $group['txtid']);
 	$groups_options .= "\n\t\t\t<option value=\"{$group['txtid']}\">{$group['name']}</option>";
 }
+$icons_options = "\n\t\t\t<option value=\"0\"><i class=\"fa fa-ban\"></i> Нет иконки</option>";
+foreach(Mitrastroi::$ICONS as $id=>$data) {
+	$icons_options .= "\n\t\t\t<option value=\"$id\"><i class=\"fa fa-{$data['icon']}\"></i> {$data['name']}</option>";
+}
+
 if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))
 	switch ($_POST['submit']) {
 		case "warn":
@@ -23,6 +28,13 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 				break;
 			$db->execute("INSERT INTO `violations` (`SID`, `date`, `admin`, `server`, `violation`)"
 				. " VALUES('{$pl->steamid()}', " . time() . ", '{$tox1n_lenvaya_jopa->steamid()}', 'Сайт Метростроя', '{$db->safe($_POST['reason'])}')");
+			break;
+		case 'icon':
+			print '1';
+			if (!$tox1n_lenvaya_jopa->take_group_info("admin_panel") or !isset($_POST['icon']))
+				break;
+			$db->execute("UPDATE `players` SET `icon`='{$db->safe((int)$_POST['icon'])}' WHERE `id`={$pl->uid()}");
+			$pl = new User($pl->steamid(), 'SID');
 			break;
 		case 'rc':
 			if(!((int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")))
