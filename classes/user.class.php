@@ -71,6 +71,14 @@ class User {
 	}
 
 	/**
+	 * Returns user's icon ID
+	 * @return int
+	 */
+	public function icon_id() {
+		return $this->icon;
+	}
+
+	/**
 	 * Returns some info about user's group
 	 * @param $name -  Name of parameter
 	 * @return string
