@@ -63,6 +63,7 @@ switch ($lnk[1]) {
 			),
 			'violations' => $pl_warns_array,
 			'exam' => $pl_exams_array,
+			'icon' => (int) $pl->icon_id(),
 		);
 		exit(json_encode($pl_array));
 		break;
