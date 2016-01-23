@@ -22,12 +22,12 @@ class Mitrastroi {
 			'icon'=>'star-o',
 		),
 		1 => array(
-			'name'=>'Доверенный игрок',
+			'name'=>'Заслуженный игрок',
 			'color'=>'warning',
 			'icon'=>'star-half-o',
 		),
 		2 => array(
-			'name'=>'Заслуженный игрок',
+			'name'=>'Доверенный игрок',
 			'color'=>'success',
 			'icon'=>'star',
 		),
