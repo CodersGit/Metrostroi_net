@@ -39,7 +39,7 @@ class Mitrastroi {
 		10 => array(
 			'name'=>'Редактор системы',
 			'color'=>'warning',
-			'icon'=>'edit',
+			'icon'=>'pencil',
 		),
 		11 => array(
 			'name'=>'Разработчик системы',
