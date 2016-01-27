@@ -19,6 +19,18 @@ switch ($lnk[1]) {
 			exit($query['reason'] . '|' . (($query['nickname'] == null)? $query['admin']: $query['nickname']));
 		}
 		break;
+	case 'icon':
+		if (!isset($lnk[2])) {
+			include MITRASTROI_ROOT . "pages/404.php";
+			exit;
+		}
+		$query = $db->execute("SELECT * FROM `players` WHERE `SID`='{$db->safe($lnk[2])}'");
+		$query or die($db->error());
+		if ($db->num_rows($query)) {
+			$query = $db->fetch_array($query);
+			exit($query['icon']);
+		}
+		break;
 	case 'user':
 		if (!isset($lnk[2])) {
 			include MITRASTROI_ROOT . "pages/404.php";
