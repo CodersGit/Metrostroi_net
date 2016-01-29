@@ -79,6 +79,18 @@ switch ($lnk[1]) {
 		);
 		exit(json_encode($pl_array));
 		break;
+	case 'groups':
+		$query = $db->execute("SELECT * FROM `groups`");
+		$query or die($db->error());
+		$groups_array = array();
+		while ($group = $db->fetch_array($query)) {
+			$group_array = array(
+				$group['txtid'] => $group['name']
+			);
+			array_push($groups_array, $group_array);
+		}
+		exit(json_encode($groups_array));
+		break;
 	default:
 		include MITRASTROI_ROOT . "pages/404.php";
 		exit;

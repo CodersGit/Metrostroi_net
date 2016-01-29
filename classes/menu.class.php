@@ -48,6 +48,13 @@ class Menu {
 				'place' => 0,
 				'parent' => 'lists',
 			),
+			'servers' => array(
+				'url'=>'/servers',
+				'title'=>'Список серверов',
+				'active'=>false,
+				'place' => 0,
+				'parent' => 'lists',
+			),
 			'lists_add' => array(
 				'url'=>'/user_add',
 				'title'=>'Добавить',
