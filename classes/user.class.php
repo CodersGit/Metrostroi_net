@@ -55,6 +55,15 @@ class User {
 	}
 
 	/**
+	 * Shows full user's icon
+	 * @return string
+	 */
+	public function show_full_icon() {
+		if (!isset(Mitrastroi::$ICONS[$this->icon])) return '';
+		return "<div class=\"label label-" . Mitrastroi::$ICONS[$this->icon]['color'] . "\"><i class=\"fa fa-" . Mitrastroi::$ICONS[$this->icon]['icon'] . "\"></i> " . Mitrastroi::$ICONS[$this->icon]['name'] . "</div>";
+	}
+
+	/**
 	 * Shows user's icon
 	 * @return string
 	 */

@@ -31,6 +31,20 @@ switch ($lnk[1]) {
 			exit($query['icon']);
 		}
 		break;
+	case 'report':
+		if (!isset($_POST['report']) or !isset($_POST['date']) or !isset($_POST['target']) or !isset($_POST['author']) or !isset($_POST['hash']) or !isset($_POST['port'])) {
+			include MITRASTROI_ROOT . "pages/404.php";
+			exit;
+		}
+		$query = $db->execute("SELECT * FROM `servers` WHERE `ip`='" . Mitrastroi::GetRealIp() . "' AND `port`='{$db->safe($_POST['port'])}'");
+		$query or die($db->error());
+		if ($db->num_rows($query)) {
+			$query = $db->fetch_array($query);
+			if ($_POST['hash'] != hash("sha256", $_POST['report'] . $_POST['date'] . $_POST['target'] . $_POST['author'] . $query['key']))
+				exit('bad hash');
+			$db->execute("INSERT INTO `reports` (`server`,`text`,`author`,`target`,`date`) VALUES ('{$db->safe($query['servername'])}', '{$db->safe($_POST['reason'])}', '{$db->safe($_POST['author'])}', '{$db->safe($_POST['target'])}', '{$db->safe($_POST['date'])}')");
+		} else exit('bad ip or port');
+		break;
 	case 'user':
 		if (!isset($lnk[2])) {
 			include MITRASTROI_ROOT . "pages/404.php";

@@ -9,7 +9,7 @@ class Menu {
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
-				'right' => 'admin_panel',
+				'right' => 'blacklist_edit',
 			),
 			'admin_data' => array(
 				'url' => '/admin',
@@ -19,13 +19,13 @@ class Menu {
 				'parent' => 'admin',
 				'right' => 'admin_panel',
 			),
-			'news' => array(
-				'url' => '/news',
-				'title' => 'Новости',
+			'admin_reports' => array(
+				'url' => '/reports',
+				'title' => 'Жалобы',
 				'active' => false,
 				'place' => 0,
-				'parent' => false,
-				'right' => 'news_add',
+				'parent' => 'admin',
+				'right' => 'blacklist_edit',
 			),
 			'lists' => array(
 				'url'=>'/players',
@@ -79,6 +79,14 @@ class Menu {
 				'parent' => 'lists_add',
 				'right' => 'blacklist_edit',
 			),
+			'server_add' => array(
+				'url'=>'/server_add',
+				'title'=>'В список серверов',
+				'active'=>false,
+				'place' => 0,
+				'parent' => 'lists_add',
+				'icon' => 6,
+			),
 			'guide' => array(
 				'url'=>'/guide',
 				'title'=>'Руководство',
@@ -103,10 +111,14 @@ class Menu {
 	private function show_item ($id, &$item, $kid = false) {
 		global $tox1n_lenvaya_jopa;
 		$c = 0; $sub = '';
-		if (isset($item['right']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info($item['right'])))
-			return '';
+		if (isset($item['right']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info($item['right']))) {
+			if (isset($item['icon']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->icon_id() >= $item['icon']))
+				return '';
+			elseif (!isset($item['icon']))
+				return '';
+		}
 		foreach ($this->menu as $tmp_id => $tmp_item)
-			if ($tmp_item['parent'] and $tmp_item['parent'] == $id and $tmp_item['place'] == $item['place']) {
+			if ($tmp_item['parent'] and $tmp_item['parent'] == $id) {
 				$sub .= $this->show_item($tmp_id, $tmp_item, true);
 				if ($tmp_item['active'])
 					$item ['active'] = true;

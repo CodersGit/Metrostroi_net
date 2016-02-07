@@ -3,15 +3,8 @@ if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("change_group"
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
-$query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
-$groups = array();
 $steamid = (isset($lnk[1]))? $lnk[1]: "";
-$groups_options = '';
 $alert = '';
-while ($group = $db->fetch_array($query)) {
-	array_push($groups, $group['txtid']);
-	$groups_options .= "\n\t\t\t<option value=\"{$group['txtid']}\">{$group['name']}</option>";
-}
 
 if (isset($_POST['reason']) and isset($_POST['steamid'])) {
 	if (!strlen($_POST['reason'])) {
@@ -22,7 +15,7 @@ if (isset($_POST['reason']) and isset($_POST['steamid'])) {
 
 		$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=" . Mitrastroi::ToCommunityID($_POST['steamid']);
 		$json_object = file_get_contents($url);
-		if (!$json_object or !strlen($json_object)) die ("werfgjk");
+		if (!$json_object or !strlen($json_object)) die ("Error");
 		$json_decoded = json_decode($json_object);
 		$is = false;
 		foreach ($json_decoded->response->players as $player) {

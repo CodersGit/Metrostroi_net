@@ -157,6 +157,25 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="report_modal" tabindex="-1" role="dialog" aria-labelledby="report_modal_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="report_modal_label">Пожаловаться</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<div class="modal-body">
+					<textarea class="form-control" name="reason" placeholder="Опишите нарушение пользователя. Обращаем внимание, за жалобы без причин понесете наказание ВЫ!"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
+					<button type="submit" name="submit" value="report" class="btn btn-primary"><i class="fa fa-check"></i> Настучать</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i> Информация</a></li>
@@ -166,7 +185,7 @@
 		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->take_group_info("warn") or $tox1n_lenvaya_jopa->take_group_info("change_group") or $tox1n_lenvaya_jopa->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) or ($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
 		<li role="presentation" class="dropdown pull-right">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-				<i class="fa fa-cogs"></i> Действия <span class="caret"></span>
+				<i class="fa fa-cogs"></i> <span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
 				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("warn")) { ?><li><a data-toggle="modal" data-target="#warn_modal" style="cursor: pointer;"><i class="fa fa-info-circle"></i> Добавить нарушение</a></li><?php } ?>
@@ -179,6 +198,9 @@
 			</ul>
 		</li>
 		<?php } ?>
+		<?php if ($tox1n_lenvaya_jopa and !$pl->take_ban_info("reason")) { ?>
+		<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#report_modal" style="cursor: pointer;"><i class="fa fa-warning"></i> Пожаловаться</a></li>
+		<?php } ?>
 	</ul>
 
 	<!-- Tab panes -->
@@ -189,9 +211,19 @@
 					Логин:
 				</div>
 				<div class="col-xs-9">
-					<?php echo $pl->take_steam_info("nickname") ?> <?php echo $pl->show_icon() ?>
+					<?php echo $pl->take_steam_info("nickname") ?>
 				</div>
 			</div>
+			<?php if (strlen($pl->show_full_icon())) { ?>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					Иконка:
+				</div>
+				<div class="col-xs-9">
+					<?php echo $pl->show_full_icon() ?>
+				</div>
+			</div>
+			<?php } ?>
 			<div class="row">
 				<div class="col-xs-3" align="right">
 					SteamID:

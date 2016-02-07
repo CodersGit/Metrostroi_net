@@ -30,7 +30,6 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 				. " VALUES('{$pl->steamid()}', " . time() . ", '{$tox1n_lenvaya_jopa->steamid()}', 'Сайт Метростроя', '{$db->safe($_POST['reason'])}')");
 			break;
 		case 'icon':
-			print '1';
 			if (!$tox1n_lenvaya_jopa->take_group_info("admin_panel") or !isset($_POST['icon']))
 				break;
 			$db->execute("UPDATE `players` SET `icon`='{$db->safe((int)$_POST['icon'])}' WHERE `id`={$pl->uid()}");
@@ -88,6 +87,12 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 			$db->execute("UPDATE `players` SET `group`='{$db->safe($_POST['group'])}' WHERE `id`={$pl->uid()}");
 			$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
 				. "VALUES ('{$db->safe($pl->steamid())}'," . time() . ",'{$db->safe($_POST['group'])}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
+			$pl = new User($pl->steamid(), 'SID');
+			break;
+		case 'report':
+			if ($tox1n_lenvaya_jopa->take_ban_info("reason"))
+				break;
+			$db->execute("INSERT INTO `reports` (`server`,`text`,`author`,`target`,`date`) VALUES ('Сайт метростроя', '{$db->safe($_POST['reason'])}', '{$tox1n_lenvaya_jopa->steamid()}', '{$pl->steamid()}', '" . time() . "')");
 			$pl = new User($pl->steamid(), 'SID');
 			break;
 	}

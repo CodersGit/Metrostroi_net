@@ -19,12 +19,12 @@ class Mitrastroi {
 		-1 => array(
 			'name'=>'Недоверенный игрок',
 			'color'=>'danger',
-			'icon'=>'star-o',
+			'icon'=>'ban',
 		),
 		1 => array(
 			'name'=>'Заслуженный игрок',
 			'color'=>'warning',
-			'icon'=>'star-half-o',
+			'icon'=>'star-o',
 		),
 		2 => array(
 			'name'=>'Доверенный игрок',
@@ -36,10 +36,15 @@ class Mitrastroi {
 			'color'=>'info',
 			'icon'=>'server',
 		),
+		6 => array(
+			'name'=>'Владелец партнерских серверов',
+			'color'=>'info',
+			'icon'=>'sitemap',
+		),
 		10 => array(
-			'name'=>'Редактор системы',
-			'color'=>'warning',
-			'icon'=>'pencil',
+			'name'=>'Модератор системы',
+			'color'=>'danger',
+			'icon'=>'comments-o',
 		),
 		11 => array(
 			'name'=>'Разработчик системы',
@@ -62,6 +67,16 @@ class Mitrastroi {
 		} else {
 			return $id; // We have no idea what this is, so just return it.
 		}
+	}
+
+	public static function GetRealIp(){
+		if (!empty($_SERVER['HTTP_CLIENT_IP']))
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		else
+			$ip = $_SERVER['REMOTE_ADDR'];
+		return substr($ip, 0, 16);
 	}
 
 	public static function ToSteamID($id) {
