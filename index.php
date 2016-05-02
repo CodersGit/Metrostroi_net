@@ -4,8 +4,6 @@ require ("config.php");
 date_default_timezone_set('Europe/Moscow');
 $_STEAMAPI = $config['steam_api_key'];
 require ("classes/base.class.php");
-echo Mitrastroi::PathTPL("pagination/pagin_item_active.html");
-echo Mitrastroi::PathTPL("pagination/pagin_item_inactive.html");
 Mitrastroi::TakeClass('db');
 Mitrastroi::TakeClass('user');
 Mitrastroi::TakeClass('menu');

@@ -12,6 +12,7 @@
 							<p><b><i class="fa fa-steam"></i> <a class="black_link" href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>" target="_blank"><?php echo $tox1n_lenvaya_jopa->steamid(); ?></a></b></p>
 							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $tox1n_lenvaya_jopa->take_group_info('name'); ?></p>
 							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $tox1n_lenvaya_jopa->count_violations(); ?></p>
+							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $tox1n_lenvaya_jopa->count_new_tickets(); ?></p>
 						</div>
 					</div>
 				</div>
@@ -26,7 +27,13 @@
 				</div>
 			</div>
 		<?php } ?>
-		<div class="panel panel-default">
+		<div class="btn-group-vertical btn-block">
+			<a href="https://github.com/metrostroi-repo/metrostroi_beta" class="btn btn-default" target="_blank"><i class="fa fa-github"></i> metrostroi-beta</a>
+			<a href="https://github.com/HellReach/metadmin" class="btn btn-default" target="_blank"><i class="fa fa-github"></i> metadmin</a>
+			<a href="https://www.instagram.com/metrostroiofficial/" class="btn btn-info" target="_blank"><i class="fa fa-instagram"></i> @metrostroiofficial</a>
+			<a href="https://vk.com/metrostroi_official" class="btn btn-primary" target="_blank"><i class="fa fa-vk"></i> *metrostroi_official</a>
+		</div>
+		<div class="panel panel-default" style="margin-top: 20px;">
 			<div class="panel-heading"><i class="fa fa-vk"></i> ВКонтакте</div>
 			<div class="panel-body" align="center">
 				<script type="text/javascript" src="//vk.com/js/api/openapi.js?121"></script>

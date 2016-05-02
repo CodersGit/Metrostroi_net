@@ -1,0 +1,14 @@
+<div class="ticket">
+	<div class="row">
+		<div class="col-xs-2">
+			<img src="<?php echo $ticket['avatar_url']?>" width="100%" class="thumbnail" style="margin: 0px;">
+		</div>
+		<div class="col-xs-10">
+			<div class="pull-right"><?php echo ($ticket['viewed'])? '':'<div class="label label-success">Новый</div> ' ?>#<?php echo $ticket['tid']?></div>
+			<?php echo $status ?><b><a href="/profile/<?php echo $ticket['written']?>" class="black_link"><?php echo $ticket['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($ticket['date'])) ?>
+			<hr style="margin: 5px" />
+			<?php echo nl2br(htmlspecialchars($ticket['text']))?>
+			<p><a href="/admin_tickets/<?php echo $ticket['written']?>" class="btn btn-primary btn-xs">Перейти <i class="fa fa-arrow-right"></i></a></p>
+		</div>
+	</div>
+</div>

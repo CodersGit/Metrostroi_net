@@ -5,8 +5,6 @@ if ($pl->uid() < 1) {
 	exit();
 }
 
-//TODO ЧС
-
 $query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
 $groups = array();
 $steamid = (isset($lnk[1]))? $lnk[1]: "";
@@ -19,6 +17,25 @@ while ($group = $db->fetch_array($query)) {
 $icons_options = "\n\t\t\t<option value=\"0\"><i class=\"fa fa-ban\"></i> Нет иконки</option>";
 foreach(Mitrastroi::$ICONS as $id=>$data) {
 	$icons_options .= "\n\t\t\t<option value=\"$id\"><i class=\"fa fa-{$data['icon']}\"></i> {$data['name']}</option>";
+}
+
+if ($tox1n_lenvaya_jopa and isset($lnk[2])/* and $lnk[2] == 'renew'*/ and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) {
+	$url = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=$_STEAMAPI&steamids=" . Mitrastroi::ToCommunityID($pl->steamid());
+	$json_object = file_get_contents($url);
+	$json_decoded = json_decode($json_object);
+
+	foreach ($json_decoded->response->players as $player) {
+		$status = json_encode(
+			array(
+				'admin'=>'',
+				'nom'=>1,
+				'date'=>time()
+			)
+		);
+		$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
+			. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
+		header("Location: /profile/" . $pl->steamid());
+	}
 }
 
 if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))

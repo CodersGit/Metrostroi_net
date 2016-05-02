@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-xs-3">
+				<img src="<?php echo $pl->take_steam_info('avatar_url') ?>" width="100%" class="thumbnail" style="margin: -5px;">
+			</div>
+			<div class="col-xs-9">
+				<b><a href="/profile/<?php echo $pl->steamid() ?>" class="black_link"><?php echo $pl->take_steam_info('nickname') ?></a></b> <?php echo $pl->show_icon() ?> &raquo; <?php echo $pl->take_group_info('name') ?>
+				<hr style="margin: 5px" />
+				<div class="row">
+					<div class="col-xs-4">
+						<b>Забанен</b>
+					</div>
+					<div class="col-xs-8">
+						<?php echo ($pl->take_ban_info('reason'))? ("Да, причина: " . $pl->take_ban_info('reason')) :"Нет" ?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<b>Нарушений</b>
+					</div>
+					<div class="col-xs-8">
+						<?php echo ($pl->count_violations())? $pl->count_violations() :"Нет" ?>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<b>№ талона</b>
+					</div>
+					<div class="col-xs-8">
+						<?php echo $pl->take_coupon_info('nom') ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php if($pl->take_ban_info("reason"))  { ?><div class="alert alert-danger"><b>Внимание!</b><br />Этот пользователь забанен</div><?php } ?>

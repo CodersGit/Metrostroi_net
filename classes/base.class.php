@@ -1,7 +1,7 @@
 <?php
 class Mitrastroi {
 	public static $RIGHTS = array(
-		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel'
+		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets'
 	);
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'

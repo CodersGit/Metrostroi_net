@@ -1,0 +1,27 @@
+<div class="ticket">
+	<div class="row">
+		<div class="col-xs-3">
+			<img src="<?php echo $ticket['avatar_url']?>" width="100%" class="thumbnail" style="margin: 10px;">
+		</div>
+		<div class="col-xs-9">
+			<div class="pull-right"><?php echo ($ticket['viewed'])? '':'<div class="label label-success">Новый</div> ' ?>#<?php echo $ticket['tid']?></div>
+			<?php echo $status ?><b><a href="/profile/<?php echo $ticket['written']?>" class="black_link"><?php echo $ticket['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($ticket['date'])) ?>
+			<hr style="margin: 5px" />
+			<?php echo nl2br(htmlspecialchars($ticket['text']))?>
+			<form method="post">
+				<input type="hidden" name="id" value="<?php echo $ticket['tid']?>">
+				<div class="btn-toolbar btn-group-xs">
+					<?php if ($ticket['type'] != 4) { ?>
+					<button type="submit" name="status" value="0" class="btn btn-info"><i class="fa fa-eye-slash"></i> Непрочитано</button>
+					<button type="submit" name="status" value="1" class="btn btn-warning"><i class="fa fa-eye"></i> Прочитано</button>
+					<div class="btn-group btn-group-xs">
+						<button type="submit" name="status" value="2" class="btn btn-success"><i class="fa fa-check"></i> Закрыто</button>
+						<button type="submit" name="status" value="3" class="btn btn-danger"><i class="fa fa-times"></i> Отклонено</button>
+					</div>
+					<?php } ?>
+					<button type="submit" name="delete" value="delete" class="btn btn-danger"><i class="fa fa-trash"></i> Удалить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

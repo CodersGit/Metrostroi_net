@@ -177,12 +177,14 @@
 	</div>
 </div>
 <div>
+	<?php if($pl->icon_id() == -1)  { ?><div class="alert alert-warning"><b>Внимание!</b><br />Администраторы системы посчитали этого игрока потенциально опасным и/или ведущим себя неадекватно! Не советуем доверять ему что-либо.</div><?php } ?>
+	<?php if($pl->take_ban_info("reason"))  { ?><div class="alert alert-danger"><b>Внимание!</b><br />Администраторы системы добавили этого игрока в черный список игроков. Это означает, что этот игрок делал что-то очень плохое. Остерегайтесь его.</div><?php } ?>
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i> Информация</a></li>
 		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-exclamation-circle"></i> Нарушения</a></li>
 		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab"><i class="fa fa-book"></i> Экзамены</a></li>
 		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab"><i class="fa fa-ticket"></i> Талон</a></li>
-		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->take_group_info("warn") or $tox1n_lenvaya_jopa->take_group_info("change_group") or $tox1n_lenvaya_jopa->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) or ($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
+		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->take_group_info("tickets") or $tox1n_lenvaya_jopa->take_group_info("warn") or $tox1n_lenvaya_jopa->take_group_info("change_group") or $tox1n_lenvaya_jopa->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) or ($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
 		<li role="presentation" class="dropdown pull-right">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-cogs"></i> <span class="caret"></span>
@@ -195,6 +197,8 @@
 				<?php if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#tc_modal" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Забрать талон</a></li><?php } ?>
 				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("change_group")) { ?><li><a data-toggle="modal" data-target="#setrank_modal" style="cursor: pointer;"><i class="fa fa-bolt"></i> Установить ранг</a></li><?php } ?>
 				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?><li><a data-toggle="modal" data-target="#icon_modal" style="cursor: pointer;"><i class="fa fa-picture-o"></i> Выдать иконку</a></li><?php } ?>
+				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?><li><a href="/profile/<?php echo $pl->steamid() ?>/renew" style="cursor: pointer;"><i class="fa fa-refresh"></i> Обновить данные</a></li><?php } ?>
+				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("tickets")) { ?><li><a href="/admin_tickets/<?php echo $pl->steamid() ?>/" style="cursor: pointer;"><i class="fa fa-ticket"></i> Тикеты</a></li><?php } ?>
 			</ul>
 		</li>
 		<?php } ?>

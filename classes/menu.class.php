@@ -4,15 +4,15 @@ class Menu {
 	public function Menu() {
 		$this->menu = array(
 			'admin' => array(
-				'url' => '/admin',
+				'url' => '/admin_constants',
 				'title' => 'Одминка',
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
-				'right' => 'blacklist_edit',
+				'right' => 'tickets',
 			),
 			'admin_data' => array(
-				'url' => '/admin',
+				'url' => '/admin_constants',
 				'title' => 'Константы',
 				'active' => false,
 				'place' => 0,
@@ -20,12 +20,20 @@ class Menu {
 				'right' => 'admin_panel',
 			),
 			'admin_reports' => array(
-				'url' => '/reports',
+				'url' => '/admin_reports',
 				'title' => 'Жалобы',
 				'active' => false,
 				'place' => 0,
 				'parent' => 'admin',
 				'right' => 'blacklist_edit',
+			),
+			'admin_tickets' => array(
+				'url' => '/admin_tickets',
+				'title' => 'Тикеты',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'tickets',
 			),
 			'lists' => array(
 				'url'=>'/players',

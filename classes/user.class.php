@@ -8,6 +8,7 @@ class User {
 	private $ban;
 	private $icon;
 	private $violations;
+	private $new_tickets;
 
 	/**
 	 * User constructor.
@@ -133,6 +134,19 @@ class User {
 		$query = $db->fetch_array($query);
 		$this->violations = $query[0];
 		return $query[0];
+	}
+
+	/**
+	 * Returns number of new tickets
+	 * @return string
+	 */
+	public function count_new_tickets() {
+		global $db;
+		if (isset($this->new_tickets)) return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1)? " новый": " новых"));
+		$query = $db->execute("SELECT COUNT(*) FROM `tickets` WHERE `owner`='{$this->SID}' and `viewed`=0");
+		$query = $db->fetch_array($query);
+		$this->new_tickets = $query[0];
+		return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1)? " новый": " новых"));
 	}
 
 	/**

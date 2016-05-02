@@ -10,10 +10,9 @@ html {
 }
 
 body{
-	margin: 0;
 	padding: 0;
 	position: static;
-	margin-bottom: 139px;
+	margin: 0 0 45px;
 }
 
 footer {
@@ -142,8 +141,17 @@ a {
 	-webkit-transition: all .2s linear;
 	-moz-transition: all .2s linear;
 	transition: all .2s linear;
+	text-decoration: none;
 }
 .black_link:hover {
 	color: #555;
+	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
+}
+
+.ticket {
+	display: block;
+	margin: 10px 10px 10px 30px;
+	border: 1px dashed #e2e2e2;
+	padding: 5px;
 }
