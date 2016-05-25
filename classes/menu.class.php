@@ -70,6 +70,7 @@ class Menu {
 				'place' => 0,
 				'parent' => 'lists',
 				'right' => 'change_group',
+				'icon' => 6,
 			),
 			'player_add' => array(
 				'url'=>'/player_add',
@@ -89,18 +90,25 @@ class Menu {
 			),
 			'server_add' => array(
 				'url'=>'/server_add',
-				'title'=>'В список серверов',
+				'title'=>'Сервер',
 				'active'=>false,
 				'place' => 0,
 				'parent' => 'lists_add',
 				'icon' => 6,
+			),
+			'info' => array(
+				'url'=>'#',
+				'title'=>'Инфо',
+				'active'=>false,
+				'place' => 1,
+				'parent' => false,
 			),
 			'guide' => array(
 				'url'=>'/guide',
 				'title'=>'Руководство',
 				'active'=>false,
 				'place' => 1,
-				'parent' => false,
+				'parent' => 'info',
 			),
 			'logout' => array(
 				'url'=>'/logout',

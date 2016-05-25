@@ -33,13 +33,18 @@ class Mitrastroi {
 		),
 		3 => array(
 			'name'=>'Владелец партнерского сервера',
-			'color'=>'info',
+			'color'=>'primary',
 			'icon'=>'server',
 		),
 		6 => array(
 			'name'=>'Владелец партнерских серверов',
 			'color'=>'info',
 			'icon'=>'sitemap',
+		),
+		9 => array(
+			'name'=>'Редактор новостей',
+			'color'=>'warning',
+			'icon'=>'pencil',
 		),
 		10 => array(
 			'name'=>'Модератор системы',
@@ -48,7 +53,7 @@ class Mitrastroi {
 		),
 		11 => array(
 			'name'=>'Разработчик системы',
-			'color'=>'info',
+			'color'=>'primary',
 			'icon'=>'wrench',
 		),
 		12 => array(
