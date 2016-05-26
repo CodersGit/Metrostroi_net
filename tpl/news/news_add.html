@@ -1,0 +1,37 @@
+<?php if (isset($status)) echo $status ?>
+<div class="panel panel-default">
+	<div class="panel-heading"><?php echo $what ?> новость</div>
+	<div class="panel-body">
+		<form method="post" class="form-horizontal">
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="input-group">
+						<div class="input-group-addon">Заголовок:</div>
+						<input type="text" class="form-control" placeholder="Любой заголовок" name="title" value="<?php echo $title ?>">
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="input-group">
+						<div class="input-group-addon">Категория:</div>
+						<select class="form-control" name="cat">
+<?php echo $cats_select ?>
+						</select>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<textarea name="text" class="form-control" placeholder="Текст новости"><?php echo $text ?></textarea>
+			Тег &lt;cut> обрезает новость в ленте новостей. Атрибуты не поддерживаются.
+			<?php if (!$add) { ?>
+				<hr />
+				<label class="checkbox">
+					<input name="renew_date" value="1" type="checkbox"> Сбросить дату публикации
+				</label>
+			<?php } ?>
+			<hr />
+			<input type="submit" name="submit" class="btn btn-primary" value="<?php echo $what ?>">
+		</form>
+	</div>
+</div>
+<script src="/tpl/js/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea',language : "ru",plugins: "code preview image link",toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | numlist bullist outdent indent | link image | preview", });</script>

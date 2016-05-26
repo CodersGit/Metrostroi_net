@@ -35,6 +35,13 @@ class Menu {
 				'parent' => 'admin',
 				'right' => 'tickets',
 			),
+			'news' => array(
+				'url'=>'/news',
+				'title'=>'Новости',
+				'active'=>false,
+				'place' => 0,
+				'parent' => false,
+			),
 			'lists' => array(
 				'url'=>'/players',
 				'title'=>'Списки',
@@ -95,6 +102,14 @@ class Menu {
 				'place' => 0,
 				'parent' => 'lists_add',
 				'icon' => 6,
+			),
+			'news_add' => array(
+				'url'=>'/news_add',
+				'title'=>'Новость',
+				'active'=>false,
+				'place' => 0,
+				'parent' => 'lists_add',
+				'icon' => 9,
 			),
 			'info' => array(
 				'url'=>'#',

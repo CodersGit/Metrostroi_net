@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<?php if ($admin_mode) { ?>
+			<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li><a href="/news_edit/<?php echo $query['id'] ?>"><i class="fa fa-pencil"></i> Редактировать</a></li>
+				<li><a href="/news_delete/<?php echo $query['id'] ?>"><i class="fa fa-trash"></i> Удалить</a></li>
+			</ul>
+		<?php } ?>
+		<b><?php echo $query['title'] ?></b>
+	</div>
+	<div class="panel-body">
+		<?php echo $query['text'] ?>
+	</div>
+	<div class="panel-footer">
+		<div class="pull-right"><i class="fa fa-pencil"></i> Автор: <a href="/profile/<?php echo $query['author'] ?>" class="black_link"><?php echo $query['nickname'] ?></a></div>
+		<i class="fa fa-folder"></i> <a href="/news/cat/<?php echo $query['cat'] ?>" class="black_link"><?php echo $query['name'] ?></a> | <i class="fa fa-calendar"></i> Добавлено: <?php echo date("H:i:s - d/m/Y", strtotime($query['date'])) ?>
+	</div>
+</div>
