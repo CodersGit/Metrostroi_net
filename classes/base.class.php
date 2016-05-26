@@ -165,6 +165,7 @@ class Mitrastroi {
 	}
 
 	public static function GeneratePagination($page, $amount_by_page, $total_amount, $link) {
+		if ($amount_by_page >= $total_amount) return '';
 		ob_start();
 		self::TakeTPL("pagination/pagin_start");
 		$pages_count = (int) ($total_amount / $amount_by_page + 1);
