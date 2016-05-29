@@ -17,7 +17,7 @@ if (isset($_POST['reason']) and isset($_POST['steamid']) and isset($_POST['group
 	$steamid = $_POST['steamid'];
 	if (!in_array($_POST['group'], $groups)) {
 		$alert = '<div class="alert alert-danger">Ниа, в такую группу не получится :(</div>';
-	} elseif (!strlen($_POST['reason'])) {
+	} elseif (!strlen($_POST['reason']) and $_POST['group'] != 'user') {
 		$alert = '<div class="alert alert-danger">Ниа, без причины не получится :(</div>';
 	} elseif (strlen($_POST['reason']) > 255) {
 		$alert = '<div class="alert alert-danger">Ниа, c такой длинной причиной не получится :(</div>';
@@ -41,7 +41,7 @@ if (isset($_POST['reason']) and isset($_POST['steamid']) and isset($_POST['group
 				. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
 			$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['group'])}','{$db->safe($status)}')"
 				. " ON DUPLICATE KEY UPDATE `group`='{$db->safe($_POST['group'])}'") or die ($db->error());
-			$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
+			if ($_POST['group'] != 'user') $db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
 				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}'," . time() . ",'{$db->safe($_POST['group'])}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
 		}
 		$alert = ($is)? '<div class="alert alert-success">Готово ;)</div>': '<div class="alert alert-danger">Ниа, такого стим айди нет :(</div>';
