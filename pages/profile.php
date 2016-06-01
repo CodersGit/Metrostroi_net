@@ -5,6 +5,8 @@ if ($pl->uid() < 1) {
 	exit();
 }
 
+Mitrastroi::TakeClass('comments');
+
 $query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
 $groups = array();
 $steamid = (isset($lnk[1]))? $lnk[1]: "";

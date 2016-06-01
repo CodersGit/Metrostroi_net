@@ -16,6 +16,7 @@ switch ($lnk[1]) {
 		}
 		$query = $db->fetch_array($query);
 
+		Mitrastroi::TakeClass('comments');
 		$page_fucking_title = $query['title'] . " - Новости Метростроя";
 		include Mitrastroi::PathTPL("header");
 		include Mitrastroi::PathTPL("left_side");

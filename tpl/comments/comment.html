@@ -1,0 +1,13 @@
+<div class="ticket">
+	<div class="row">
+		<div class="col-xs-2">
+			<img src="<?php echo $comment['avatar_url']?>" width="100%" class="thumbnail" style="margin: 5px;">
+		</div>
+		<div class="col-xs-10">
+			<div class="pull-right"><?php if($access == 2) { ?><form method="post" class="form-inline"><button type="submit" class="btn btn-danger btn-xs" name="delete" value="<?php echo $comment['cid']?>"><i class="fa fa-trash"></i></button></form><?php } ?></div>
+			#<?php echo $comment['cid']?> &raquo; <b><a href="/profile/<?php echo $comment['author']?>" class="black_link"><?php echo $comment['nickname']?></a> <?php echo User::ShowIcon($comment['icon']) ?></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($comment['date'])) ?>
+			<hr style="margin: 5px" />
+			<?php echo nl2br(htmlspecialchars($comment['text']))?>
+		</div>
+	</div>
+</div>

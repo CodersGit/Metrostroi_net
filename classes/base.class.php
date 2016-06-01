@@ -42,7 +42,7 @@ class Mitrastroi {
 			'icon'=>'sitemap',
 		),
 		9 => array(
-			'name'=>'Редактор новостей',
+			'name'=>'Пресс-служба',
 			'color'=>'warning',
 			'icon'=>'pencil',
 		),

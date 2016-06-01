@@ -20,3 +20,5 @@
 		<i class="fa fa-folder"></i> <a href="/news/cat/<?php echo $query['cat'] ?>" class="black_link"><?php echo $query['name'] ?></a> | <i class="fa fa-calendar"></i> Добавлено: <?php echo date("H:i:s - d/m/Y", strtotime($query['date'])) ?>
 	</div>
 </div>
+
+<?php Comments::ShowComments(0, $query['id']) ?>
