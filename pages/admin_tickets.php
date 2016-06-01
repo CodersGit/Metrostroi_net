@@ -42,6 +42,7 @@ if (isset($lnk[1])) {
 		include Mitrastroi::PathTPL("tickets/adm_ticket");
 	}
 } else {
+	$menu->set_item_active('admin_tickets');
 	$query = $db->execute("SELECT * FROM `tickets` LEFT JOIN `user_info_cache` ON `written`=`steamid` WHERE `type`<2 ORDER BY `date` ASC");
 	while($ticket = $db->fetch_array($query)) {
 		switch ($ticket['type']) {
