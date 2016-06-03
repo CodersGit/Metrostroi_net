@@ -5,6 +5,7 @@ if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("tickets")) {
 }
 
 $page_fucking_title = "Управление тикетами";
+$menu->set_item_active('admin_tickets');
 include Mitrastroi::PathTPL("header");
 include Mitrastroi::PathTPL("left_side");
 
@@ -42,7 +43,6 @@ if (isset($lnk[1])) {
 		include Mitrastroi::PathTPL("tickets/adm_ticket");
 	}
 } else {
-	$menu->set_item_active('admin_tickets');
 	$query = $db->execute("SELECT * FROM `tickets` LEFT JOIN `user_info_cache` ON `written`=`steamid` WHERE `type`<2 ORDER BY `date` ASC");
 	while($ticket = $db->fetch_array($query)) {
 		switch ($ticket['type']) {
