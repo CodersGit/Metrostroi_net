@@ -1,7 +1,7 @@
 .version.index /* version checker */
 {
-	color: #000008;
-	background-color: #F2F893;
+	color: #0000FA;
+	background-color: #143779;
 }
 
 .html
@@ -13,12 +13,12 @@
 {
 	z-index: 1;
 	width: 1020px;
-	min-height: 1018px;
+	min-height: 1017px;
 	background-image: none;
 	border-style: none;
 	border-color: #000000;
 	background-color: #283741;
-	padding-bottom: 62px;
+	padding-bottom: 63px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -42,41 +42,11 @@
 	width: 1020px;
 	position: relative;
 	left: -100px;
-	padding-top: 220px;
-	padding-bottom: 810px;
 }
 
-#u120
+#u77_position_content
 {
-	z-index: 3;
-	width: 630px;
-	height: 409px;
-	border-style: none;
-	border-color: transparent;
-	left: 295px;
-	position: relative;
-	background: transparent url("../img/frame3-u120-fr.png") no-repeat center top;
-	background-size: contain;
-}
-
-#pu231
-{
-	width: 0.01px;
-	left: 146px;
-	margin-top: 152px;
-	position: relative;
-}
-
-#u231
-{
-	z-index: 6;
-	vertical-align: top;
-	width: 455px;
-	height: 320px;
-	margin-bottom: -9px;
-	position: relative;
-	margin-right: -10000px;
-	background: url("../img/amp_amp_izobrazhenie3-u231.png") no-repeat 0px 0px;
+	padding-top: 1115px;
 }
 
 #u221
@@ -85,40 +55,59 @@
 	vertical-align: top;
 	width: 455px;
 	height: 320px;
-	margin-bottom: -9px;
+	left: 407px;
 	position: relative;
-	margin-right: -10000px;
-	left: 483px;
 	background: url("../img/amp_amp_izobrazhenie8-u221.png") no-repeat 0px 0px;
+}
+
+#u120
+{
+	z-index: 4;
+	width: 255px;
+	height: 221px;
+	border-style: none;
+	border-color: transparent;
+	left: 504px;
+	margin-top: 705px;
+	position: relative;
+	background: transparent url("../img/frame3-u120-fr.png") no-repeat center top;
+	background-size: contain;
 }
 
 #u77-bw
 {
 	z-index: 2;
 	margin-top: -124px;
-	height: 1902px;
+	height: 2360px;
 }
 
-#u169
+#u477
 {
-	z-index: 4;
-	width: 87px;
-	height: 87px;
+	z-index: 3;
+	height: 703px;
 	border-style: none;
 	border-color: transparent;
-	position: relative;
-	margin-right: -10000px;
-	margin-top: 37px;
-	left: 212px;
-	background: transparent url("../img/icon_st1-u169-fr.png") no-repeat left top;
-	background-size: contain;
+	background: transparent url("../img/update-back.png") no-repeat center center;
+	background-size: cover;
 }
 
-#u169:hover
+#u477-bw
 {
-	margin: 37px -10000px 0px 0px;
-	background: transparent url("../img/icon_st2-u169-r-fr.png") no-repeat left top;
-	background-size: contain;
+	z-index: 3;
+	height: 703px;
+}
+
+#u231
+{
+	z-index: 6;
+	vertical-align: top;
+	width: 455px;
+	height: 320px;
+	position: relative;
+	margin-right: -10000px;
+	margin-top: 735px;
+	left: 306px;
+	background: url("../img/amp_amp_izobrazhenie3-u231.png") no-repeat 0px 0px;
 }
 
 #u238
@@ -129,8 +118,8 @@
 	height: 320px;
 	position: relative;
 	margin-right: -10000px;
-	margin-top: 936px;
-	left: 286px;
+	margin-top: 1248px;
+	left: 307px;
 	background: url("../img/amp_amp_izobrazhenie2-u238.png") no-repeat 0px 0px;
 }
 
@@ -142,8 +131,8 @@
 	height: 495px;
 	position: relative;
 	margin-right: -10000px;
-	margin-top: 1216px;
-	left: 85px;
+	margin-top: 1517px;
+	left: 104px;
 	background: url("../img/amp_amp_izobrazhenie1-u245.png") no-repeat 0px 0px;
 }
 
