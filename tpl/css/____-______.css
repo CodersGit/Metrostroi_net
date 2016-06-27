@@ -1,7 +1,7 @@
 .version.____________ /* version checker */
 {
-	color: #0000E6;
-	background-color: #39D83E;
+	color: #000018;
+	background-color: #E78225;
 }
 
 .html
@@ -133,16 +133,24 @@
 #u271
 {
 	z-index: 28;
-	width: 135px;
+	width: 992px;
 	border-style: none;
 	border-color: transparent;
+	padding-bottom: 233px;
 	position: relative;
 	margin-right: -10000px;
 	margin-top: 62px;
 	left: 114px;
-	padding: 35px 786px 233px 71px;
 	background: transparent url("../img/update-header-u271-fr.png") no-repeat left top;
 	background-size: contain;
+}
+
+#pu268
+{
+	width: 0.01px;
+	margin-right: -10000px;
+	margin-top: 35px;
+	margin-left: 71px;
 }
 
 #u268
@@ -182,48 +190,53 @@
 
 #u340
 {
-	z-index: 32;
-	height: 68px;
-	width: 54px;
-	vertical-align: top;
+	z-index: 31;
+	width: 36px;
+	height: 50px;
+	border-style: none;
+	border-color: transparent;
 	position: relative;
 	margin-right: -10000px;
-	margin-top: 397px;
-	left: 310px;
-	background: url("../img/day2-u340.png") no-repeat 9px 9px;
+	margin-top: 344px;
+	left: 205px;
+	background: transparent url("../img/day2-u340-fr.png") no-repeat left top;
+	background-size: contain;
 }
 
 #u340:hover
 {
-	background: url("../img/day2-st1-u340-r.png") no-repeat 9px 9px;
+	margin: 344px -10000px 0px 0px;
+	background: transparent url("../img/day2-st1-u340-r-fr.png") no-repeat left top;
+	background-size: contain;
 }
 
 #u340:active
 {
-	background: url("../img/day2-st1-u340-m.png") no-repeat 0px 0px;
+	margin: 344px -10000px 0px 0px;
+	background: transparent url("../img/day2-st1-u340-r-fr.png") no-repeat left top;
+	background-size: contain;
 }
 
 #u346
 {
-	z-index: 36;
-	height: 68px;
-	width: 54px;
-	vertical-align: top;
+	z-index: 32;
+	width: 36px;
+	height: 50px;
+	border-style: none;
+	border-color: transparent;
 	position: relative;
 	margin-right: -10000px;
-	margin-top: 397px;
-	left: 353px;
-	background: url("../img/day3-u346.png") no-repeat 9px 9px;
+	margin-top: 344px;
+	left: 248px;
+	background: transparent url("../img/day3-u346-fr.png") no-repeat left top;
+	background-size: contain;
 }
 
 #u346:hover
 {
-	background: url("../img/day3-st1-u346-r.png") no-repeat 9px 9px;
-}
-
-#u346:active
-{
-	background: url("../img/day3-st1-u346-m.png") no-repeat 0px 0px;
+	margin: 344px -10000px 0px 0px;
+	background: transparent url("../img/day3-st1-u346-r-fr.png") no-repeat left top;
+	background-size: contain;
 }
 
 #u318-4
