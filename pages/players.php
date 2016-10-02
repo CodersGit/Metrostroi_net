@@ -9,7 +9,7 @@ $first = ($page - 1) * $amount_by_page;
 $query = $db->execute("SELECT * FROM `groups`");
 while ($gr = $db->fetch_array($query))
 	$groups[$gr['txtid']] = $gr['name'];
-$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` ORDER BY `groups`.`id` LIMIT $first, $amount_by_page") or die($db->error());
+$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` ORDER BY `groups`.`id` ASC, `user_info_cache`.`nickname` ASC LIMIT $first, $amount_by_page") or die($db->error());
 Mitrastroi::TakeTPL("players/players_head");
 for($c = $first + 1; $typical_ple = $db->fetch_array($query); $c++) {
 	include Mitrastroi::PathTPL("players/player_row");

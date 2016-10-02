@@ -1,0 +1,17 @@
+	<tr>
+		<td>
+			<a href="/profile/<?php echo $ban['mag_steam_id'] ?>"><?php echo $ban['nickname'] ?></a>
+			<a href="<?php echo "http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($ban['mag_steam_id']) ?>"><i class="fa fa-steam"></i></a>
+		</td>
+		<td>
+			<?php if ($ban['admin_nickname']) { ?>
+				<a href="/profile/<?php echo $ban['mag_admin_id'] ?>"><?php echo $ban['admin_nickname'] ?></a>
+				<a href="<?php echo "http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($ban['mag_admin_id']) ?>"><i class="fa fa-steam"></i></a>
+			<?php } else { ?>
+				Автоматически
+			<?php } ?>
+		</td>
+		<td><?php echo $ban['mag_date'] ?></td>
+		<td><?php echo $ban['mag_reason'] ?></td>
+		<td><?php echo ($ban['mag_unban_date'])? $ban['mag_unban_date']:'Перманентно' ?></td>
+	</tr>

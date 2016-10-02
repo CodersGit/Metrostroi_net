@@ -2,15 +2,15 @@
 	<div class="col-md-4">
 		<?php if($tox1n_lenvaya_jopa) { ?>
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-user"></i> <a href="/profile/<?php echo $tox1n_lenvaya_jopa->steamid(); ?>" class="black_link"><?php echo $tox1n_lenvaya_jopa->take_steam_info('nickname'); ?></a> <?php echo $tox1n_lenvaya_jopa->show_icon(); ?></div>
+				<div class="panel-heading"><i class="fa fa-user"></i> <a href="/profile/<?php echo $tox1n_lenvaya_jopa->steamid(); ?>" class="black_link"><?php echo $tox1n_lenvaya_jopa->take_steam_info('nickname'); ?></a> <a class="black_link" href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>" target="_blank"><i class="fa fa-steam-square"></i></a> <?php echo $tox1n_lenvaya_jopa->show_icon(); ?></div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-xs-5">
 							<img src="<?php echo $tox1n_lenvaya_jopa->take_steam_info('avatar_url'); ?>" class="img-thumbnail">
 						</div>
 						<div class="col-xs-7">
-							<p><b><i class="fa fa-steam"></i> <a class="black_link" href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>" target="_blank"><?php echo $tox1n_lenvaya_jopa->steamid(); ?></a></b></p>
 							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $tox1n_lenvaya_jopa->take_group_info('name'); ?></p>
+							<p><b><i class="fa fa-ban"></i> Жалоб MAG:</b> <?php echo $tox1n_lenvaya_jopa->count_mag_reports(); ?></p>
 							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $tox1n_lenvaya_jopa->count_violations(); ?></p>
 							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $tox1n_lenvaya_jopa->count_new_tickets(); ?></p>
 						</div>
@@ -21,7 +21,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-sign-in"></i> Войти</div>
 				<div class="panel-body">
-					<form action="/login/?login" method="post">
+					<form action="/login/?login&rdrct=<?php echo htmlspecialchars($_GET['page'])?>" method="post">
 						<button class="btn btn-block btn-primary"><i class="fa fa-steam"></i> Вход через Steam</button>
 					</form>
 				</div>
@@ -30,7 +30,7 @@
 		<div class="btn-group-vertical btn-block visible-md visible-lg">
 			<a href="https://github.com/metrostroi-repo/metrostroi_beta" class="btn btn-default" target="_blank"><i class="fa fa-github"></i> metrostroi-beta</a>
 			<a href="https://github.com/HellReach/metadmin" class="btn btn-default" target="_blank"><i class="fa fa-github"></i> metadmin</a>
-			<a href="https://www.instagram.com/metrostroiofficial/" class="btn btn-info" target="_blank"><i class="fa fa-instagram"></i> @metrostroiofficial</a>
+			<a href="https://www.instagram.com/metrostroi_official/" class="btn btn-info" target="_blank"><i class="fa fa-instagram"></i> @metrostroi_official</a>
 			<a href="https://vk.com/metrostroi_official" class="btn btn-primary" target="_blank"><i class="fa fa-vk"></i> *metrostroi_official</a>
 		</div>
 		<div class="panel panel-default" style="margin-top: 20px;">
@@ -40,9 +40,75 @@
 				<!-- VK Widget -->
 				<div id="vk_groups"></div>
 				<script type="text/javascript">
-					VK.Widgets.Group("vk_groups", {mode: 2, width: "260", height: "400", color1: 'FFFFFF', color2: '000000', color3: '222222'}, 103293566);
+					VK.Widgets.Group("vk_groups", {mode: 2, width: "260", height: "350", color1: 'FFFFFF', color2: '000000', color3: '222222'}, 103293566);
 				</script>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-8">
+		<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_mag_info("mag_unban_date")) { ?>
+			<script type="text/javascript">
+				function startTimer() {
+					var deadline = '<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_unban_date") ?>';
+					var t = Date.parse(deadline) - Date.parse(new Date());
+					var minutes = Math.floor( (t/1000/60) % 60 );
+					var hours = Math.floor( (t/(1000*60*60)) % 24 );
+					var days = Math.floor( t/(1000*60*60*24) );
+					document.getElementById("block_timer").innerHTML = days + "d:" + hours + "hr:" + minutes + "min";
+					setTimeout(startTimer, 1000);
+				}
+				window.onload = function () {$('.stt').tooltip(); $('.spp').popover();startTimer();}
+			</script>
+			<div class="panel panel-danger" style="border-radius: 0">
+				<div class="panel-heading" style="border-radius: 0">
+					<div id="block_timer" style="float: right"></div>
+					Глобальная блокировка
+				</div>
+				<div class="panel-body" style="vertical-align: middle">
+					<img src="/tpl/img/mag_red.png" height="40" align="left">
+					<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_reason") ?>
+				</div>
+			</div>
+		<?php } elseif ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_mag_info("mag_date")) { ?>
+			<div class="panel panel-warning" style="border-radius: 0">
+				<div class="panel-heading" style="border-radius: 0">
+					MAG (Анти-гриф Metrostroi)
+				</div>
+				<div class="panel-body" style="vertical-align: middle">
+					<img src="/tpl/img/mag_yellow.png" height="40" align="left">
+					<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_reason") ?>
+				</div>
+			</div>
+		<?php } elseif ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->count_mag_heavy_unread_reports()) { ?>
+			<div class="panel panel-primary" style="border-radius: 0">
+				<div class="panel-heading" style="border-radius: 0">
+					Жалоба на игрока
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-9">
+							<img src="/tpl/img/mag_blue.png" height="40" align="left">
+							Одна или несколько жалоб, которые вы недавно отправили, были признаны существенными. Благодарим за помощь сообществу Metrostroi.
+						</div>
+						<div class="col-xs-3">
+							<form method="post">
+								<input type="submit" class="btn btn-link btn-lg btn-block" name="cancel-mag-reports-alert" value="Подтвердить">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_ban_info("reason")) { ?>
+			<div class="panel panel-success" style="border-radius: 0">
+				<div class="panel-heading" style="border-radius: 0">
+					Блокировка комментриев
+				</div>
+				<div class="panel-body">
+					<span class="fa-stack fa-2x">
+						<i class="fa fa-ban text-danger fa-stack-2x"></i>
+						<i class="fa fa-comments-o fa-stack-1x"></i>
+					</span>
+					Вам запрещено оставлять комментарии
+				</div>
+			</div>
+		<?php } ?>

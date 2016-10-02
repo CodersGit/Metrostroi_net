@@ -9,6 +9,7 @@ Mitrastroi::TakeClass('comments');
 
 $query = $db->execute("SELECT `txtid`, `name` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
 $groups = array();
+$group_names = array();
 $steamid = (isset($lnk[1]))? $lnk[1]: "";
 $groups_options = '';
 $alert = '';
@@ -39,7 +40,16 @@ if ($tox1n_lenvaya_jopa and isset($lnk[2])/* and $lnk[2] == 'renew'*/ and $tox1n
 		header("Location: /profile/" . $pl->steamid());
 	}
 }
-
+if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid() and !$tox1n_lenvaya_jopa->take_mag_info("mag_reason")) or $tox1n_lenvaya_jopa->take_group_info("admin_panel")) and isset($_POST['submit']) and $_POST['submit'] == 'profile' and isset($_POST['vk_id']) and isset($_POST['instagram']) and isset($_POST['about']) and isset($_POST['twitter']) and isset($_POST['youtube']) and isset($_POST['twitch'])) {
+	$vk = ((int) $_POST['vk_id'])? ("'" . $db->safe((int) $_POST['vk_id']) . "'"): 'NULL';
+	$instagram = (strlen($_POST['instagram']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['instagram']))? ("'" . $db->safe($_POST['instagram']) . "'"): 'NULL';
+	$twitter = (strlen($_POST['twitter']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['twitter']))? ("'" . $db->safe($_POST['twitter']) . "'"): 'NULL';
+	$youtube = (strlen($_POST['youtube']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['youtube']))? ("'" . $db->safe($_POST['youtube']) . "'"): 'NULL';
+	$twitch = (strlen($_POST['twitch']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['twitch']))? ("'" . $db->safe($_POST['twitch']) . "'"): 'NULL';
+	$about = (strlen($_POST['about']))? ("'" . $db->safe($_POST['about']) . "'"): 'NULL';
+	$db->execute("UPDATE `players` SET `vk_id`=$vk, `instagram`=$instagram, `twitter`=$twitter, `youtube`=$youtube, `twitch`=$twitch, `about`=$about WHERE `SID`='{$pl->steamid()}'") or die($db->error());
+	$pl = new User($pl->steamid(), 'SID');
+}
 if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) and strlen($_POST['reason']))
 	switch ($_POST['submit']) {
 		case "warn":
@@ -83,9 +93,9 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 			$pl = new User($pl->steamid(), 'SID');
 			break;
 		case 'up':
-			if (!($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 3))
+			if (!($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4))
 				break;
-			$new_gr = Mitrastroi::$GROUPS_UP_DOWN[array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) + 1];
+			$new_gr = ($pl->take_group_info('txtid') == 'user' and isset($_POST['up_to_3_class']))? 'driver3class' : Mitrastroi::$GROUPS_UP_DOWN[array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) + 1];
 			$db->execute("UPDATE `players` SET `group`='$new_gr' WHERE `id`={$pl->uid()}");
 			$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
 				. " VALUES ('{$pl->steamid()}', " . time() . ", '$new_gr', '{$tox1n_lenvaya_jopa->steamid()}', '{$db->safe($_POST['reason'])}', 1, 'Сайт Метростроя')");
@@ -109,10 +119,10 @@ if ($tox1n_lenvaya_jopa and isset($_POST['submit']) and isset($_POST['reason']) 
 			$pl = new User($pl->steamid(), 'SID');
 			break;
 		case 'report':
-			if ($tox1n_lenvaya_jopa->take_ban_info("reason"))
+			if ($tox1n_lenvaya_jopa->steamid() == $pl->steamid() or $tox1n_lenvaya_jopa->take_mag_info("mag_reason") or !isset($_POST['server']) or !strlen($_POST['server']))
 				break;
-			$db->execute("INSERT INTO `reports` (`server`,`text`,`author`,`target`,`date`) VALUES ('Сайт метростроя', '{$db->safe($_POST['reason'])}', '{$tox1n_lenvaya_jopa->steamid()}', '{$pl->steamid()}', '" . time() . "')");
-			$pl = new User($pl->steamid(), 'SID');
+			$db->execute("INSERT INTO `mag_reports` (`mag_rserver`,`mag_reason`,`mag_reporter`,`mag_badpl`,`mag_rdate`) VALUES ('{$db->safe($_POST['server'])}', '{$db->safe($_POST['reason'])}', '{$tox1n_lenvaya_jopa->steamid()}', '{$pl->steamid()}', '" . time() . "')");
+//			$pl = new User($pl->steamid(), 'SID');
 			break;
 	}
 $pl_warns = $db->execute("SELECT * FROM `violations` LEFT JOIN `user_info_cache` ON `violations`.`admin`=`user_info_cache`.`steamid` WHERE  `SID`='{$pl->steamid()}' ORDER BY `violations`.`date` DESC") or die ($db->error());

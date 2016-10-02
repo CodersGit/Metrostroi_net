@@ -135,7 +135,7 @@ a {
 .coupon > div > p > a:hover {
 	color: #222;
 }
-.black_link {
+.black_link, .black_link:focus {
 	color: black;
 	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
 	-webkit-transition: all .2s linear;
@@ -144,7 +144,7 @@ a {
 	text-decoration: none;
 }
 .black_link:hover {
-	color: #555;
+	color: #666;
 	text-decoration: none;
 	text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.4);
 }
@@ -154,4 +154,71 @@ a {
 	margin: 10px 10px 10px 30px;
 	border: 1px dashed #e2e2e2;
 	padding: 5px;
+}
+
+.link-vk {
+	color: rgb(80, 114, 153);
+}
+
+.link-vk:hover, .link-vk:focus {
+	color: rgb(108, 156, 190);
+}
+
+.link-twitter {
+	color: rgb(29, 161, 242);
+}
+
+.link-twitter:hover, .link-twitter:focus {
+	color: rgb(19, 131, 202);
+}
+
+.link-youtube {
+	color: rgb(196, 52, 46);
+}
+
+.link-youtube:hover, .link-youtube:focus {
+	color: rgb(255, 0, 0);
+}
+
+.link-twitch {
+	color: rgb(100, 65, 164);
+}
+
+.link-twitch:hover, .link-twitch:focus {
+	color: rgb(140, 85, 224);
+}
+
+.link-instagram {
+	color: #000;
+}
+
+.link-instagram:hover, .link-instagram:focus {
+	color: #666;
+}
+
+.link-vk:hover,
+.link-twitter:hover,
+.link-youtube:hover,
+.link-twitch:hover,
+.link-site:hover,
+.link-instagram:hover,
+.link-vk:focus,
+.link-twitter:focus,
+.link-youtube:focus,
+.link-twitch:focus,
+.link-site:focus,
+.link-instagram:focus {
+	text-decoration: none;
+}
+
+.tab-name-hidden {
+	display: none;
+}
+
+li:hover > a > .tab-name-hidden {
+	display: inline;
+}
+
+li.active > a > .tab-name-hidden {
+	display: inline;
 }

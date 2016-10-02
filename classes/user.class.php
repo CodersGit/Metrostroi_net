@@ -1,23 +1,27 @@
 <?php
 class User {
 	private $SID;
+	private $SessionID;
 	private $rights;
 	private $id;
 	private $coupon_info;
 	private $steam_info;
 	private $ban;
+	private $mag;
 	private $icon;
 	private $violations;
 	private $new_tickets;
+	private $social_info;
 
 	/**
 	 * User constructor.
 	 * @param $arg - Some parameter by which we can find only one user
 	 * @param string $type - which parameter we send
+	 * @return User
 	 */
 	public function User($arg, $type = 'id') {
 		global $db;
-		$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` LEFT JOIN `blacklist` ON `blacklist`.`steam_id`=`players`.`SID` WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg'") or die($db->error());
+		$query = $db->execute("SELECT *  FROM `groups`, `players` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`players`.`SID` LEFT JOIN `sessions` ON `sessions`.`session_steamid`=`players`.`SID` LEFT JOIN `blacklist` ON `blacklist`.`steam_id`=`players`.`SID` LEFT JOIN `mag_bans` ON `mag_bans`.`mag_steam_id`=`players`.`SID` AND (`mag_unban_date` IS NULL OR `mag_unban_date` > NOW()) WHERE `players`.`group`=`groups`.`txtid` AND `$type`='$arg' ORDER BY `mag_date` DESC ") or die($db->error());
 		if (!$query and $db->num_rows($query) != 1) {
 			print $db->error();
 			$this->id = -1;
@@ -26,15 +30,20 @@ class User {
 		$user = $db->fetch_array($query);
 		$this->id = $user['id'];
 		$this->SID = $user['SID'];
+		$this->SessionID = $user['session_id'];
 		$this->icon = (int) $user['icon'];
 		$this->coupon_info = json_decode($user['status']);
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
+		foreach (Mitrastroi::$MAG_INFO as $mag)
+			$this->mag[$mag] = $user[$mag];
 		foreach (Mitrastroi::$BAN_INFO as $ban)
 			$this->ban[$ban] = $user[$ban];
 		foreach (Mitrastroi::$STEAM_INFO as $INFO)
 			$this->steam_info[$INFO] = $user[$INFO];
+		foreach (Mitrastroi::$SOCIAL_INFO as $INFO)
+			$this->social_info[$INFO] = $user[$INFO];
 	}
 
 	/**
@@ -90,7 +99,7 @@ class User {
 
 	/**
 	 * Returns some info about user's group
-	 * @param $name -  Name of parameter
+	 * @param $name - Name of parameter
 	 * @return string
 	 * @throws BadParameterException
 	 */
@@ -102,7 +111,7 @@ class User {
 
 	/**
 	 * Returns some info about user's Steam account
-	 * @param $name -  Name of parameter
+	 * @param $name - Name of parameter
 	 * @return string
 	 * @throws BadParameterException
 	 */
@@ -113,8 +122,20 @@ class User {
 	}
 
 	/**
+	 * Returns some info about user's social accounts and description
+	 * @param $name - Name of parameter
+	 * @return string
+	 * @throws BadParameterException
+	 */
+	public function take_social_info($name) {
+		if (!in_array($name, Mitrastroi::$SOCIAL_INFO))
+			throw new BadParameterException();
+		return $this->social_info[$name];
+	}
+
+	/**
 	 * Returns some info about user's coupon
-	 * @param $name -  Name of parameter
+	 * @param $name - Name of parameter
 	 * @return string
 	 */
 	public function take_coupon_info($name) {
@@ -137,7 +158,7 @@ class User {
 	}
 
 	/**
-	 * Returns number of new tickets
+	 * Returns number of heavy MAG reports
 	 * @return string
 	 */
 	public function count_new_tickets() {
@@ -150,8 +171,34 @@ class User {
 	}
 
 	/**
+	 * Returns number of unread heavy MAG reports
+	 * @return string
+	 */
+	public function count_mag_heavy_unread_reports() {
+		global $db;
+		if (isset($this->mag['num_heavy_unread_reports'])) return $this->mag['num_heavy_unread_reports'];
+		$query = $db->execute("SELECT COUNT(*) FROM `mag_reports` WHERE `mag_reporter`='{$this->SID}' and `mag_heavy`>0 and `mag_sender_heavy_read`=0");
+		$query = $db->fetch_array($query);
+		$this->mag['num_heavy_unread_reports'] = $query[0];
+		return $this->mag['num_heavy_unread_reports'];
+	}
+
+	/**
+	 * Returns number of new tickets
+	 * @return string
+	 */
+	public function count_mag_reports() {
+		global $db;
+		if (isset($this->mag['num_reports'])) return $this->mag['num_reports'];
+		$query = $db->execute("SELECT COUNT(*) FROM `mag_reports` WHERE `mag_badpl`='{$this->SID}' and `mag_heavy`>0");
+		$query = $db->fetch_array($query);
+		$this->mag['num_reports'] = $query[0];
+		return $this->mag['num_reports'];
+	}
+
+	/**
 	 * Returns some info about user's ban
-	 * @param $name -  Name of parameter
+	 * @param $name - Name of parameter
 	 * @return string
 	 */
 	public function take_ban_info($name) {
@@ -161,11 +208,22 @@ class User {
 	}
 
 	/**
+	 * Returns some info about user's MAG ban
+	 * @param $name - Name of parameter
+	 * @return string
+	 */
+	public function take_mag_info($name) {
+		if (!in_array($name, Mitrastroi::$MAG_INFO))
+			return '';
+		return ($this->mag[$name] != null)? $this->mag[$name]: false;
+	}
+
+	/**
 	 * User logout
 	 */
 	public function logout() {
 		global $db;
-		$db->execute("UPDATE `accounts` SET `session`=NULL WHERE `id`={$this->id}");
+		$db->execute("DELETE FROM `sessions` WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
 		setcookie("mitrastroi_sid", 'null', time(), '/');
 	}
 }

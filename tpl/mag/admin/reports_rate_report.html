@@ -1,0 +1,23 @@
+<div class="ticket">
+	<div class="row">
+		<div class="col-xs-3">
+			<img src="<?php echo $report['avatar_url']?>" width="100%" class="thumbnail" style="margin: 0px;">
+		</div>
+		<div class="col-xs-9">
+			<div class="pull-right"><b>Сервер:</b> <?php echo $report['mag_rserver']?> &laquo; <b>#</b><?php echo $report['mag_rid']?></div>
+			<b><a href="/profile/<?php echo $report['mag_badpl']?>" class="black_link"><?php echo $report['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($report['mag_rdate'])) ?>
+			<hr style="margin: 5px" />
+			<?php echo nl2br(htmlspecialchars($report['mag_reason']))?>
+			<hr style="margin: 10px 5px -5px;" />
+			<p>
+				<input type="hidden" value="1" name="mag_viewed_<?php echo $report['mag_rid']?>">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="mag_heavy_<?php echo $report['mag_rid']?>"> Это обоснованный репорт
+					</label>
+					<span class="help-block">Ставьте эту галку только если АБСОЛЮТНО УВЕРЕНЫ в его обоснованности и разумности</span>
+				</div>
+			</p>
+		</div>
+	</div>
+</div>

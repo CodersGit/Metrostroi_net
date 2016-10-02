@@ -21,6 +21,9 @@ switch ($lnk[1]) {
 		include Mitrastroi::PathTPL("header");
 		include Mitrastroi::PathTPL("left_side");
 
+		// Убираем &lt;cut&gt; и прочую срань
+		$query['text'] = str_replace(array('<cut>', '</cut>', '&lt;cut&gt;'), '', $query['text']);
+
 		include Mitrastroi::PathTPL("news/news_view");
 
 		include Mitrastroi::PathTPL("right_side");
@@ -48,7 +51,7 @@ switch ($lnk[1]) {
 		include Mitrastroi::PathTPL("left_side");
 
 		while ($query = $db->fetch_array($news)) {
-			$query['text'] = str_replace(stristr($query['text'], '<cut>'), '', $query['text']);
+			$query['text'] = str_replace(stristr(str_replace(stristr($query['text'], '<cut>'), '', $query['text']), '&lt;cut&gt;'), '', $query['text']);
 			include Mitrastroi::PathTPL("news/news_preview");
 		}
 

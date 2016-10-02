@@ -5,7 +5,7 @@ class Comments
 	public static function ShowComments($type, $id, $hold_place = false)
 	{
 		global $db, $tox1n_lenvaya_jopa;
-		$access = ($tox1n_lenvaya_jopa) ? ($tox1n_lenvaya_jopa->take_group_info("delete_comment")) ? 2 : 1 : 0;
+		$access = ($tox1n_lenvaya_jopa and !$tox1n_lenvaya_jopa->take_ban_info('reason')) ? ($tox1n_lenvaya_jopa->take_group_info("delete_comment")) ? 2 : 1 : 0;
 		if ($access and isset($_POST['message']) and mb_strlen($message = $db->safe($_POST['message']), 'utf8') and mb_strlen($message, 'utf8') < 256) {
 			$db->execute("INSERT INTO `comments` (`type`, `item_id`, `author`, `text`) VALUES ($type, '$id', '{$tox1n_lenvaya_jopa->steamid()}', '$message')") or die($db->error());
 		}

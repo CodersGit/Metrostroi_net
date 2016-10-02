@@ -1,0 +1,7 @@
+	<tr>
+		<td>
+			<a href="/profile/<?php echo $item['steamid'] ?>"><?php echo $item['nickname'] ?></a>
+			<a href="<?php echo "http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($item['steamid']) ?>"><i class="fa fa-steam"></i></a>
+		</td>
+		<td><?php echo $item['warn_num'] ?></td>
+	</tr>

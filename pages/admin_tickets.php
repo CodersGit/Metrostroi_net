@@ -43,7 +43,8 @@ if (isset($lnk[1])) {
 		include Mitrastroi::PathTPL("tickets/adm_ticket");
 	}
 } else {
-	$query = $db->execute("SELECT * FROM `tickets` LEFT JOIN `user_info_cache` ON `written`=`steamid` WHERE `type`<2 ORDER BY `date` ASC");
+	include Mitrastroi::PathTPL("tickets/adm_ticket_head");
+	$query = $db->execute("SELECT * FROM `user_info_cache`, `tickets` WHERE `written`=`steamid` AND `tid`=(SELECT `tid` FROM `tickets` WHERE `written`=`steamid` AND `type`<2 ORDER BY `date` DESC LIMIT 1) ORDER BY (SELECT `date` FROM `tickets` WHERE `written`=`steamid` AND `type`<2 ORDER BY `date` DESC LIMIT 1) ASC") or die($db->error());
 	while($ticket = $db->fetch_array($query)) {
 		switch ($ticket['type']) {
 			case 0: $status = "<div class='label label-success'><i class='fa fa-star'></i></div> "; break;

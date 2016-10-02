@@ -19,13 +19,13 @@ class Menu {
 				'parent' => 'admin',
 				'right' => 'admin_panel',
 			),
-			'admin_reports' => array(
-				'url' => '/admin_reports',
-				'title' => 'Жалобы',
+			'admin_MAG' => array(
+				'url' => '/admin_mag',
+				'title' => 'MAG: Жалобы',
 				'active' => false,
 				'place' => 0,
 				'parent' => 'admin',
-				'right' => 'blacklist_edit',
+				'right' => 'mag_reports',
 			),
 			'admin_tickets' => array(
 				'url' => '/admin_tickets',
@@ -56,9 +56,9 @@ class Menu {
 				'place' => 0,
 				'parent' => 'lists',
 			),
-			'black' => array(
-				'url'=>'/blacklist',
-				'title'=>'Список плохих игроков',
+			'MAG_list' => array(
+				'url'=>'/mag/list',
+				'title'=>'Список последних MAG-банов',
 				'active'=>false,
 				'place' => 0,
 				'parent' => 'lists',
@@ -125,13 +125,19 @@ class Menu {
 				'place' => 1,
 				'parent' => 'info',
 			),
-			'logout' => array(
-				'url'=>'/logout',
-				'title'=>'Выход',
+			'MAG' => array(
+				'url'=>'/mag',
+				'title'=>'MAG',
 				'active'=>false,
 				'place' => 1,
-				'parent' => false,
-				'right' => 'name'
+				'parent' => 'info',
+			),
+			'wiki' => array(
+				'url'=>'http://wiki.metrostroi.net" target="_blank',
+				'title'=>'WIKI',
+				'active'=>false,
+				'place' => 1,
+				'parent' => 'info',
 			),
 		);
 	}
@@ -159,7 +165,7 @@ class Menu {
 		include Mitrastroi::PathTPL(($c)?($kid)?'menu/item_subdropdown':'menu/item_dropdown':'menu/item');
 		return ob_get_clean();
 	}
-	public function show($tpl = 'menu') {
+	public function show($tpl, $error = false) {
 		global $tox1n_lenvaya_jopa;
 		$menu = array('','');
 		foreach ($this->menu as $id => $item)

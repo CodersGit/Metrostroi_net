@@ -31,8 +31,16 @@
 						<?php echo $pl->take_coupon_info('nom') ?>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-xs-4">
+						<b>Жалоб MAG</b>
+					</div>
+					<div class="col-xs-8">
+						<?php echo $pl->count_mag_reports() ?>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<?php if($pl->take_ban_info("reason"))  { ?><div class="alert alert-danger"><b>Внимание!</b><br />Этот пользователь забанен</div><?php } ?>
+<?php if($pl->take_mag_info("mag_reason"))  { ?><div class="alert alert-danger"><b>Внимание!</b><br />Этот пользователь забанен системой MAG</div><?php } ?>

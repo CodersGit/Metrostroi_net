@@ -5,6 +5,7 @@
 		<small><?php echo $pl->steamid() ?></small>
 	</h1>
 </div>
+<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("warn")) { ?>
 <div class="modal fade" id="warn_modal" tabindex="-1" role="dialog" aria-labelledby="warn_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -14,7 +15,7 @@
 			</div>
 			<form class="form-horizontal" method="post">
 				<div class="modal-body">
-					Обрашаем внимание, что еще нарушение добавляется при отбирании талона (от вас попросят причину). Если игрок нарушил и Вы хотите отобрать у него талон, то закройте это окно и отбирайте талон сразу.
+					Обращаем внимание, что еще нарушение добавляется при отбирании талона (от вас попросят причину). Если игрок нарушил и Вы хотите отобрать у него талон, то закройте это окно и отбирайте талон сразу.
 					<textarea class="form-control" name="reason" placeholder="Опишите нарушение тут."></textarea>
 				</div>
 				<div class="modal-footer">
@@ -25,6 +26,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?>
 <div class="modal fade" id="up_modal" tabindex="-1" role="dialog" aria-labelledby="up_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -34,7 +36,19 @@
 			</div>
 			<form class="form-horizontal" method="post">
 				<div class="modal-body">
+					Группы, в порядке повышения:<br />
+					<i>
+						Помощник машиниста &raquo; Машинист &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса
+					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
+					<?php if($pl->take_group_info('txtid') == 'user') { ?>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="up_to_3_class"> Выдать сразу третий класс
+							</label>
+							<span class="help-block">Ставьте эту галку только если игрок ДЕЙСТВИТЕЛЬНО достоин 3 класса</span>
+						</div>
+					<?php } ?>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
@@ -44,6 +58,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?>
 <div class="modal fade" id="down_modal" tabindex="-1" role="dialog" aria-labelledby="down_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -53,6 +68,10 @@
 			</div>
 			<form class="form-horizontal" method="post">
 				<div class="modal-body">
+					Группы, в порядке повышения:<br />
+					<i>
+						Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист &raquo; Помощник машиниста
+					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
 				</div>
 				<div class="modal-footer">
@@ -63,6 +82,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="tc_modal" tabindex="-1" role="dialog" aria-labelledby="tc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -83,6 +103,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="rc_modal" tabindex="-1" role="dialog" aria-labelledby="rc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -103,6 +124,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("change_group")) { ?>
 <div class="modal fade" id="setrank_modal" tabindex="-1" role="dialog" aria-labelledby="setrank_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -132,6 +154,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?>
 <div class="modal fade" id="icon_modal" tabindex="-1" role="dialog" aria-labelledby="icon_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -157,6 +180,7 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and !$tox1n_lenvaya_jopa->take_mag_info('mag_reason')) { ?>
 <div class="modal fade" id="report_modal" tabindex="-1" role="dialog" aria-labelledby="report_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -166,7 +190,8 @@
 			</div>
 			<form class="form-horizontal" method="post">
 				<div class="modal-body">
-					<textarea class="form-control" name="reason" placeholder="Опишите нарушение пользователя. Обращаем внимание, за жалобы без причин понесете наказание ВЫ!"></textarea>
+					<input type="text" class="form-control" placeholder="Название сервера" name="server">
+					<textarea class="form-control" style="margin-top: 5px;" name="reason" placeholder="Опишите нарушение пользователя. Обращаем внимание, за жалобы без причин понесете наказание ВЫ!"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
@@ -176,15 +201,55 @@
 		</div>
 	</div>
 </div>
+<?php } if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid()) or $tox1n_lenvaya_jopa->take_group_info("admin_panel"))) { ?>
+<div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="profile_modal_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="profile_modal_label">Редактировать информацию</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<div class="modal-body">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-vk"></i> http://vk.com/id</div>
+						<input type="text" class="form-control" placeholder="ID страницы VK" name="vk_id" value="<?php echo $pl->take_social_info("vk_id") ?>">
+					</div>
+					<div class="input-group" style="margin-top: 5px;">
+						<div class="input-group-addon"><i class="fa fa-twitter"></i> http://twitter.com/</div>
+						<input type="text" class="form-control" placeholder="Никнейм в twitter" name="twitter" value="<?php echo $pl->take_social_info("twitter") ?>">
+					</div>
+					<div class="input-group" style="margin-top: 5px;">
+						<div class="input-group-addon"><i class="fa fa-youtube-play"></i> http://youtube.com/channel/</div>
+						<input type="text" class="form-control" placeholder="ID канала на YouTube" name="youtube" value="<?php echo $pl->take_social_info("youtube") ?>">
+					</div>
+					<div class="input-group" style="margin-top: 5px;">
+						<div class="input-group-addon"><i class="fa fa-instagram"></i> http://instagram.com/</div>
+						<input type="text" class="form-control" placeholder="Никнейм в Instagram" name="instagram" value="<?php echo $pl->take_social_info("instagram") ?>">
+					</div>
+					<div class="input-group" style="margin-top: 5px;">
+						<div class="input-group-addon"><i class="fa fa-twitch"></i> http://twitch/</div>
+						<input type="text" class="form-control" placeholder="Имя канала на Twitch" name="twitch" value="<?php echo $pl->take_social_info("twitch") ?>">
+					</div>
+					Если ссылку на какой-то из аккаунтов не можете указать, оставьте поле пустым
+					<textarea class="form-control" style="margin-top: 10px;" name="about" placeholder="Напишите что-нибудь о себе"><?php echo $pl->take_social_info("about") ?></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
+					<button type="submit" name="submit" value="profile" class="btn btn-primary"><i class="fa fa-check"></i> Обновить информацию</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php } ?>
 <div>
-	<?php if($pl->icon_id() == -1)  { ?><div class="alert alert-warning"><b>Внимание!</b><br />Администраторы системы посчитали этого игрока потенциально опасным и/или ведущим себя неадекватно! Не советуем доверять ему что-либо.</div><?php } ?>
-	<?php if($pl->take_ban_info("reason"))  { ?><div class="alert alert-danger"><b>Внимание!</b><br />Администраторы системы добавили этого игрока в черный список игроков. Это означает, что этот игрок делал что-то очень плохое. Остерегайтесь его.</div><?php } ?>
 	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i> Информация</a></li>
-		<li role="presentation"><a href="#comments" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i> Комментарии</a></li>
-		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-exclamation-circle"></i> Нарушения</a></li>
-		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab"><i class="fa fa-book"></i> Экзамены</a></li>
-		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab"><i class="fa fa-ticket"></i> Талон</a></li>
+		<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info-circle"></i><div class="tab-name-hidden"> Информация</div></a></li>
+		<li role="presentation"><a href="#comments" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i><div class="tab-name-hidden"> Комментарии</div></a></li>
+		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-exclamation-circle"></i><div class="tab-name-hidden"> Нарушения</div></a></li>
+		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab"><i class="fa fa-book"></i><div class="tab-name-hidden"> Экзамены</div></a></li>
+		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab"><i class="fa fa-ticket"></i><div class="tab-name-hidden"> Талон</div></a></li>
 		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->take_group_info("tickets") or $tox1n_lenvaya_jopa->take_group_info("warn") or $tox1n_lenvaya_jopa->take_group_info("change_group") or $tox1n_lenvaya_jopa->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) or ($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
 		<li role="presentation" class="dropdown pull-right">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -192,7 +257,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("warn")) { ?><li><a data-toggle="modal" data-target="#warn_modal" style="cursor: pointer;"><i class="fa fa-info-circle"></i> Добавить нарушение</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 3) { ?><li><a data-toggle="modal" data-target="#up_modal" style="cursor: pointer;"><i class="fa fa-arrow-up"></i> Повысить</a></li><?php } ?>
+				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?><li><a data-toggle="modal" data-target="#up_modal" style="cursor: pointer;"><i class="fa fa-arrow-up"></i> Повысить</a></li><?php } ?>
 				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?><li><a data-toggle="modal" data-target="#down_modal" style="cursor: pointer;"><i class="fa fa-arrow-down"></i> Понизить</a></li><?php } ?>
 				<?php if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#rc_modal" style="cursor: pointer;"><i class="fa fa-plus-circle"></i> Вернуть талон</a></li><?php } ?>
 				<?php if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#tc_modal" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Забрать талон</a></li><?php } ?>
@@ -203,14 +268,23 @@
 			</ul>
 		</li>
 		<?php } ?>
-		<?php if ($tox1n_lenvaya_jopa and !$tox1n_lenvaya_jopa->take_ban_info("reason")) { ?>
-		<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#report_modal" style="cursor: pointer;"><i class="fa fa-warning"></i></a></li>
+		<?php if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid()) or $tox1n_lenvaya_jopa->take_group_info("admin_panel"))) { ?>
+			<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#profile_modal" style="cursor: pointer;"><i class="fa fa-edit"></i></a></li>
+		<?php } ?>
+		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->steamid() != $pl->steamid()) and !$tox1n_lenvaya_jopa->take_mag_info("mag_reason")) { ?>
+		<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#report_modal" style="cursor: pointer;"><i class="fa fa-warning"></i><div class="tab-name-hidden"> Жалоба</div></a></li>
 		<?php } ?>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane fade active in" id="info">
+			<?php if ($pl->take_mag_info("mag_reason") or $pl->count_mag_reports()) { ?>
+				<div class="text-danger" style="display: block; position: absolute; right: 20px; margin-top: 10px; z-index: 100">
+					<?php if ($pl->count_mag_reports()) echo "Жалоб MAG: " . $pl->count_mag_reports() . " | <a href=\"/mag\">Информация</a><br />"?>
+					<?php if ($pl->take_mag_info("mag_reason")) echo "MAG: Глобальная блокировка<br />" . (($pl->take_mag_info("mag_unban_date"))? "Конец блокировки: " . $pl->take_mag_info("mag_unban_date"): "Дней с момента блокировки: " . (int) ((time() - strtotime($pl->take_mag_info("mag_date"))) / 86400)) ?>
+				</div>
+			<?php } ?>
 			<div class="row">
 				<div class="col-xs-3" align="right">
 					Логин:
@@ -253,18 +327,45 @@
 					<a href="<?php echo $pl->take_steam_info("steam_url") ?>" target="_blank">Перейти</a>
 				</div>
 			</div>
+			<?php if ($pl->take_social_info('vk_id') !== null or $pl->take_social_info('vk_id') or $pl->take_social_info('twitter') or $pl->take_social_info('youtube') or $pl->take_social_info('twitch') or $pl->take_social_info('site')) { ?>
 			<div class="row">
 				<div class="col-xs-3" align="right">
-					В ЧС:
+					Профили в соц.сетях:
+				</div>
+				<div class="col-xs-9">
+					<?php if ($pl->take_social_info('vk_id') !== null) { ?><a href="http://vk.com/id<?php echo $pl->take_social_info("vk_id") ?>" class="link-vk" target="_blank"><i class="fa fa-2x fa-vk"></i></a> <?php } ?>
+					<?php if ($pl->take_social_info('twitter')) { ?><a href="http://twitter.com/<?php echo $pl->take_social_info("twitter") ?>" class="link-twitter" target="_blank"><i class="fa fa-2x fa-twitter"></i></a> <?php } ?>
+					<?php if ($pl->take_social_info('youtube')) { ?><a href="http://youtube.com/channel/<?php echo $pl->take_social_info("youtube") ?>" class="link-youtube" target="_blank"><i class="fa fa-2x fa-youtube-play"></i></a> <?php } ?>
+					<?php if ($pl->take_social_info('site')) { ?><a href="<?php echo $pl->take_social_info("site") ?>" class="link-site" target="_blank"><i class="fa fa-2x fa-globe"></i></a> <?php } ?>
+					<?php if ($pl->take_social_info('instagram')) { ?><a href="http://instagram.com/<?php echo $pl->take_social_info("instagram") ?>" class="link-instagram" target="_blank"><i class="fa fa-2x fa-instagram"></i></a> <?php } ?>
+					<?php if ($pl->take_social_info('twitch')) { ?><a href="http://twitch.tv/<?php echo $pl->take_social_info("twitch") ?>" class="link-twitch" target="_blank"><i class="fa fa-2x fa-twitch"></i></a> <?php } ?>
+				</div>
+			</div>
+			<?php } ?>
+			<?php if ($pl->take_social_info('about')) { ?>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					О себе:
+				</div>
+				<div class="col-xs-9">
+					<?php echo nl2br(htmlspecialchars($pl->take_social_info("about"))) ?>
+				</div>
+			</div>
+			<?php } ?>
+			<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info('blacklist_edit')) { ?>
+			<div class="row">
+				<div class="col-xs-3" align="right">
+					Коммент бан:
 				</div>
 				<div class="col-xs-9">
 					<?php if ($pl->take_ban_info("reason")) { ?>
-						<?php echo $pl->take_ban_info("reason")?> (<a href="/profile/<?php echo $pl->take_ban_info("admin")?>">Кто забанил?</a>)
+						Да, причина: <?php echo $pl->take_ban_info("reason")?> (<a href="/profile/<?php echo $pl->take_ban_info("admin")?>">Кто заблокировал?</a>)
 					<?php } else { ?>
 						Нет.
 					<?php } ?>
 				</div>
 			</div>
+			<?php } ?>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="comments">
 			<?php Comments::ShowComments(1, $pl->uid(), true) ?>

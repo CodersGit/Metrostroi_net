@@ -1,7 +1,7 @@
 <?php
 class Mitrastroi {
 	public static $RIGHTS = array(
-		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets'
+		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets', 'mag_bans', 'mag_reports'
 	);
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'
@@ -9,11 +9,17 @@ class Mitrastroi {
 	public static $BAN_INFO = array(
 		'steam_id', 'admin', 'reason'
 	);
+	public static $SOCIAL_INFO = array(
+		'vk_id', 'about', 'instagram', 'twitter', 'youtube', 'twitch', 'site'
+	);
+	public static $MAG_INFO = array(
+		'mag_steam_id', 'mag_admin_id', 'mag_date', 'mag_unban_date', 'mag_reason'
+	);
 	public static $COUPON_INFO = array(
 		'розовый', 'зеленый', 'желтый', 'красный'
 	);
 	public static $GROUPS_UP_DOWN = array(
-		'user', 'driver3class', 'driver2class', 'driver1class'
+		'user', 'driver', 'driver3class', 'driver2class', 'driver1class'
 	);
 	public static $ICONS = array(
 		-1 => array(
@@ -114,15 +120,17 @@ class Mitrastroi {
 			$tox1n_lenvaya_jopa = false;
 			return;
 		}
-		$user = new User($_COOKIE['mitrastroi_sid'], 'session');
+		$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
+		$user = new User($_COOKIE['mitrastroi_sid'], 'session_id');
 		if($user->uid() <= 0) {
 			$tox1n_lenvaya_jopa = false;
 			return;
 		}
 		$tox1n_lenvaya_jopa = $user;
 		$sessionID = Mitrastroi::randString(128);
-		$db->execute("UPDATE `players` SET `session`='$sessionID' WHERE `id`='{$tox1n_lenvaya_jopa->uid()}'");
+		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
 		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
+		$_COOKIE['mitrastroi_sid'] = $sessionID;
 	}
 
 	public static function SetData($key, $value) {
