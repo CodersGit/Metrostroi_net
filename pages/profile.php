@@ -42,7 +42,7 @@ if ($tox1n_lenvaya_jopa and isset($lnk[2])/* and $lnk[2] == 'renew'*/ and $tox1n
 }
 if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid() and !$tox1n_lenvaya_jopa->take_mag_info("mag_reason")) or $tox1n_lenvaya_jopa->take_group_info("admin_panel")) and isset($_POST['submit']) and $_POST['submit'] == 'profile' and isset($_POST['vk_id']) and isset($_POST['instagram']) and isset($_POST['about']) and isset($_POST['twitter']) and isset($_POST['youtube']) and isset($_POST['twitch'])) {
 	$vk = ((int) $_POST['vk_id'])? ("'" . $db->safe((int) $_POST['vk_id']) . "'"): 'NULL';
-	$instagram = (strlen($_POST['instagram']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['instagram']))? ("'" . $db->safe($_POST['instagram']) . "'"): 'NULL';
+	$instagram = (strlen($_POST['instagram']) and preg_match("/^[a-zA-Z0-9._-]+$/", $_POST['instagram']))? ("'" . $db->safe($_POST['instagram']) . "'"): 'NULL';
 	$twitter = (strlen($_POST['twitter']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['twitter']))? ("'" . $db->safe($_POST['twitter']) . "'"): 'NULL';
 	$youtube = (strlen($_POST['youtube']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['youtube']))? ("'" . $db->safe($_POST['youtube']) . "'"): 'NULL';
 	$twitch = (strlen($_POST['twitch']) and preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['twitch']))? ("'" . $db->safe($_POST['twitch']) . "'"): 'NULL';
