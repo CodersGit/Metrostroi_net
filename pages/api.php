@@ -177,7 +177,7 @@ switch ($lnk[1]) {
 		$pl_warns_array = array();
 		while ($pl_warn = $db->fetch_array($pl_warns)) {
 			$pl_warn_array = array(
-				'date' => strtotime($pl_warn['date']),
+				'date' => $pl_warn['date'],
 				'admin' => $pl_warn['nickname'],
 				'server' => $pl_warn['server'],
 				'violation' => $pl_warn['violation']
@@ -187,7 +187,7 @@ switch ($lnk[1]) {
 		$pl_exams_array = array();
 		while ($pl_exam = $db->fetch_array($pl_exams)) {
 			$pl_exam_array = array(
-				'date' => strtotime($pl_exam['date']),
+				'date' => $pl_exam['date'],
 				'examiner' => $pl_exam['nickname'],
 				'rank' => $pl_exam['rank'],
 				'server' => $pl_exam['server'],
@@ -197,7 +197,7 @@ switch ($lnk[1]) {
 			array_push($pl_exams_array, $pl_exam_array);
 		}
 		$pl_array = array(
-			'Nick' => $pl->take_steam_info('nickname'),
+			'nick' => $pl->take_steam_info('nickname'),
 			'rank' => $pl->take_group_info('txtid'),
 			'steamid' => $pl->steamid(),
 			'rank_name' => $pl->take_group_info('name'),
@@ -232,7 +232,7 @@ switch ($lnk[1]) {
 			$pl_warns_array = array();
 			while ($pl_warn = $db->fetch_array($pl_warns)) {
 				$pl_warn_array = array(
-					'date' => strtotime($pl_warn['date']),
+					'date' => $pl_warn['date'],
 					'admin' => $pl_warn['nickname'],
 					'server' => $pl_warn['server'],
 					'violation' => $pl_warn['violation']
@@ -242,7 +242,7 @@ switch ($lnk[1]) {
 			$pl_exams_array = array();
 			while ($pl_exam = $db->fetch_array($pl_exams)) {
 				$pl_exam_array = array(
-					'date' => strtotime($pl_exam['date']),
+					'date' => $pl_exam['date'],
 					'examiner' => $pl_exam['nickname'],
 					'rank' => $pl_exam['rank'],
 					'server' => $pl_exam['server'],
@@ -252,7 +252,7 @@ switch ($lnk[1]) {
 				array_push($pl_exams_array, $pl_exam_array);
 			}
 			$pl_array = array(
-				'Nick' => $pl->take_steam_info('nickname'),
+				'nick' => $pl->take_steam_info('nickname'),
 				'rank' => $pl->take_group_info('txtid'),
 				'rank_name' => $pl->take_group_info('name'),
 				'steamid' => $pl->steamid(),
