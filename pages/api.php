@@ -77,7 +77,7 @@ switch ($lnk[1]) {
 			$pl = new User($_POST['author'], 'SID');
 			if ($pl->uid() < 1 or !$pl->take_group_info("warn"))
 				exit("access denied");
-			$db->execute("INSERT INTO `violations` (`server`,`violation`,`admin`,`SID`,`date`) VALUES ('{$db->safe($query['servername'])}', '{$db->safe($_POST['reason'])}', '{$db->safe($_POST['author'])}', '{$db->safe($_POST['target'])}', NOW())");
+			$db->execute("INSERT INTO `violations` (`server`,`violation`,`admin`,`SID`,`date`) VALUES ('{$db->safe($query['servername'])}', '{$db->safe($_POST['reason'])}', '{$db->safe($_POST['author'])}', '{$db->safe($_POST['target'])}', '" . time() . "')");
 			exit("ok");
 		} else exit('bad ip or port');
 		break;
@@ -119,9 +119,9 @@ switch ($lnk[1]) {
 			$query = $db->fetch_array($query);
 			if ($_POST['hash'] != hash("sha256", $_POST['reason'] . $_POST['type'] . $_POST['date'] . $_POST['group'] . $_POST['target'] . $_POST['author'] . $query['key']))
 				exit('bad hash');
-			$query = $db->execute("SELECT `txtid` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
+			$query1 = $db->execute("SELECT `txtid` FROM `groups` WHERE NOT `txtid`='ple' ORDER BY `id`");
 			$groups = array();
-			while ($group = $db->fetch_array($query)) {
+			while ($group = $db->fetch_array($query1)) {
 				array_push($groups, $group['txtid']);
 			}
 			if (!in_array($_POST['group'], $groups))
