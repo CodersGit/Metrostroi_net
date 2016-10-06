@@ -131,7 +131,7 @@ switch ($lnk[1]) {
 				exit("access denied");
 			$db->execute("UPDATE `players` SET `group`='{$db->safe($_POST['group'])}' WHERE `SID`='{$db->safe($_POST['target'])}'");
 			$db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
-				. "VALUES ('{$db->safe($_POST['target'])}',NOW(),'{$db->safe($_POST['group'])}','{$db->safe($_POST['author'])}','{$db->safe($_POST['reason'])}','{$db->safe($_POST['type'])}','{$db->safe($query['servername'])}')");
+				. "VALUES ('{$db->safe($_POST['target'])}','" . time() . "','{$db->safe($_POST['group'])}','{$db->safe($_POST['author'])}','{$db->safe($_POST['reason'])}','{$db->safe($_POST['type'])}','{$db->safe($query['servername'])}')");
 			exit("ok");
 		} else exit('bad ip or port');
 		break;
