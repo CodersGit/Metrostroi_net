@@ -104,7 +104,7 @@ switch ($lnk[1]) {
 					'date' => $db->safe(time()),
 				)
 			);
-			$db->execute("UPDATE `players` SET `status`='{$db->safe($status)}' WHERE `SID`='{$db->safe($_POST['author'])}'");
+			$db->execute("UPDATE `players` SET `status`='{$db->safe($status)}' WHERE `SID`='{$db->safe($_POST['target'])}'");
 			exit("ok");
 		} else exit('bad ip or port');
 		break;
