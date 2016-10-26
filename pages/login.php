@@ -1,6 +1,6 @@
 <?php
 Mitrastroi::TakeClass('openid');
-if($tox1n_lenvaya_jopa) {
+if($logged_user) {
 	include MITRASTROI_ROOT . "pages/404.php";
 	return;
 }

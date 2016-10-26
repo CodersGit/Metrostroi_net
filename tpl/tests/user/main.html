@@ -1,0 +1,42 @@
+<div class="jumbotron">
+	<h1>Мои тесты</h1>
+	<p>Это - список решенных Вами тестов</p>
+	<div class="btn-group">
+		<button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Назначить себе тест <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Тест на машиниста б/к</a></li>
+			<li><a href="#">Тест на 3 класс</a></li>
+			<li><a href="#">Тест на 2 класс</a></li>
+			<li><a href="#">Тест на 1 класс</a></li>
+		</ul>
+	</div>
+</div>
+
+<table class="table table-hover">
+	<tr><th>Тест</th><th>Статус</th><th>Дата</th><th></th></tr>
+	<?php if (!$db->num_rows($tests)) { ?>
+		<tr><td colspan="4" align="center">Вы не сдавали ни одного теста</td></tr>
+	<?php } else while ($test = $db->fetch_array($tests)) { ?>
+		<tr>
+			<td>
+				<?php echo $test['trname'] ?>
+				<?php if ($test['status'] == 3) if ($test['passed']) {?>
+					<span class="text-success"><i class="fa fa-check stt" title="Сдал"></i> </span>
+				<?php } else { ?>
+					<span class="text-danger"><i class="fa fa-times stt" title="Не сдал"></i> </span>
+				<?php } ?>
+			</td>
+			<td>
+				<?php echo $statuses[$test['status']] ?>
+			</td>
+			<td>
+				<?php echo date("H:i d.m.Y", strtotime(($test['completed_date'] != null)?$test['completed_date']:$test['recived_date'])) ?>
+			</td>
+			<td align="right">
+				<a class="stt btn btn-xs btn-info" href="/tests/<?php echo $test['trid'] ?>" <?php if ($test['status'] == 0) { ?> title="После перехода по ссылке тест немедленно начнется!"<?php } ?>>Просмотреть тест <i class="fa fa-arrow-right"></i></a>
+			</td>
+		</tr>
+	<?php } ?>
+</table>

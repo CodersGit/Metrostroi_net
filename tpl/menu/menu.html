@@ -1,8 +1,8 @@
 <ul class="nav navbar-nav navbar-right">
 	<?php echo $menu[1] ?>
-	<?php if($tox1n_lenvaya_jopa) { ?>
+	<?php if($logged_user) { ?>
 		<li><a href="/logout?redirect=<?php echo htmlspecialchars($_GET['page'])?>">Выход</a></li>
-	<?php } elseif(!$tox1n_lenvaya_jopa and $error) { ?>
+	<?php } elseif(!$logged_user and $error) { ?>
 		<li><a href="/login?login&rdrct=<?php echo htmlspecialchars($_GET['page'])?>">Вход</a></li>
 	<?php } ?>
 </ul>

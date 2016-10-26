@@ -1,18 +1,18 @@
 <div class="row">
 	<div class="col-md-4">
-		<?php if($tox1n_lenvaya_jopa) { ?>
+		<?php if($logged_user) { ?>
 			<div class="panel panel-default">
-				<div class="panel-heading"><i class="fa fa-user"></i> <a href="/profile/<?php echo $tox1n_lenvaya_jopa->steamid(); ?>" class="black_link"><?php echo $tox1n_lenvaya_jopa->take_steam_info('nickname'); ?></a> <a class="black_link" href="<?php echo $tox1n_lenvaya_jopa->take_steam_info('steam_url'); ?>" target="_blank"><i class="fa fa-steam-square"></i></a> <?php echo $tox1n_lenvaya_jopa->show_icon(); ?></div>
+				<div class="panel-heading"><i class="fa fa-user"></i> <a href="/profile/<?php echo $logged_user->steamid(); ?>" class="black_link"><?php echo $logged_user->take_steam_info('nickname'); ?></a> <a class="black_link" href="<?php echo $logged_user->take_steam_info('steam_url'); ?>" target="_blank"><i class="fa fa-steam-square"></i></a> <?php echo $logged_user->show_icon(); ?></div>
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-xs-5">
-							<img src="<?php echo $tox1n_lenvaya_jopa->take_steam_info('avatar_url'); ?>" class="img-thumbnail">
+							<img src="<?php echo $logged_user->take_steam_info('avatar_url'); ?>" class="img-thumbnail">
 						</div>
 						<div class="col-xs-7">
-							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $tox1n_lenvaya_jopa->take_group_info('name'); ?></p>
-							<p><b><i class="fa fa-ban"></i> Жалоб MAG:</b> <?php echo $tox1n_lenvaya_jopa->count_mag_reports(); ?></p>
-							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $tox1n_lenvaya_jopa->count_violations(); ?></p>
-							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $tox1n_lenvaya_jopa->count_new_tickets(); ?></p>
+							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $logged_user->take_group_info('name'); ?></p>
+							<p><b><i class="fa fa-ban"></i> Жалоб MAG:</b> <?php echo $logged_user->count_mag_reports(); ?></p>
+							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $logged_user->count_violations(); ?></p>
+							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $logged_user->count_new_tickets(); ?></p>
 						</div>
 					</div>
 				</div>
@@ -46,10 +46,10 @@
 		</div>
 	</div>
 	<div class="col-md-8">
-		<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_mag_info("mag_unban_date")) { ?>
+		<?php if ($logged_user and $logged_user->take_mag_info("mag_unban_date")) { ?>
 			<script type="text/javascript">
 				function startTimer() {
-					var deadline = '<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_unban_date") ?>';
+					var deadline = '<?php echo $logged_user->take_mag_info("mag_unban_date") ?>';
 					var t = Date.parse(deadline) - Date.parse(new Date());
 					var minutes = Math.floor( (t/1000/60) % 60 );
 					var hours = Math.floor( (t/(1000*60*60)) % 24 );
@@ -66,20 +66,20 @@
 				</div>
 				<div class="panel-body" style="vertical-align: middle">
 					<img src="/tpl/img/mag_red.png" height="40" align="left">
-					<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_reason") ?>
+					<?php echo $logged_user->take_mag_info("mag_reason") ?>
 				</div>
 			</div>
-		<?php } elseif ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_mag_info("mag_date")) { ?>
+		<?php } elseif ($logged_user and $logged_user->take_mag_info("mag_date")) { ?>
 			<div class="panel panel-warning" style="border-radius: 0">
 				<div class="panel-heading" style="border-radius: 0">
 					MAG (Анти-гриф Metrostroi)
 				</div>
 				<div class="panel-body" style="vertical-align: middle">
 					<img src="/tpl/img/mag_yellow.png" height="40" align="left">
-					<?php echo $tox1n_lenvaya_jopa->take_mag_info("mag_reason") ?>
+					<?php echo $logged_user->take_mag_info("mag_reason") ?>
 				</div>
 			</div>
-		<?php } elseif ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->count_mag_heavy_unread_reports()) { ?>
+		<?php } elseif ($logged_user and $logged_user->count_mag_heavy_unread_reports()) { ?>
 			<div class="panel panel-primary" style="border-radius: 0">
 				<div class="panel-heading" style="border-radius: 0">
 					Жалоба на игрока
@@ -98,7 +98,7 @@
 					</div>
 				</div>
 			</div>
-		<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_ban_info("reason")) { ?>
+		<?php } if ($logged_user and $logged_user->take_ban_info("reason")) { ?>
 			<div class="panel panel-success" style="border-radius: 0">
 				<div class="panel-heading" style="border-radius: 0">
 					Блокировка комментриев

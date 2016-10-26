@@ -1,10 +1,10 @@
 <?php
-if (!$tox1n_lenvaya_jopa or $tox1n_lenvaya_jopa->icon_id() < 6) {
+if (!$logged_user or $logged_user->icon_id() < 6) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
 $alert = '';
-$owner = (isset($_POST['owner']) and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) ? $_POST['owner'] : $tox1n_lenvaya_jopa->steamid();
+$owner = (isset($_POST['owner']) and $logged_user->take_group_info("admin_panel")) ? $_POST['owner'] : $logged_user->steamid();
 
 if (isset($_POST['name']) and isset($_POST['ip']) and isset($_POST['port'])) {
 	$active = (isset($_POST['active']))? 1:0;

@@ -115,18 +115,18 @@ class Mitrastroi {
 	}
 
 	public static function TakeAuth() {
-		global $tox1n_lenvaya_jopa, $db;
+		global $logged_user, $db;
 		if(!isset($_COOKIE['mitrastroi_sid'])) {
-			$tox1n_lenvaya_jopa = false;
+			$logged_user = false;
 			return;
 		}
 		$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
 		$user = new User($_COOKIE['mitrastroi_sid'], 'session_id');
 		if($user->uid() <= 0) {
-			$tox1n_lenvaya_jopa = false;
+			$logged_user = false;
 			return;
 		}
-		$tox1n_lenvaya_jopa = $user;
+		$logged_user = $user;
 		$sessionID = Mitrastroi::randString(128);
 		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
 		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');

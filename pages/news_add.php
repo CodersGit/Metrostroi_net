@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or $tox1n_lenvaya_jopa->icon_id() < 9) {
+if (!$logged_user or $logged_user->icon_id() < 9) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -23,7 +23,7 @@ $cat = (isset($_POST['cat']))? (int) $_POST['cat'] : (($add)?0:(int)$query['cat'
 if (isset($_POST['submit']) and strlen($title) and strlen($text) and strlen($title) <= 250) {
 	$update_time = (isset($_POST['renew_date']) and $_POST['renew_date'])? ', `date`=NOW()':'';
 	$db->execute(
-		($add)? "INSERT INTO `news` (`title`,`text`,`cat`,`date`,`author`) VALUES ('{$db->safe($title)}','{$db->safe($text)}','{$db->safe($cat)}',NOW(),'{$db->safe($tox1n_lenvaya_jopa->steamid())}')":
+		($add)? "INSERT INTO `news` (`title`,`text`,`cat`,`date`,`author`) VALUES ('{$db->safe($title)}','{$db->safe($text)}','{$db->safe($cat)}',NOW(),'{$db->safe($logged_user->steamid())}')":
 			"UPDATE `news` SET `title`='{$db->safe($title)}', `text`='{$db->safe($text)}', `cat`='{$db->safe($cat)}'$update_time WHERE `id`='{$db->safe($lnk[1])}'"
 	);
 	header ('Location: /news/view/' . (($add)?$db->insert_id():$lnk[1]));

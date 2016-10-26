@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("admin_panel")) {
+if (!$logged_user or !$logged_user->take_group_info("admin_panel")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }

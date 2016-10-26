@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("tickets")) {
+if (!$logged_user or !$logged_user->take_group_info("tickets")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -19,7 +19,7 @@ if (isset($lnk[1])) {
 	include Mitrastroi::PathTPL("tickets/adm_info");
 	include Mitrastroi::PathTPL("tickets/adm_ticket_add");
 	if (isset($_POST['message'])) {
-		$db->execute("INSERT INTO `tickets` (`written`,`owner`,`text`,`date`,`type`,`viewed`) VALUES ('{$tox1n_lenvaya_jopa->steamid()}','{$pl->steamid()}','{$db->safe($_POST['message'])}',NOW(),4,0)");
+		$db->execute("INSERT INTO `tickets` (`written`,`owner`,`text`,`date`,`type`,`viewed`) VALUES ('{$logged_user->steamid()}','{$pl->steamid()}','{$db->safe($_POST['message'])}',NOW(),4,0)");
 	}
 
 	if (isset($_POST['status']) and isset($_POST['id'])) {

@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa) {
+if (!$logged_user) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -11,10 +11,10 @@ include Mitrastroi::PathTPL("left_side");
 include Mitrastroi::PathTPL("tickets/ticket_add");
 
 if (isset($_POST['message'])) {
-	$db->execute("INSERT INTO `tickets` (`written`,`owner`,`text`,`date`,`type`,`viewed`) VALUES ('{$tox1n_lenvaya_jopa->steamid()}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['message'])}',NOW(),0,1)");
+	$db->execute("INSERT INTO `tickets` (`written`,`owner`,`text`,`date`,`type`,`viewed`) VALUES ('{$logged_user->steamid()}','{$logged_user->steamid()}','{$db->safe($_POST['message'])}',NOW(),0,1)");
 }
 
-$query = $db->execute("SELECT * FROM `tickets` LEFT JOIN `user_info_cache` ON `written`=`steamid` WHERE `owner`='{$tox1n_lenvaya_jopa->steamid()}' ORDER BY `date` DESC");
+$query = $db->execute("SELECT * FROM `tickets` LEFT JOIN `user_info_cache` ON `written`=`steamid` WHERE `owner`='{$logged_user->steamid()}' ORDER BY `date` DESC");
 while($ticket = $db->fetch_array($query)) {
 	switch ($ticket['type']) {
 		case 0: $status = "(Новый) "; break;
@@ -26,7 +26,7 @@ while($ticket = $db->fetch_array($query)) {
 	}
 	include Mitrastroi::PathTPL("tickets/ticket");
 }
-$db->execute("UPDATE `tickets` SET `viewed`=1 WHERE `owner`='{$tox1n_lenvaya_jopa->steamid()}'");
+$db->execute("UPDATE `tickets` SET `viewed`=1 WHERE `owner`='{$logged_user->steamid()}'");
 
 include Mitrastroi::PathTPL("right_side");
 include Mitrastroi::PathTPL("footer");

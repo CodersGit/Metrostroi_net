@@ -1,4 +1,4 @@
 <?php
-if ($tox1n_lenvaya_jopa)
-	$tox1n_lenvaya_jopa->logout();
+if ($logged_user)
+	$logged_user->logout();
 header("Location: /" . ((isset($_GET['redirect']))? $_GET['redirect']:''));
