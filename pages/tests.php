@@ -13,7 +13,7 @@ $statuses = array(
 
 if (!isset($lnk[1]) or $lnk[1]=='') {
 	$tests = $db->execute("SELECT * FROM `tests_results` WHERE `student`='{$logged_user->steamid()}'");
-	$tests = $db->execute("SELECT * FROM `tests`");
+//	$tests = $db->execute("SELECT * FROM `tests`");
 } else {
 	$test = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`reviewer`) AS `reviewer_nickname` FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' AND `trid`='{$db->safe($lnk[1])}'");
 	if (!$db->num_rows($test)) {
