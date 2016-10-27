@@ -12,8 +12,18 @@ $statuses = array(
 );
 
 if (!isset($lnk[1]) or $lnk[1]=='') {
-	$tests = $db->execute("SELECT * FROM `tests_results` WHERE `student`='{$logged_user->steamid()}'");
-//	$tests = $db->execute("SELECT * FROM `tests`");
+	if(isset($_GET['take'])) {
+		$query = $db->execute("SELECT * FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' AND (`recived_date` > NOW() - INTERVAL 1 DAY OR `status`<2)");
+		if(!$db->num_rows($query)) {
+			$test = Mitrastroi::GenerateTest($_GET['take']);
+			if ($test) {
+				$db->execute("INSERT INTO `tests_results` (`status`, `student`, `questions`, `trname`, `recived_date`) "
+					. "VALUES (0, '{$logged_user->steamid()}', '{$db->safe($test[0])}', '{$db->safe($test[1])}', NOW())") or die($db->error());
+			} else $error = 'Не получилось сгенерировать тест';
+		} else $error = 'Сегодня ты уже писал тест!';
+	}
+	$tests = $db->execute("SELECT * FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' ORDER BY `recived_date` DESC ");
+	$tests_take = $db->execute("SELECT * FROM `tests`");
 } else {
 	$test = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`reviewer`) AS `reviewer_nickname` FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' AND `trid`='{$db->safe($lnk[1])}'");
 	if (!$db->num_rows($test)) {

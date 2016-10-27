@@ -6,13 +6,18 @@
 			Назначить себе тест <span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu">
-			<li><a href="#">Тест на машиниста б/к</a></li>
-			<li><a href="#">Тест на 3 класс</a></li>
-			<li><a href="#">Тест на 2 класс</a></li>
-			<li><a href="#">Тест на 1 класс</a></li>
+			<?php if (!$db->num_rows($tests_take)) { ?>
+				<li class="disabled"><a>Тестов нет</a></li>
+			<?php } else while ($test = $db->fetch_array($tests_take)) { ?>
+				<li><a href="/tests?take=<?php echo $test['tid'] ?>"><?php echo $test['tname'] ?></a></li>
+			<?php } ?>
 		</ul>
 	</div>
 </div>
+
+<?php if (isset($error) and strlen($error)) { ?>
+	<div class="alert alert-danger"><?php echo $error ?></div>
+<?php } ?>
 
 <table class="table table-hover">
 	<tr><th>Тест</th><th>Статус</th><th>Дата</th><th></th></tr>

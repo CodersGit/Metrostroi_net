@@ -114,6 +114,33 @@ class Mitrastroi {
 		return $string;
 	}
 
+	public static function GenerateTest ($id) {
+		global $db;
+		$test = $db->execute("SELECT * FROM `tests` WHERE `tid`='{$db->safe($id)}'");
+		if ($db->num_rows($test) != 1)
+			return false;
+		$test = $db->fetch_array($test);
+		$tname = $test['tname'];
+		$test = json_decode($test['questions_cats']);
+		$mscats = $db->execute("SELECT * FROM `questions_cats`");
+		$cats = array();
+		while ($cat = $db->fetch_array($mscats))
+			array_push($cats, $cat['qcid']);
+		$result = array();
+		foreach ($test as $question) {
+			$question = $db->execute(
+				(in_array($question, $cats))?
+					"SELECT * FROM `questions` WHERE `cat`='{$db->safe($question)}' ORDER BY RAND()":
+					"SELECT * FROM `questions` WHERE `cat`='0' ORDER BY RAND()"
+			);
+			if (!$db->num_rows($question))
+				continue;
+			$question = $db->fetch_array($question);
+			array_push($result, $question['question']);
+		}
+		return array (json_encode($result), $tname);
+	}
+
 	public static function TakeAuth() {
 		global $logged_user, $db;
 		if(!isset($_COOKIE['mitrastroi_sid'])) {
