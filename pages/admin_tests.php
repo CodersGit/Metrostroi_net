@@ -7,7 +7,7 @@ if (!$logged_user) {
 if (!isset($lnk[1]) or $lnk[1]=='') {
 	$tests = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`student`) AS `student_nickname` FROM `tests_results` WHERE `status`=2");
 } else {
-	$test = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`student`) AS `student_nickname` FROM `tests_results` WHERE `trid`='{$db->safe($lnk[1])}'");
+	$test = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`reviewer`) AS `reviewer_nickname`, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`student`) AS `student_nickname` FROM `tests_results` WHERE `trid`='{$db->safe($lnk[1])}'");
 	if (!$db->num_rows($test)) {
 		include MITRASTROI_ROOT . "pages/404.php";
 		exit();

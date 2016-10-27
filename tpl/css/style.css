@@ -74,6 +74,7 @@ body > .navbar .navbar-brand:hover {
 }
 a {
 	outline: none !important;
+	text-decoration: none !important;
 }
 
 .coupon {

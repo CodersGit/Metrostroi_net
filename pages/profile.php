@@ -137,6 +137,20 @@ if (!$db->num_rows($pl_warns)) {
 	}
 }
 $pl_warns = ob_get_clean();
+$pl_tests = $db->execute("SELECT * FROM `tests_results` LEFT JOIN `user_info_cache` ON `tests_results`.`reviewer`=`user_info_cache`.`steamid` WHERE `student`='{$pl->steamid()}' AND `status`>1 ORDER BY `tests_results`.`recived_date` DESC") or die ($db->error());
+ob_start();
+$c = 1;
+if (!$db->num_rows($pl_tests)) {
+	Mitrastroi::TakeTPL("profile/no_tests");
+} else {
+	while ($pl_test = $db->fetch_array($pl_tests)) {
+		$questions = json_decode($pl_test['questions']);
+		$answers = json_decode($pl_test['answers']);
+		include Mitrastroi::PathTPL("profile/test");
+		$c++;
+	}
+}
+$pl_tests = ob_get_clean();
 
 $pl_exams = $db->execute("SELECT * FROM `groups`, `examinfo` LEFT JOIN `user_info_cache` ON `examinfo`.`examiner`=`user_info_cache`.`steamid` WHERE `examinfo`.`rank`=`groups`.`txtid` AND `SID`='{$pl->steamid()}' ORDER BY `examinfo`.`date` DESC") or die ($db->error());
 ob_start();

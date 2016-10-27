@@ -7,6 +7,18 @@
 	</p>
 </div>
 
+<?php if ($test['status'] == 3) { ?>
+	<p>
+		За этот тест выставлена оценка
+		<?php if ($test['passed']) {?>
+			<span class="text-success stt" title="Сдал">"Отлично"</span>.
+		<?php } else { ?>
+			<span class="text-danger stt" title="Не сдал">"Неудовлетворительно"</span>.
+		<?php } ?>
+		Проверил <a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo $test['reviewer_nickname'] ?></a> <?php echo date("H:i d.m.Y", strtotime($test['review_date'])) ?>
+	</p>
+<?php } ?>
+
 <?php foreach ($questions as $number => $question) { ?>
 	<p><b><?php echo $question ?></b></p>
 	<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers and isset($answers->$number))?$answers->$number:'') ?></textarea>

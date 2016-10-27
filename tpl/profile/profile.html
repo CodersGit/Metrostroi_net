@@ -249,6 +249,7 @@
 		<li role="presentation"><a href="#comments" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i><div class="tab-name-hidden"> Комментарии</div></a></li>
 		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-exclamation-circle"></i><div class="tab-name-hidden"> Нарушения</div></a></li>
 		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab"><i class="fa fa-book"></i><div class="tab-name-hidden"> Экзамены</div></a></li>
+		<li role="presentation"><a href="#tests" aria-controls="tests" role="tab" data-toggle="tab"><i class="fa fa-check-square-o"></i><div class="tab-name-hidden"> Тесты</div></a></li>
 		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab"><i class="fa fa-ticket"></i><div class="tab-name-hidden"> Талон</div></a></li>
 		<?php if ($logged_user and ($logged_user->take_group_info("tickets") or $logged_user->take_group_info("warn") or $logged_user->take_group_info("change_group") or $logged_user->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) or ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
 		<li role="presentation" class="dropdown pull-right">
@@ -375,6 +376,9 @@
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="exams">
 			<?php echo $pl_exams ?>
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="tests">
+			<?php echo $pl_tests ?>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="coupon">
 			<div class="coupon">
