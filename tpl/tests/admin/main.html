@@ -1,0 +1,26 @@
+<div class="jumbotron">
+	<h1>Непроверенные тесты</h1>
+	<p>Это - список непроверенных тестов</p>
+</div>
+
+<table class="table table-hover">
+	<tr><th>Тест</th><th>Никнейм</th><th>Дата</th><th></th></tr>
+	<?php if (!$db->num_rows($tests)) { ?>
+		<tr><td colspan="4" align="center">Непроверенных тестов нет</td></tr>
+	<?php } else while ($test = $db->fetch_array($tests)) { ?>
+		<tr>
+			<td>
+				<?php echo $test['trname'] ?>
+			</td>
+			<td>
+				<a href="/profile/<?php echo $test['student'] ?>"><?php echo $test['student_nickname'] ?></a>
+			</td>
+			<td>
+				<?php echo date("H:i d.m.Y", strtotime($test['completed_date'])) ?>
+			</td>
+			<td align="right">
+				<a class="stt btn btn-xs btn-info" href="/admin_tests/<?php echo $test['trid'] ?>" <?php if ($test['status'] == 0) { ?> title="После перехода по ссылке тест немедленно начнется!"<?php } ?>>Просмотреть тест <i class="fa fa-arrow-right"></i></a>
+			</td>
+		</tr>
+	<?php } ?>
+</table>

@@ -5,7 +5,7 @@ class Menu {
 		$this->menu = array(
 			'admin' => array(
 				'url' => '/admin_constants',
-				'title' => 'Одминка',
+				'title' => 'Одменка',
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
@@ -30,6 +30,22 @@ class Menu {
 			'admin_tickets' => array(
 				'url' => '/admin_tickets',
 				'title' => 'Тикеты',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'tickets',
+			),
+			'admin_tests' => array(
+				'url' => '/admin_tests',
+				'title' => 'Тесты',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'tickets',
+			),
+			'admin_questions' => array(
+				'url' => '/admin_questions',
+				'title' => 'Вопросы к тестам',
 				'active' => false,
 				'place' => 0,
 				'parent' => 'admin',

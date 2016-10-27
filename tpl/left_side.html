@@ -9,9 +9,9 @@
 							<img src="<?php echo $logged_user->take_steam_info('avatar_url'); ?>" class="img-thumbnail">
 						</div>
 						<div class="col-xs-7">
-							<p><b><i class="fa fa-users"></i> Группа:</b> <?php echo $logged_user->take_group_info('name'); ?></p>
 							<p><b><i class="fa fa-ban"></i> Жалоб MAG:</b> <?php echo $logged_user->count_mag_reports(); ?></p>
 							<p><b><i class="fa fa-exclamation-circle"></i> Нарушения:</b> <?php echo $logged_user->count_violations(); ?></p>
+							<p><b><i class="fa fa-check-square-o"></i> <a class="black_link" href="/tests">Мои тесты</a></b></p>
 							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $logged_user->count_new_tickets(); ?></p>
 						</div>
 					</div>
