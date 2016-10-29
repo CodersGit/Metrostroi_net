@@ -17,6 +17,11 @@ while ($group = $db->fetch_array($query)) {
 	array_push($groups, $group['txtid']);
 	$groups_options .= "\n\t\t\t<option value=\"{$group['txtid']}\">{$group['name']}</option>";
 }
+$query = $db->execute("SELECT `tid`, `tname` FROM `tests` ORDER BY `tpriority`");
+$tests_options = '';
+while ($test = $db->fetch_array($query)) {
+	$tests_options .= "\n\t\t\t<option value=\"{$test['tid']}\">{$test['tname']}</option>";
+}
 $icons_options = "\n\t\t\t<option value=\"0\"><i class=\"fa fa-ban\"></i> Нет иконки</option>";
 foreach(Mitrastroi::$ICONS as $id=>$data) {
 	$icons_options .= "\n\t\t\t<option value=\"$id\"><i class=\"fa fa-{$data['icon']}\"></i> {$data['name']}</option>";
@@ -91,6 +96,17 @@ if ($logged_user and isset($_POST['submit']) and isset($_POST['reason']) and str
 			if ($pl->take_coupon_info('nom') == 3) $db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
 				. " VALUES ('{$pl->steamid()}', " . time() . ", 'user', 'SYSTEM', '{$logged_user->take_steam_info('nickname')}({$logged_user->steamid()}) отобрал красный талон.\n УВОЛЕН!', 2, 'Сайт Метростроя')");
 			$pl = new User($pl->steamid(), 'SID');
+			break;
+		case 'test':
+			if (!($logged_user->take_group_info("up_down")))
+				break;
+			$test = Mitrastroi::GenerateTest($_POST['reason']);
+			if ($test) {
+				$db->execute("UPDATE `tests_results` SET `status`=3, `reviewer`='BOT', `passed`=0, `review_date`=NOW() WHERE `status` < 2 AND `student`='{$pl->steamid()}'") or die($db->error());
+				$db->execute("INSERT INTO `tests_results` (`status`, `student`, `questions`, `trname`, `recived_date`) "
+					. "VALUES (0, '{$pl->steamid()}', '{$db->safe($test[0])}', '{$db->safe($test[1])}', NOW())") or die($db->error());
+			}
+//			$pl = new User($pl->steamid(), 'SID');
 			break;
 		case 'up':
 			if (!($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4))

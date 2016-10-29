@@ -26,7 +26,29 @@
 		</div>
 	</div>
 </div>
-<?php } if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?>
+<?php } if ($logged_user and $logged_user->take_group_info("up_down")) { ?>
+<div class="modal fade" id="test_modal" tabindex="-1" role="dialog" aria-labelledby="up_modal_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="up_modal_label">Назначить тест</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<div class="modal-body">
+					<label class="control-label" for="test">Выберите тест:</label>
+					<select class="form-control" id="test" name="reason"><?php echo $tests_options ?></select>
+					<p>У человека сбросятся текущие недописанные тесты</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
+					<button type="submit" name="submit" value="test" class="btn btn-primary"><i class="fa fa-check"></i> Назначить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php }if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?>
 <div class="modal fade" id="up_modal" tabindex="-1" role="dialog" aria-labelledby="up_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -38,7 +60,7 @@
 				<div class="modal-body">
 					Группы, в порядке повышения:<br />
 					<i>
-						Помощник машиниста &raquo; Машинист &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса
+						Помощник машиниста &raquo; Машинист (б/к) &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса
 					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
 					<?php if($pl->take_group_info('txtid') == 'user') { ?>
@@ -70,7 +92,7 @@
 				<div class="modal-body">
 					Группы, в порядке повышения:<br />
 					<i>
-						Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист &raquo; Помощник машиниста
+						Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист (б/к) &raquo; Помощник машиниста
 					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
 				</div>
@@ -258,6 +280,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<?php if ($logged_user and $logged_user->take_group_info("warn")) { ?><li><a data-toggle="modal" data-target="#warn_modal" style="cursor: pointer;"><i class="fa fa-info-circle"></i> Добавить нарушение</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("up_down")) { ?><li><a data-toggle="modal" data-target="#test_modal" style="cursor: pointer;"><i class="fa fa-check-square-o"></i> Выдать тест</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?><li><a data-toggle="modal" data-target="#up_modal" style="cursor: pointer;"><i class="fa fa-arrow-up"></i> Повысить</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?><li><a data-toggle="modal" data-target="#down_modal" style="cursor: pointer;"><i class="fa fa-arrow-down"></i> Понизить</a></li><?php } ?>
 				<?php if ($logged_user and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#rc_modal" style="cursor: pointer;"><i class="fa fa-plus-circle"></i> Вернуть талон</a></li><?php } ?>
