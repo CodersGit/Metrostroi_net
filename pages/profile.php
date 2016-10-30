@@ -137,7 +137,7 @@ if ($logged_user and isset($_POST['submit']) and isset($_POST['reason']) and str
 		case 'report':
 			if ($logged_user->steamid() == $pl->steamid() or $logged_user->take_mag_info("mag_reason") or !isset($_POST['server']) or !strlen($_POST['server']))
 				break;
-			$db->execute("INSERT INTO `mag_reports` (`mag_rserver`,`mag_reason`,`mag_reporter`,`mag_badpl`,`mag_rdate`) VALUES ('{$db->safe($_POST['server'])}', '{$db->safe($_POST['reason'])}', '{$logged_user->steamid()}', '{$pl->steamid()}', '" . time() . "')");
+			$db->execute("INSERT INTO `mag_reports` (`mag_rserver`,`mag_reason`,`mag_reporter`,`mag_badpl`,`mag_rdate`) VALUES ('{$db->safe($_POST['server'])}', '{$db->safe($_POST['reason'])}', '{$logged_user->steamid()}', '{$pl->steamid()}', NOW())");
 //			$pl = new User($pl->steamid(), 'SID');
 			break;
 	}
