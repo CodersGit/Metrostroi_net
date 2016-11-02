@@ -19,7 +19,7 @@
 			<div class="panel-body">
 				<?php foreach ($questions as $number => $question) { ?>
 					<p><b><?php echo $question ?></b></p>
-					<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers and isset($answers->$number))?$answers->$number:'') ?></textarea>
+					<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
 				<?php }?>
 				<?php if ($logged_user->take_group_info("up_down")) { ?>
 					<a class="btn btn-default btn-xs btn-block" href="/admin_tests/<?php echo $pl_test['trid'] ?>" style="margin-top: 10px"><i class="fa fa-eye"></i> Глянуть в админке / изменть оценку</a>

@@ -21,7 +21,7 @@
 
 <?php foreach ($questions as $number => $question) { ?>
 	<p><b><?php echo $question ?></b></p>
-	<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers and isset($answers->$number))?$answers->$number:'') ?></textarea>
+	<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
 <?php }?>
 
 <?php if ($test['status'] >= 2) { ?>
