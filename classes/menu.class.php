@@ -5,11 +5,11 @@ class Menu {
 		$this->menu = array(
 			'admin' => array(
 				'url' => '/admin_constants',
-				'title' => 'Одминка',
+				'title' => 'Одменка',
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
-				'right' => 'tickets',
+				'right' => 'up_down',
 			),
 			'admin_data' => array(
 				'url' => '/admin_constants',
@@ -34,6 +34,22 @@ class Menu {
 				'place' => 0,
 				'parent' => 'admin',
 				'right' => 'tickets',
+			),
+			'admin_tests' => array(
+				'url' => '/admin_tests',
+				'title' => 'Тесты',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'up_down',
+			),
+			'admin_questions' => array(
+				'url' => '/admin_questions',
+				'title' => 'Вопросы к тестам',
+				'active' => false,
+				'place' => 0,
+				'parent' => 'admin',
+				'right' => 'edit_tests',
 			),
 			'news' => array(
 				'url'=>'/news',
@@ -146,10 +162,10 @@ class Menu {
 		if ($this->menu[$id]['parent']) $this->set_item_active($this->menu[$id]['parent']);
 	}
 	private function show_item ($id, &$item, $kid = false) {
-		global $tox1n_lenvaya_jopa;
+		global $logged_user;
 		$c = 0; $sub = '';
-		if (isset($item['right']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info($item['right']))) {
-			if (isset($item['icon']) and !($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->icon_id() >= $item['icon']))
+		if (isset($item['right']) and !($logged_user and $logged_user->take_group_info($item['right']))) {
+			if (isset($item['icon']) and !($logged_user and $logged_user->icon_id() >= $item['icon']))
 				return '';
 			elseif (!isset($item['icon']))
 				return '';
@@ -166,7 +182,7 @@ class Menu {
 		return ob_get_clean();
 	}
 	public function show($tpl, $error = false) {
-		global $tox1n_lenvaya_jopa;
+		global $logged_user;
 		$menu = array('','');
 		foreach ($this->menu as $id => $item)
 			if (!$item['parent'])

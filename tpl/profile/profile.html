@@ -5,7 +5,7 @@
 		<small><?php echo $pl->steamid() ?></small>
 	</h1>
 </div>
-<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("warn")) { ?>
+<?php if ($logged_user and $logged_user->take_group_info("warn")) { ?>
 <div class="modal fade" id="warn_modal" tabindex="-1" role="dialog" aria-labelledby="warn_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -26,7 +26,29 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?>
+<?php } if ($logged_user and $logged_user->take_group_info("up_down")) { ?>
+<div class="modal fade" id="test_modal" tabindex="-1" role="dialog" aria-labelledby="up_modal_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="up_modal_label">Назначить тест</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<div class="modal-body">
+					<label class="control-label" for="test">Выберите тест:</label>
+					<select class="form-control" id="test" name="reason"><?php echo $tests_options ?></select>
+					<p>У человека все текущие недописанные тесты получат отметку "неуд"</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
+					<button type="submit" name="submit" value="test" class="btn btn-primary"><i class="fa fa-check"></i> Назначить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<?php }if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?>
 <div class="modal fade" id="up_modal" tabindex="-1" role="dialog" aria-labelledby="up_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -38,7 +60,7 @@
 				<div class="modal-body">
 					Группы, в порядке повышения:<br />
 					<i>
-						Помощник машиниста &raquo; Машинист &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса
+						Помощник машиниста &raquo; Машинист (б/к) &raquo; Машинист 3 класса &raquo; Машинист 2 класса &raquo; Машинист 1 класса
 					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
 					<?php if($pl->take_group_info('txtid') == 'user') { ?>
@@ -58,7 +80,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?>
+<?php } if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?>
 <div class="modal fade" id="down_modal" tabindex="-1" role="dialog" aria-labelledby="down_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -70,7 +92,7 @@
 				<div class="modal-body">
 					Группы, в порядке повышения:<br />
 					<i>
-						Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист &raquo; Помощник машиниста
+						Машинист 1 класса &raquo; Машинист 2 класса &raquo; Машинист 3 класса &raquo; Машинист (б/к) &raquo; Помощник машиниста
 					</i>
 					<textarea class="form-control" name="reason" placeholder="Ну почему????"></textarea>
 				</div>
@@ -82,7 +104,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?>
+<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="tc_modal" tabindex="-1" role="dialog" aria-labelledby="tc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -103,7 +125,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?>
+<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="rc_modal" tabindex="-1" role="dialog" aria-labelledby="rc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -124,7 +146,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("change_group")) { ?>
+<?php } if ($logged_user and $logged_user->take_group_info("change_group")) { ?>
 <div class="modal fade" id="setrank_modal" tabindex="-1" role="dialog" aria-labelledby="setrank_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -154,7 +176,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?>
+<?php } if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?>
 <div class="modal fade" id="icon_modal" tabindex="-1" role="dialog" aria-labelledby="icon_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -180,7 +202,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and !$tox1n_lenvaya_jopa->take_mag_info('mag_reason')) { ?>
+<?php } if ($logged_user and !$logged_user->take_mag_info('mag_reason')) { ?>
 <div class="modal fade" id="report_modal" tabindex="-1" role="dialog" aria-labelledby="report_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -201,7 +223,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid()) or $tox1n_lenvaya_jopa->take_group_info("admin_panel"))) { ?>
+<?php } if ($logged_user and (($logged_user->steamid() == $pl->steamid()) or $logged_user->take_group_info("admin_panel"))) { ?>
 <div class="modal fade" id="profile_modal" tabindex="-1" role="dialog" aria-labelledby="profile_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -249,29 +271,31 @@
 		<li role="presentation"><a href="#comments" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-comments-o"></i><div class="tab-name-hidden"> Комментарии</div></a></li>
 		<li role="presentation"><a href="#violations" aria-controls="violations" role="tab" data-toggle="tab"><i class="fa fa-exclamation-circle"></i><div class="tab-name-hidden"> Нарушения</div></a></li>
 		<li role="presentation"><a href="#exams" aria-controls="exams" role="tab" data-toggle="tab"><i class="fa fa-book"></i><div class="tab-name-hidden"> Экзамены</div></a></li>
+		<li role="presentation"><a href="#tests" aria-controls="tests" role="tab" data-toggle="tab"><i class="fa fa-check-square-o"></i><div class="tab-name-hidden"> Тесты</div></a></li>
 		<li role="presentation"><a href="#coupon" aria-controls="coupon" role="tab" data-toggle="tab"><i class="fa fa-ticket"></i><div class="tab-name-hidden"> Талон</div></a></li>
-		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->take_group_info("tickets") or $tox1n_lenvaya_jopa->take_group_info("warn") or $tox1n_lenvaya_jopa->take_group_info("change_group") or $tox1n_lenvaya_jopa->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) or ($tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
+		<?php if ($logged_user and ($logged_user->take_group_info("tickets") or $logged_user->take_group_info("warn") or $logged_user->take_group_info("change_group") or $logged_user->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) or ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
 		<li role="presentation" class="dropdown pull-right">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-cogs"></i> <span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("warn")) { ?><li><a data-toggle="modal" data-target="#warn_modal" style="cursor: pointer;"><i class="fa fa-info-circle"></i> Добавить нарушение</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?><li><a data-toggle="modal" data-target="#up_modal" style="cursor: pointer;"><i class="fa fa-arrow-up"></i> Повысить</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?><li><a data-toggle="modal" data-target="#down_modal" style="cursor: pointer;"><i class="fa fa-arrow-down"></i> Понизить</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#rc_modal" style="cursor: pointer;"><i class="fa fa-plus-circle"></i> Вернуть талон</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $tox1n_lenvaya_jopa->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#tc_modal" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Забрать талон</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("change_group")) { ?><li><a data-toggle="modal" data-target="#setrank_modal" style="cursor: pointer;"><i class="fa fa-bolt"></i> Установить ранг</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?><li><a data-toggle="modal" data-target="#icon_modal" style="cursor: pointer;"><i class="fa fa-picture-o"></i> Выдать иконку</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) { ?><li><a href="/profile/<?php echo $pl->steamid() ?>/renew" style="cursor: pointer;"><i class="fa fa-refresh"></i> Обновить данные</a></li><?php } ?>
-				<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info("tickets")) { ?><li><a href="/admin_tickets/<?php echo $pl->steamid() ?>/" style="cursor: pointer;"><i class="fa fa-ticket"></i> Тикеты</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("warn")) { ?><li><a data-toggle="modal" data-target="#warn_modal" style="cursor: pointer;"><i class="fa fa-info-circle"></i> Добавить нарушение</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("up_down")) { ?><li><a data-toggle="modal" data-target="#test_modal" style="cursor: pointer;"><i class="fa fa-check-square-o"></i> Выдать тест</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?><li><a data-toggle="modal" data-target="#up_modal" style="cursor: pointer;"><i class="fa fa-arrow-up"></i> Повысить</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?><li><a data-toggle="modal" data-target="#down_modal" style="cursor: pointer;"><i class="fa fa-arrow-down"></i> Понизить</a></li><?php } ?>
+				<?php if ($logged_user and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#rc_modal" style="cursor: pointer;"><i class="fa fa-plus-circle"></i> Вернуть талон</a></li><?php } ?>
+				<?php if ($logged_user and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#tc_modal" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Забрать талон</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("change_group")) { ?><li><a data-toggle="modal" data-target="#setrank_modal" style="cursor: pointer;"><i class="fa fa-bolt"></i> Установить ранг</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?><li><a data-toggle="modal" data-target="#icon_modal" style="cursor: pointer;"><i class="fa fa-picture-o"></i> Выдать иконку</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?><li><a href="/profile/<?php echo $pl->steamid() ?>/renew" style="cursor: pointer;"><i class="fa fa-refresh"></i> Обновить данные</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("tickets")) { ?><li><a href="/admin_tickets/<?php echo $pl->steamid() ?>/" style="cursor: pointer;"><i class="fa fa-ticket"></i> Тикеты</a></li><?php } ?>
 			</ul>
 		</li>
 		<?php } ?>
-		<?php if ($tox1n_lenvaya_jopa and (($tox1n_lenvaya_jopa->steamid() == $pl->steamid()) or $tox1n_lenvaya_jopa->take_group_info("admin_panel"))) { ?>
+		<?php if ($logged_user and (($logged_user->steamid() == $pl->steamid()) or $logged_user->take_group_info("admin_panel"))) { ?>
 			<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#profile_modal" style="cursor: pointer;"><i class="fa fa-edit"></i></a></li>
 		<?php } ?>
-		<?php if ($tox1n_lenvaya_jopa and ($tox1n_lenvaya_jopa->steamid() != $pl->steamid()) and !$tox1n_lenvaya_jopa->take_mag_info("mag_reason")) { ?>
+		<?php if ($logged_user and ($logged_user->steamid() != $pl->steamid()) and !$logged_user->take_mag_info("mag_reason")) { ?>
 		<li role="presentation" class="pull-right"><a data-toggle="modal" data-target="#report_modal" style="cursor: pointer;"><i class="fa fa-warning"></i><div class="tab-name-hidden"> Жалоба</div></a></li>
 		<?php } ?>
 	</ul>
@@ -352,7 +376,7 @@
 				</div>
 			</div>
 			<?php } ?>
-			<?php if ($tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->take_group_info('blacklist_edit')) { ?>
+			<?php if ($logged_user and $logged_user->take_group_info('blacklist_edit')) { ?>
 			<div class="row">
 				<div class="col-xs-3" align="right">
 					Коммент бан:
@@ -375,6 +399,9 @@
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="exams">
 			<?php echo $pl_exams ?>
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="tests">
+			<?php echo $pl_tests ?>
 		</div>
 		<div role="tabpanel" class="tab-pane fade" id="coupon">
 			<div class="coupon">

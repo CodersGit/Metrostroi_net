@@ -74,6 +74,7 @@ body > .navbar .navbar-brand:hover {
 }
 a {
 	outline: none !important;
+	text-decoration: none !important;
 }
 
 .coupon {
@@ -221,4 +222,8 @@ li:hover > a > .tab-name-hidden {
 
 li.active > a > .tab-name-hidden {
 	display: inline;
+}
+
+.stt {
+	cursor: default;
 }

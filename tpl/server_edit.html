@@ -5,7 +5,7 @@
 		<input type="text" class="form-control" id="name" name="name" aria-describedby="name_h" placeholder="МегаСервер228" value="<?php echo $name ?>">
 		<span id="name_h" class="help-block">Отображается в списке серверов.</span>
 	</div>
-	<?php if ($tox1n_lenvaya_jopa->take_group_info("admin_panel")) {?>
+	<?php if ($logged_user->take_group_info("admin_panel")) {?>
 	<div class="form-group">
 		<label class="control-label" for="owner">SteamID владельца:</label>
 		<input type="text" class="form-control" id="owner" name="owner" aria-describedby="owner_h" placeholder="STEAM_X:X:XXXXXXXXXX" value="<?php echo $owner ?>">

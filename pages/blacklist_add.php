@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("change_group")) {
+if (!$logged_user or !$logged_user->take_group_info("change_group")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -23,7 +23,7 @@ if (isset($_POST['reason']) and isset($_POST['steamid'])) {
 			$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
 				. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
 			$db->execute("INSERT INTO `blacklist` (`steam_id`, `reason`, `admin`)"
-				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['reason'])}','{$tox1n_lenvaya_jopa->steamid()}')");
+				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['reason'])}','{$logged_user->steamid()}')");
 		}
 		$alert = ($is)? '<div class="alert alert-success">Готово ;)</div>': '<div class="alert alert-danger">Ниа, такого стим айди нет :(</div>';
 	}

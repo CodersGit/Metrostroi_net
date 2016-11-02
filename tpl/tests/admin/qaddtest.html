@@ -1,0 +1,20 @@
+<div class="jumbotron">
+	<h1>Добавить тест</h1>
+</div>
+
+<form class="form-horizontal" method="post">
+	<p><b>Название теста</b></p>
+	<input type="text" class="form-control" name="name">
+	<p><b>Приоритет (чем больше, тем выше в списках)</b></p>
+	<input type="text" class="form-control" name="priority">
+	<p><b>Категории вопросов</b></p>
+	<input type="text" class="form-control" name="qcats">
+	<span class="help-block">
+		Для того, чтобы все работало перечислите ID категорий через точку с запятой БЕЗ пробелов, в конце точку с запятой
+		НЕ СТАВИТЬ! Ниже перечислены все категории вопросов и их ID:<br />
+		<?php while ($cat = $db->fetch_array($cats)) { ?>
+			<?php echo $cat ['qcid'] ?>: <?php echo $cat ['qcname'] ?><br />
+		<?php } ?>
+	</span>
+	<button type="submit" class="btn btn-primary">Добавить</button>
+</form>

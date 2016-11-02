@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("mag_reports")) {
+if (!$logged_user or !$logged_user->take_group_info("mag_reports")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -8,7 +8,7 @@ if(!isset($lnk[1])) $lnk[1] = '';
 
 switch ($lnk[1]) {
 	case '':
-		if (!$tox1n_lenvaya_jopa->take_group_info("mag_reports")) {
+		if (!$logged_user->take_group_info("mag_reports")) {
 			include MITRASTROI_ROOT . "pages/403.php";
 			exit();
 		}
@@ -24,7 +24,7 @@ switch ($lnk[1]) {
 		include Mitrastroi::PathTPL("footer");
 		break;
 	default:
-		if (!$tox1n_lenvaya_jopa->take_group_info("mag_reports")) {
+		if (!$logged_user->take_group_info("mag_reports")) {
 			include MITRASTROI_ROOT . "pages/403.php";
 			exit();
 		}

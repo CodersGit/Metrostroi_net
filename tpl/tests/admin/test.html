@@ -1,0 +1,32 @@
+<div class="jumbotron">
+	<h1><?php echo $test['trname'] ?></h1>
+	<p>
+		Ответы на тест получены <?php echo date("H:i d.m.Y", strtotime($test['completed_date'])) ?>,
+		тест решен за <?php echo ((int)((strtotime($test['completed_date']) - strtotime($test['recived_date']))/60)) . ":" . str_pad((strtotime($test['completed_date']) - strtotime($test['recived_date']))%60, 2, 0, STR_PAD_LEFT) ?>,
+		тест решал <a href="/profile/<?php echo $test['student'] ?>"><?php echo $test['student_nickname'] ?></a>
+	</p>
+</div>
+
+<?php if ($test['status'] == 3) { ?>
+	<p>
+		За этот тест выставлена оценка
+		<?php if ($test['passed']) {?>
+			<span class="text-success stt" title="Сдал">"Отлично"</span>.
+		<?php } else { ?>
+			<span class="text-danger stt" title="Не сдал">"Неудовлетворительно"</span>.
+		<?php } ?>
+		Проверил <a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo $test['reviewer_nickname'] ?></a> <?php echo date("H:i d.m.Y", strtotime($test['review_date'])) ?>
+	</p>
+<?php } ?>
+
+<?php foreach ($questions as $number => $question) { ?>
+	<p><b><?php echo $question ?></b></p>
+	<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers and isset($answers->$number))?$answers->$number:'') ?></textarea>
+<?php }?>
+
+<?php if ($test['status'] >= 2) { ?>
+	<form method="post" class="btn-group btn-group-lg" style="margin-top: 5px;">
+		<button type="submit" name="submit" value="1" class="btn btn-success"><i class="fa fa-check"></i> Сдал</button>
+		<button type="submit" name="submit" value="0" class="btn btn-danger"><i class="fa fa-times"></i> Не сдал</button>
+	</form>
+<?php } ?>

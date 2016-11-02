@@ -1,5 +1,5 @@
 <?php
-if (!$tox1n_lenvaya_jopa or !$tox1n_lenvaya_jopa->take_group_info("change_group")) {
+if (!$logged_user or !$logged_user->take_group_info("change_group")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
@@ -42,7 +42,7 @@ if (isset($_POST['reason']) and isset($_POST['steamid']) and isset($_POST['group
 			$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}','{$db->safe($_POST['group'])}','{$db->safe($status)}')"
 				. " ON DUPLICATE KEY UPDATE `group`='{$db->safe($_POST['group'])}'") or die ($db->error());
 			if ($_POST['group'] != 'user') $db->execute("INSERT INTO `examinfo` (`SID`, `date`, `rank`, `examiner`, `note`, `type`, `server`)"
-				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}'," . time() . ",'{$db->safe($_POST['group'])}','{$tox1n_lenvaya_jopa->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
+				. "VALUES ('{$db->safe(Mitrastroi::ToSteamID($player->steamid))}'," . time() . ",'{$db->safe($_POST['group'])}','{$logged_user->steamid()}','{$db->safe($_POST['reason'])}',4,'Сайт Метростроя')");
 		}
 		$alert = ($is)? '<div class="alert alert-success">Готово ;)</div>': '<div class="alert alert-danger">Ниа, такого стим айди нет :(</div>';
 	}

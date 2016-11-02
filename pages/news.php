@@ -1,6 +1,6 @@
 <?php
 $menu->set_item_active('news');
-$admin_mode = $tox1n_lenvaya_jopa and $tox1n_lenvaya_jopa->icon_id() >= 9;
+$admin_mode = $logged_user and $logged_user->icon_id() >= 9;
 if (!isset($lnk[1])) $lnk[1] = 1;
 switch ($lnk[1]) {
 	case 'view':

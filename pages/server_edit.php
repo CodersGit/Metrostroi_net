@@ -13,12 +13,12 @@ if (!$db->num_rows($query)) {
 
 $query = $db->fetch_array($query);
 
-if (!$tox1n_lenvaya_jopa or $tox1n_lenvaya_jopa->icon_id() < 6 or ($tox1n_lenvaya_jopa->steamid() != $query['owner'] and !$tox1n_lenvaya_jopa->take_group_info("admin_panel"))) {
+if (!$logged_user or $logged_user->icon_id() < 6 or ($logged_user->steamid() != $query['owner'] and !$logged_user->take_group_info("admin_panel"))) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
 $alert = '';
-$owner = (isset($_POST['owner']) and $tox1n_lenvaya_jopa->take_group_info("admin_panel")) ? $_POST['owner'] : $query['owner'];
+$owner = (isset($_POST['owner']) and $logged_user->take_group_info("admin_panel")) ? $_POST['owner'] : $query['owner'];
 $name = $query['servername'];
 $ip = $query['ip'];
 $port = $query['port'];

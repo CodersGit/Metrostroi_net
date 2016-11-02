@@ -1,7 +1,7 @@
 <?php
 class Mitrastroi {
 	public static $RIGHTS = array(
-		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets', 'mag_bans', 'mag_reports'
+		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets', 'mag_bans', 'edit_tests', 'mag_reports'
 	);
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'
@@ -114,19 +114,46 @@ class Mitrastroi {
 		return $string;
 	}
 
+	public static function GenerateTest ($id) {
+		global $db;
+		$test = $db->execute("SELECT * FROM `tests` WHERE `tid`='{$db->safe($id)}'");
+		if ($db->num_rows($test) != 1)
+			return false;
+		$test = $db->fetch_array($test);
+		$tname = $test['tname'];
+		$test = json_decode($test['questions_cats']);
+		$mscats = $db->execute("SELECT * FROM `questions_cats`");
+		$cats = array();
+		while ($cat = $db->fetch_array($mscats))
+			array_push($cats, $cat['qcid']);
+		$result = array();
+		foreach ($test as $question) {
+			$question = $db->execute(
+				(in_array($question, $cats))?
+					"SELECT * FROM `questions` WHERE `cat`='{$db->safe($question)}' ORDER BY RAND()":
+					"SELECT * FROM `questions` WHERE `cat`='0' ORDER BY RAND()"
+			);
+			if (!$db->num_rows($question))
+				continue;
+			$question = $db->fetch_array($question);
+			array_push($result, $question['question']);
+		}
+		return array (json_encode($result), $tname);
+	}
+
 	public static function TakeAuth() {
-		global $tox1n_lenvaya_jopa, $db;
+		global $logged_user, $db;
 		if(!isset($_COOKIE['mitrastroi_sid'])) {
-			$tox1n_lenvaya_jopa = false;
+			$logged_user = false;
 			return;
 		}
 		$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
 		$user = new User($_COOKIE['mitrastroi_sid'], 'session_id');
 		if($user->uid() <= 0) {
-			$tox1n_lenvaya_jopa = false;
+			$logged_user = false;
 			return;
 		}
-		$tox1n_lenvaya_jopa = $user;
+		$logged_user = $user;
 		$sessionID = Mitrastroi::randString(128);
 		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
 		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');

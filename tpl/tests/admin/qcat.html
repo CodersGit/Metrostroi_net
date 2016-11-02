@@ -1,0 +1,44 @@
+<form class="form-horizontal" method="post">
+	<div class="input-group input-group-lg">
+		<div class="input-group-addon">Название:</div>
+		<input class="form-control" type="text" name="qcname" value="<?php echo $cat['qcname'] ?>">
+		<span class="input-group-btn">
+			<button type="submit" class="btn btn-primary">Переименовать</button>
+		</span>
+	</div>
+</form>
+<table class="table table-hover" style="margin-top: 10px">
+	<tr><th width="20"></th><th>Текст вопроса</th></tr>
+	<tr>
+		<td style="vertical-align: middle !important;"><i class="fa fa-plus"></i></td>
+		<td>
+			<form class="form-horizontal" method="post">
+				<div class="input-group input-group-sm">
+					<input class="form-control" type="text" name="question">
+					<span class="input-group-btn">
+						<button type="submit" name="add" value="1" class="btn btn-success">Добавить</button>
+					</span>
+				</div>
+			</form>
+		</td>
+	</tr>
+	<?php if ($db->num_rows($questions)) while ($question = $db->fetch_array($questions)) { ?>
+		<tr>
+			<td style="vertical-align: middle !important;"><b>#<?php echo $c++ ?></b></td>
+			<td>
+				<form class="form-horizontal" method="post">
+					<div class="input-group input-group-sm">
+						<input class="form-control" type="text" name="question" value="<?php echo htmlspecialchars($question['question']) ?>">
+						<input type="hidden" name="qid" value="<?php echo $question['qid'] ?>">
+						<span class="input-group-btn">
+							<button type="submit" name="edit" value="1" class="btn btn-primary">Изменить</button>
+							<button type="submit" name="delete" value="1" class="btn btn-danger"><i class="fa fa-times"></i></button>
+						</span>
+					</div>
+				</form>
+			</td>
+		</tr>
+	<?php } else {?>
+		<tr><td align="center" colspan="2">Эта категория пуста</td></tr>
+	<?php } ?>
+</table>
