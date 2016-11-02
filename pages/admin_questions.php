@@ -4,6 +4,7 @@ if (!$logged_user or !$logged_user->take_group_info("edit_tests")) {
 	exit();
 }
 
+$menu->set_item_active('admin_questions');
 $page_fucking_title = "Управление тестами";
 include Mitrastroi::PathTPL("header");
 include Mitrastroi::PathTPL("left_side");
