@@ -23,7 +23,7 @@ if (!isset($lnk[1]) or $lnk[1]=='') {
 		} else $error = 'Сегодня ты уже писал тест!';
 	}
 	$tests = $db->execute("SELECT * FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' ORDER BY `recived_date` DESC ");
-	$tests_take = $db->execute("SELECT * FROM `tests`");
+	$tests_take = $db->execute("SELECT * FROM `tests` ORDER BY `tpriority` DESC ");
 } else {
 	$test = $db->execute("SELECT *, (SELECT `nickname` FROM `user_info_cache` WHERE `steamid`=`reviewer`) AS `reviewer_nickname` FROM `tests_results` WHERE `student`='{$logged_user->steamid()}' AND `trid`='{$db->safe($lnk[1])}'");
 	if (!$db->num_rows($test)) {

@@ -9,7 +9,7 @@ class Menu {
 				'active' => false,
 				'place' => 0,
 				'parent' => false,
-				'right' => 'tickets',
+				'right' => 'up_down',
 			),
 			'admin_data' => array(
 				'url' => '/admin_constants',
@@ -41,7 +41,7 @@ class Menu {
 				'active' => false,
 				'place' => 0,
 				'parent' => 'admin',
-				'right' => 'tickets',
+				'right' => 'up_down',
 			),
 			'admin_questions' => array(
 				'url' => '/admin_questions',
@@ -49,7 +49,7 @@ class Menu {
 				'active' => false,
 				'place' => 0,
 				'parent' => 'admin',
-				'right' => 'tickets',
+				'right' => 'edit_tests',
 			),
 			'news' => array(
 				'url'=>'/news',

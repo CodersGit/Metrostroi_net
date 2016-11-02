@@ -1,4 +1,5 @@
 <?php
+ob_clean();
 header("HTTP/1.0 403 Forbidden");
 $show_login = true;
 $page_fucking_title = "Доступ запрещен";

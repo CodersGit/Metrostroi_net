@@ -1,0 +1,40 @@
+<div class="panel panel-danger">
+	<div class="panel-heading"><span style="color: #fad216"><i class="fa fa-warning"></i></span> ВНИМАНИЕ!</div>
+	<div class="panel-body">
+		Осознайте, что тесты генерируются рандомно из набора категорий. Т.Е. в каждой категории вопросы должны быть
+		одного уровня сложности и взаимозаменяемы. Также если вы добавите две одинаковых категории в тест, то
+		могут нарандомиться два одинаковых вопроса. При составлении тестов внимательно читайте инструкции и подсказки.
+		Старайтесь в одну категорию придумывать как можно больше вопросов, чтобы вероятность попадения в тест одинаковых
+		вопросов два раза подряд.<br />
+		Вопросы формулируйте четко и без двусмысленности. Если не уверены в своей формулировке вопроса - посоветуйтесь с
+		другими инструкторами.
+	</div>
+</div>
+
+<div class="page-header"><h3>Тесты <a href="/admin_questions/add_test"><i class="fa fa-plus"></i></a></h3></div>
+<table class="table table-hover">
+	<tr><th>Название</th><th>Приоритет</th><th></th></tr>
+	<?php if ($db->num_rows($tests)) while ($test = $db->fetch_array($tests)) { ?>
+		<tr>
+			<td><?php echo $test['tname'] ?></td>
+			<td><?php echo $test['tpriority'] ?></td>
+			<td align="right">
+				<div class="btn-group btn-group-xs">
+					<a href="/admin_questions/test/<?php echo $test['tid'] ?>" class="btn btn-primary">Изменить</a>
+					<a href="/admin_questions/?deltest=<?php echo $test['tid'] ?>" class="btn btn-danger"><i class="fa fa-times"></i></a>
+				</div>
+			</td>
+		</tr>
+	<?php } else { ?>
+		<tr><td colspan="3" align="center">Тестов нет</td></tr>
+	<?php } ?>
+</table>
+<div class="page-header"><h3>Категории вопросов <a href="/admin_questions/add_cat"><i class="fa fa-plus"></i></a></h3></div>
+<table class="table table-hover">
+	<tr><th>Название</th></tr>
+	<?php while ($cat = $db->fetch_array($cats)) { ?>
+		<tr>
+			<td><a href="/admin_questions/<?php echo $cat['qcid'] ?>"><?php echo $cat['qcname'] ?></a></td>
+		</tr>
+	<?php } ?>
+</table>

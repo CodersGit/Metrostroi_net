@@ -1,5 +1,5 @@
 <?php
-if (!$logged_user) {
+if (!$logged_user or !$logged_user->take_group_info("up_down")) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
