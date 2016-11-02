@@ -28,8 +28,8 @@ switch ($lnk[1]) {
 		if (isset($_POST['name']) and isset($_POST['priority']) and isset($_POST['qcats'])) {
 			$qcats = json_encode(explode(';',$_POST['qcats']));
 			$db->execute("UPDATE `tests` SET `tname`='{$db->safe($_POST['name'])}', "
-										  . "`priority`='{$db->safe($_POST['priority'])}', "
-										  . "`questions_cats`='{$db->safe($qcats)}' WHERE `tid`='{$db->safe($lnk[2])}'");
+										  . "`tpriority`='{$db->safe($_POST['priority'])}', "
+										  . "`questions_cats`='{$db->safe($qcats)}' WHERE `tid`='{$db->safe($lnk[2])}'") or die($db->error());
 		}
 		$test = $db->execute("SELECT * FROM `tests` WHERE `tid`='{$db->safe($lnk[2])}'");
 		$cats = $db->execute("SELECT * FROM `questions_cats`");
