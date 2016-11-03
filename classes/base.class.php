@@ -127,16 +127,20 @@ class Mitrastroi {
 		while ($cat = $db->fetch_array($mscats))
 			array_push($cats, $cat['qcid']);
 		$result = array();
+		$where = array();
+		foreach ($test as $question)
+			$where[$question] = '';
 		foreach ($test as $question) {
-			$question = $db->execute(
+			$tmpquestion = $db->execute(
 				(in_array($question, $cats))?
-					"SELECT * FROM `questions` WHERE `cat`='{$db->safe($question)}' ORDER BY RAND()":
-					"SELECT * FROM `questions` WHERE `cat`='0' ORDER BY RAND()"
+					"SELECT * FROM `questions` WHERE `cat`='{$db->safe($question)}'{$where[$question]} ORDER BY RAND()":
+					"SELECT * FROM `questions` WHERE `cat`='0'{$where[$question]} ORDER BY RAND()"
 			);
-			if (!$db->num_rows($question))
+			if (!$db->num_rows($tmpquestion))
 				continue;
-			$question = $db->fetch_array($question);
-			array_push($result, $question['question']);
+			$tmpquestion = $db->fetch_array($tmpquestion);
+			$where[$question] .= " AND NOT (`qid`='{$tmpquestion['qid']}')";
+			array_push($result, $tmpquestion['question']);
 		}
 		return array (json_encode($result), $tname);
 	}
