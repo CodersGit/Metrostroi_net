@@ -5,7 +5,7 @@
 		</div>
 		<div class="col-xs-9">
 			<div class="pull-right"><b>Сервер:</b> <?php echo $report['mag_rserver']?> &laquo; <b>#</b><?php echo $report['mag_rid']?></div>
-			<b><a href="/profile/<?php echo $report['mag_badpl']?>" class="black_link"><?php echo $report['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($report['mag_rdate'])) ?>
+			<b><a href="/profile/<?php echo $report['mag_reporter']?>" class="black_link"><?php echo $report['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($report['mag_rdate'])) ?>
 			<hr style="margin: 5px" />
 			<?php echo nl2br(htmlspecialchars($report['mag_reason']))?>
 			<hr style="margin: 10px 5px -5px;" />
