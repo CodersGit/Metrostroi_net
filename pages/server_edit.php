@@ -13,7 +13,7 @@ if (!$db->num_rows($query)) {
 
 $query = $db->fetch_array($query);
 
-if (!$logged_user or $logged_user->icon_id() < 6 or ($logged_user->steamid() != $query['owner'] and !$logged_user->take_group_info("admin_panel"))) {
+if (!$logged_user or ($logged_user->steamid() != $query['owner'] and !$logged_user->take_group_info("admin_panel"))) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }
