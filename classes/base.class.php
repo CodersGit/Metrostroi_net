@@ -114,6 +114,18 @@ class Mitrastroi {
 		return $string;
 	}
 
+	public static function DetectTimeZone() {
+		$ip = $_SERVER['REMOTE_ADDR']; // means we got user's IP address
+		$json = file_get_contents( 'http://ip-api.com/json/' . $ip); // this one service we gonna use to obtain timezone by IP
+// maybe it's good to add some checks (if/else you've got an answer and if json could be decoded, etc.)
+		$ipData = json_decode( $json, true);
+		if (isset($ipData['timezone']) and $ipData['timezone']) {
+			date_default_timezone_set($ipData['timezone']);
+		} else {
+			date_default_timezone_set('Europe/Moscow');
+		}
+	}
+
 	public static function GenerateTest ($id) {
 		global $db;
 		$test = $db->execute("SELECT * FROM `tests` WHERE `tid`='{$db->safe($id)}'");

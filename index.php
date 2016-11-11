@@ -1,9 +1,9 @@
 <?php
 define('MITRASTROI_ROOT', dirname(__FILE__).'/');
 require ("config.php");
-date_default_timezone_set('Europe/Moscow');
 $_STEAMAPI = $config['steam_api_key'];
 require ("classes/base.class.php");
+Mitrastroi::DetectTimeZone();
 Mitrastroi::TakeClass('db');
 Mitrastroi::TakeClass('user');
 Mitrastroi::TakeClass('menu');
