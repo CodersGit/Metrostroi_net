@@ -50,7 +50,7 @@ switch ($lnk[1]) {
 		$nbp = 25;
 		$page = (isset($lnk[2]) and $lnk[2] > 0)? (int) $lnk[2]: 1;
 		$start = $nbp * ($page - 1);
-		$query = $db->execute("SELECT *, (SELECT COUNT(*) FROM `mag_reports` WHERE `mag_reports`.`mag_badpl`=`user_info_cache`.`steamid`) as `warn_num` FROM `user_info_cache` WHERE (SELECT COUNT(*) FROM `mag_reports` WHERE `mag_reports`.`mag_badpl`=`user_info_cache`.`steamid`) > 0 ORDER BY `warn_num` DESC") or die($db->error());
+		$query = $db->execute("SELECT *, (SELECT COUNT(*) FROM `mag_reports` WHERE `mag_reports`.`mag_badpl`=`user_info_cache`.`steamid` AND `mag_heavy`=1) as `warn_num` FROM `user_info_cache` WHERE (SELECT COUNT(*) FROM `mag_reports` WHERE `mag_reports`.`mag_badpl`=`user_info_cache`.`steamid` AND `mag_heavy`=1) > 0 ORDER BY `warn_num` DESC") or die($db->error());
 //		$menu->set_item_active('MAG');
 		$page_fucking_title = "MAG-топ - Страница " . $page;
 		include Mitrastroi::PathTPL("header");

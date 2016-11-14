@@ -163,7 +163,7 @@ class Mitrastroi {
 			$logged_user = false;
 			return;
 		}
-		$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
+//		$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
 		$user = new User($_COOKIE['mitrastroi_sid'], 'session_id');
 		if($user->uid() <= 0) {
 			$logged_user = false;
@@ -171,9 +171,10 @@ class Mitrastroi {
 		}
 		$logged_user = $user;
 		$sessionID = Mitrastroi::randString(128);
-		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
-		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
-		$_COOKIE['mitrastroi_sid'] = $sessionID;
+		$db->execute("UPDATE `sessions` SET `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
+//		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
+//		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
+//		$_COOKIE['mitrastroi_sid'] = $sessionID;
 	}
 
 	public static function SetData($key, $value) {
