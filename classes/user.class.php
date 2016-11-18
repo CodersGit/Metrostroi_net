@@ -158,7 +158,7 @@ class User {
 	}
 
 	/**
-	 * Returns number of heavy MAG reports
+	 * Returns how many tickets are unread
 	 * @return string
 	 */
 	public function count_new_tickets() {
@@ -167,7 +167,20 @@ class User {
 		$query = $db->execute("SELECT COUNT(*) FROM `tickets` WHERE `owner`='{$this->SID}' and `viewed`=0");
 		$query = $db->fetch_array($query);
 		$this->new_tickets = $query[0];
-		return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1)? " новый": " новых"));
+		return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1 and $this->new_tickets != 11)? " новый": " новых"));
+	}
+
+	/**
+	 * Returns how many tickets are unread
+	 * @return string
+	 */
+	public function count_new_tickets_full() {
+		global $db;
+		if (isset($this->new_tickets)) return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1)? " новый тикет": " новых тикетов"));
+		$query = $db->execute("SELECT COUNT(*) FROM `tickets` WHERE `owner`='{$this->SID}' and `viewed`=0");
+		$query = $db->fetch_array($query);
+		$this->new_tickets = $query[0];
+		return ($this->new_tickets == 0)? "": ($this->new_tickets . (($this->new_tickets % 10 == 1 and $this->new_tickets != 11)? " новый тикет": " новых тикетов"));
 	}
 
 	/**

@@ -46,4 +46,5 @@
 				</div><!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
+		<?php if ($logged_user and strlen($logged_user->count_new_tickets())) include Mitrastroi::PathTPL('tickets/tickets_unread_modal') ?>
 		<div class="container" style="margin-top: 65px;">
