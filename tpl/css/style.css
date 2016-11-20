@@ -15,6 +15,22 @@ body{
 	margin: 0 0 100px;
 }
 
+@media (min-width: 530px) {
+	.mag-ban-sign {
+		display: block;
+		position: absolute;
+		right: 20px;
+		margin-top: 10px;
+		z-index: 100
+	}
+}
+@media (max-width: 888px) {
+	body{
+		padding: 0;
+		position: static;
+		margin: 0 0 170px;
+	}
+}
 footer {
 	overflow: hidden;
 	position:absolute;
@@ -226,4 +242,62 @@ li.active > a > .tab-name-hidden {
 
 .stt {
 	cursor: default;
+}
+.btn-inverse {
+	color: #ffffff;
+	background-color: #222222;
+	border-color: #080808;
+}
+.btn-inverse:focus,
+.btn-inverse.focus {
+	color: #ffffff;
+	background-color: #222222;
+	border-color: #080808;
+}
+.btn-inverse:hover {
+	color: #ffffff;
+	background-color: #282828;
+	border-color: #080808;
+}
+.btn-inverse:active,
+.btn-inverse.active,
+.open > .dropdown-toggle.btn-success {
+	color: #ffffff;
+	background-color: #121212;
+	border-color: #080808;
+}
+.btn-inverse:active:hover,
+.btn-inverse.active:hover,
+.open > .dropdown-toggle.btn-inverse:hover,
+.btn-inverse:active:focus,
+.btn-inverse.active:focus,
+.open > .dropdown-toggle.btn-inverse:focus,
+.btn-inverse:active.focus,
+.btn-inverse.active.focus,
+.open > .dropdown-toggle.btn-inverse.focus {
+	color: #ffffff;
+	background-color: #080808;
+	border-color: #080808;
+}
+
+.btn-inverse:active,
+.btn-inverse.active,
+.open > .dropdown-toggle.btn-success {
+	background-image: none;
+}
+.btn-inverse.disabled:hover,
+.btn-inverse[disabled]:hover,
+fieldset[disabled] .btn-inverse:hover,
+.btn-inverse.disabled:focus,
+.btn-inverse[disabled]:focus,
+fieldset[disabled] .btn-inverse:focus,
+.btn-inverse.disabled.focus,
+.btn-inverse[disabled].focus,
+fieldset[disabled] .btn-inverse.focus {
+	background-color: #282828;
+	border-color: #080808;
+}
+.btn-inverse .badge {
+	color: #383838;
+	background-color: #ffffff;
 }

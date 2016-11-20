@@ -1,3 +1,6 @@
+<ul class="nav navbar-nav navbar-left">
+	<?php echo $menu[0] ?>
+</ul>
 <ul class="nav navbar-nav navbar-right">
 	<?php echo $menu[1] ?>
 	<?php if($logged_user) { ?>
@@ -7,11 +10,10 @@
 	<?php } ?>
 </ul>
 <form class="navbar-form navbar-right" role="search" onsubmit="Search(); return false;">
-	<div class="form-group">
+	<div class="form-group input-group">
 		<input type="search" id="search" class="form-control" placeholder="Найти пользователя">
+		<span class="input-group-btn">
+			<button type="submit" class="btn btn-inverse" onclick="Search(); return false;"><i class="fa fa-search"></i></button>
+		</span>
 	</div>
-	<button type="submit" class="btn btn-default" onclick="Search(); return false;">Искать</button>
 </form>
-<ul class="nav navbar-nav navbar-right">
-	<?php echo $menu[0] ?>
-</ul>

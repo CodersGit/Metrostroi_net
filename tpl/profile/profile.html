@@ -304,7 +304,7 @@
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane fade active in" id="info">
 			<?php if ($pl->take_mag_info("mag_reason") or $pl->count_mag_reports()) { ?>
-				<div class="text-danger" style="display: block; position: absolute; right: 20px; margin-top: 10px; z-index: 100">
+				<div class="text-danger mag-ban-sign">
 					<?php if ($pl->count_mag_reports()) echo "Жалоб MAG: " . $pl->count_mag_reports() . " | <a href=\"/mag\">Информация</a><br />"?>
 					<?php if ($pl->take_mag_info("mag_reason")) echo "MAG: Глобальная блокировка<br />" . (($pl->take_mag_info("mag_unban_date"))? "Конец блокировки: " . $pl->take_mag_info("mag_unban_date"): "Дней с момента блокировки: " . (int) ((time() - strtotime($pl->take_mag_info("mag_date"))) / 86400)) ?>
 				</div>

@@ -11,7 +11,6 @@
 				Автоматически
 			<?php } ?>
 		</td>
-		<td><?php echo $ban['mag_date'] ?></td>
 		<td><?php echo $ban['mag_reason'] ?></td>
-		<td><?php echo ($ban['mag_unban_date'])? $ban['mag_unban_date']:'Перманентно' ?></td>
+		<td class="stt" title="<?php echo ($ban['mag_unban_date'])? ("Разбан " . $ban['mag_unban_date']):'Перманентно' ?>"><?php echo $ban['mag_date'] ?></td>
 	</tr>
