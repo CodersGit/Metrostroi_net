@@ -301,3 +301,25 @@ fieldset[disabled] .btn-inverse.focus {
 	color: #383838;
 	background-color: #ffffff;
 }
+
+td {
+	vertical-align: middle !important;
+	font-size: 14px;
+}
+
+.img-rounded {
+	max-width: 100%;
+}
+
+.img-circle {
+	max-width: 100%;
+}
+
+.img-thumbnail {
+	max-width: 100%;
+}
+
+.label {
+	font-size: 70%;
+	vertical-align: text-top;
+}
