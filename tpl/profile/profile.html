@@ -104,7 +104,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
+<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="tc_modal" tabindex="-1" role="dialog" aria-labelledby="tc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -125,7 +125,7 @@
 		</div>
 	</div>
 </div>
-<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
+<?php } if ($logged_user and (int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?>
 <div class="modal fade" id="rc_modal" tabindex="-1" role="dialog" aria-labelledby="rc_modal_label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -212,6 +212,10 @@
 			</div>
 			<form class="form-horizontal" method="post">
 				<div class="modal-body">
+					<p>
+						Не забудьте приложить к жалобе доказательства. Жалобы без доказательств не рассматриваются.
+						Как доказательства сойдут скриншоты, видео и т.д.
+					</p>
 					<input type="text" class="form-control" placeholder="Название сервера" name="server">
 					<textarea class="form-control" style="margin-top: 5px;" name="reason" placeholder="Опишите нарушение пользователя. Обращаем внимание, за жалобы без причин понесете наказание ВЫ!"></textarea>
 				</div>
