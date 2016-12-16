@@ -38,6 +38,16 @@ class Mitrastroi {
 			'icon'=>'star',
 		),
 		3 => array(
+			'name'=>'Сотрудник реального метрополитена',
+			'color'=>'danger',
+			'icon'=>'subway',
+		),
+		4 => array(
+			'name'=>'Призер ивента 2016',
+			'color'=>'warning',
+			'icon'=>'trophy',
+		),
+		5 => array(
 			'name'=>'Владелец партнерского сервера',
 			'color'=>'primary',
 			'icon'=>'server',

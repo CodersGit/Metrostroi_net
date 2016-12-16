@@ -286,6 +286,9 @@ switch ($lnk[1]) {
 		}
 		exit(json_encode($groups_array));
 		break;
+	case 'icons':
+		exit(json_encode(Mitrastroi::$ICONS));
+		break;
 	default:
 		include MITRASTROI_ROOT . "pages/404.php";
 		exit;
