@@ -1,5 +1,5 @@
 <div class="panel panel-default" style="margin: 10px 0 0;">
-	<div class="panel-heading">№<?php echo $c ?> | Дата: <?php echo date("H:i:s - d/m/Y", $pl_warn['date']) ?> | Выдал: <a href="/profile/<?php echo $pl_exam['admin'] ?>" class="black_link"><?php echo ($pl_warn['nickname'] == null)? $pl_warn['admin']: $pl_warn['nickname'] ?></a> | Сервер: <?php echo htmlspecialchars($pl_warn['server']) ?></div>
+	<div class="panel-heading">№<?php echo $c ?> | Дата: <?php echo date("H:i:s - d/m/Y", $pl_warn['date']) ?> | Выдал: <a href="/profile/<?php echo $pl_warn['admin'] ?>" class="black_link"><?php echo ($pl_warn['nickname'] == null)? $pl_warn['admin']: $pl_warn['nickname'] ?></a> | Сервер: <?php echo htmlspecialchars($pl_warn['server']) ?></div>
 	<div class="panel-body">
 		<?php echo nl2br(htmlspecialchars($pl_warn['violation'])) ?>
 	</div>
