@@ -162,6 +162,7 @@ if (!$db->num_rows($pl_tests)) {
 	while ($pl_test = $db->fetch_array($pl_tests)) {
 		$questions = json_decode($pl_test['questions']);
 		$answers = json_decode($pl_test['answers']);
+		$answers_marks = json_decode($pl_test['answers_marks']);
 		include Mitrastroi::PathTPL("profile/test");
 		$c++;
 	}

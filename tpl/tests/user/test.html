@@ -16,12 +16,15 @@
 			<span class="text-danger stt" title="Не сдал">"Неудовлетворительно"</span>.
 		<?php } ?>
 		Проверил <a href="/profile/<?php echo $test['reviewer'] ?>"><?php echo $test['reviewer_nickname'] ?></a> <?php echo date("H:i d.m.Y", strtotime($test['review_date'])) ?>
+		<span class="text-danger">Красным</span> выделены неверные ответы, <span class="text-warning">желтым</span> - частично верные, которые в будущем Ввам не зачтут, <span class="text-success">зеленым</span> - правильные ответы
 	</p>
 <?php } ?>
 <form method="post">
 	<?php foreach ($questions as $number => $question) { ?>
-		<p><b><?php echo $question ?></b></p>
-		<textarea name="<?php echo 'answer' . $number ?>" class="form-control"<?php if ($test['status'] >= 2) echo " readonly" ?>><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+		<div class="form-group<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo " has-" . ((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number]) ?>">
+			<label class="control-label"><b><?php echo $question ?></b></label>
+			<textarea name="<?php echo 'answer' . $number ?>" class="form-control"<?php if ($test['status'] >= 2) echo " readonly" ?>><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+		</div>
 	<?php }?>
 	<?php if ($test['status'] < 2) { ?>
 		<button type="submit" name="submit" value="1" class="btn btn-primary" style="margin-top: 5px;">Отправить ответы</button>

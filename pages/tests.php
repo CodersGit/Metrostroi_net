@@ -33,6 +33,7 @@ if (!isset($lnk[1]) or $lnk[1]=='') {
 	$test = $db->fetch_array($test);
 	$questions = json_decode($test['questions']);
 	$answers = json_decode($test['answers']);
+	$answers_marks = json_decode($test['answers_marks']);
 	if($test['status'] == 1 and isset($_POST['submit'])) {
 		$tmp_answers = array();
 		foreach ($questions as $number=>$question) {

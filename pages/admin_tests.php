@@ -19,9 +19,14 @@ if (!isset($lnk[1]) or $lnk[1]=='') {
 	}
 	$questions = json_decode($test['questions']);
 	$answers = json_decode($test['answers']);
+	$answers_marks = json_decode($test['answers_marks']);
 	if($test['status'] >= 2 and isset($_POST['submit'])) {
 		$result = (int) $_POST['submit'];
-		$db->execute("UPDATE `tests_results` SET `status`=3, `reviewer`='{$logged_user->steamid()}', `review_date`=NOW(), `passed`='{$db->safe($result)}' WHERE `trid`='{$db->safe($test['trid'])}'");
+		$tmp_marks = array();
+		foreach ($questions as $number=>$question) {
+			$tmp_marks[$number] = (isset($_POST['mark' . $number]))? $_POST['mark' . $number]: '';
+		}
+		$db->execute("UPDATE `tests_results` SET `status`=3, `answers_marks`='{$db->safe(json_encode($tmp_marks))}', `reviewer`='{$logged_user->steamid()}', `review_date`=NOW(), `passed`='{$db->safe($result)}' WHERE `trid`='{$db->safe($test['trid'])}'");
 		header('Location: /admin_tests');
 	}
 	if($test['status'] == 0)

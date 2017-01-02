@@ -19,14 +19,36 @@
 	</p>
 <?php } ?>
 
-<?php foreach ($questions as $number => $question) { ?>
-	<p><b><?php echo $question ?></b></p>
-	<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
-<?php }?>
+<?php if ($test['status'] >= 2) { ?>
+	<form method="post" class="form-horizontal">
+<?php } ?>
+
+		<?php foreach ($questions as $number => $question) { ?>
+			<div class="form-group<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo " has-" . ((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number]) ?>">
+				<label class="control-label">
+					<?php if ($test['status'] >= 2) { ?>
+						<div class="btn-group btn-group-xs" data-toggle="buttons">
+							<label class="btn btn-success<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'success' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'success')? ' active':'' ?>">
+								<input type="radio" name="<?php echo 'mark' . $number ?>" value="success" autocomplete="off"<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'success' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'success')? ' checked':'' ?>><i class="fa fa-check"></i> Верно
+							</label>
+							<label class="btn btn-warning<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'warning' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'warning')? ' active':'' ?>">
+								<input type="radio" name="<?php echo 'mark' . $number ?>" value="warning" autocomplete="off"<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'warning' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'warning')? ' checked':'' ?>><i class="fa fa-star-half-full"></i> Частично верно
+							</label>
+							<label class="btn btn-danger<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'error' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'error')? ' active':'' ?>">
+								<input type="radio" name="<?php echo 'mark' . $number ?>" value="error" autocomplete="off"<?php echo (isset($answers_marks->$number) and $answers_marks->$number == 'error' or !isset($answers_marks->$number) and isset($answers_marks[$number]) and $answers_marks[$number] == 'error')? ' checked':'' ?>><i class="fa fa-times"></i> Неправильно
+							</label>
+						</div>
+					<?php }?>
+					<b><?php echo $question ?></b>
+				</label>
+				<textarea class="form-control" readonly style="margin-top: 5px;"><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+			</div>
+		<?php }?>
 
 <?php if ($test['status'] >= 2) { ?>
-	<form method="post" class="btn-group btn-group-lg" style="margin-top: 5px;">
-		<button type="submit" name="submit" value="1" class="btn btn-success"><i class="fa fa-check"></i> Сдал</button>
-		<button type="submit" name="submit" value="0" class="btn btn-danger"><i class="fa fa-times"></i> Не сдал</button>
+		<div class="btn-group btn-group-lg" style="margin-top: 5px;">
+			<button type="submit" name="submit" value="1" class="btn btn-success"><i class="fa fa-check"></i> Сдал</button>
+			<button type="submit" name="submit" value="0" class="btn btn-danger"><i class="fa fa-times"></i> Не сдал</button>
+		</div>
 	</form>
 <?php } ?>

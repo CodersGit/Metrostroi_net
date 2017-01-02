@@ -18,8 +18,10 @@
 		<div id="collapse-test-<?php echo $pl_test['trid'] ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-test-<?php echo $pl_test['trid'] ?>">
 			<div class="panel-body">
 				<?php foreach ($questions as $number => $question) { ?>
-					<p><b><?php echo $question ?></b></p>
-					<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+					<div class="form-group<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo " has-" . ((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number]) ?>">
+						<label class="control-label"><b><?php echo $question ?></b></label>
+						<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+					</div>
 				<?php }?>
 				<?php if ($logged_user->take_group_info("up_down")) { ?>
 					<a class="btn btn-default btn-xs btn-block" href="/admin_tests/<?php echo $pl_test['trid'] ?>" style="margin-top: 10px"><i class="fa fa-eye"></i> Глянуть в админке / изменить оценку</a>
