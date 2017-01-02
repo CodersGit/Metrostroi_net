@@ -43,7 +43,7 @@ class Mitrastroi {
 			'icon'=>'subway',
 		),
 		4 => array(
-			'name'=>'Призер ивента 2016',
+			'name'=>'Чемпион новогоднего турнира 2017',
 			'color'=>'warning',
 			'icon'=>'trophy',
 		),
