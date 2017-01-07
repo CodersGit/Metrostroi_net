@@ -125,7 +125,7 @@ class Mitrastroi {
 	}
 
 	public static function DetectTimeZone() {
-		if (isset ($_COOKIE['metrostroi_timezone']) and in_array($timezone = $_COOKIE['metrostroi_timezone'], timezone_identifiers_list())) {
+		if (isset ($_COOKIE['mitrastroi_timezone']) and in_array($timezone = $_COOKIE['mitrastroi_timezone'], timezone_identifiers_list())) {
 			date_default_timezone_set($_COOKIE['mitrastroi_timezone']);
 			return;
 		}
