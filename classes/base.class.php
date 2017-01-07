@@ -130,7 +130,7 @@ class Mitrastroi {
 			return;
 		}
 		$ip = Mitrastroi::GetRealIp(); // means we got user's IP address
-		$json = file_get_contents( 'http://ip-api.com/json/' . $ip); // this one service we gonna use to obtain timezone by IP
+		$json = file_get_contents( 'http://ru.smart-ip.net/geoip-json/' . $ip); // this one service we gonna use to obtain timezone by IP
 // maybe it's good to add some checks (if/else you've got an answer and if json could be decoded, etc.)
 		$ipData = json_decode( $json, true);
 		if (isset($ipData['timezone']) and $ipData['timezone']) {
