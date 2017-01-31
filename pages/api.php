@@ -306,6 +306,14 @@ switch ($lnk[1]) {
 		header('Content-Type: application/json');
 		exit(json_encode(Mitrastroi::$ICONS));
 		break;
+	case 'icon_view':
+		if (!isset($lnk[2]) or !isset(Mitrastroi::$ICONS[(int)$lnk[2]])) {
+			include MITRASTROI_ROOT . "pages/404.php";
+			exit;
+		}
+		include Mitrastroi::PathTPL('api_icon');
+		exit;
+		break;
 	default:
 		include MITRASTROI_ROOT . "pages/404.php";
 		exit;
