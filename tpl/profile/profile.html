@@ -191,12 +191,45 @@
 						<select class="form-control" id="icon" name="icon" aria-describedby="icon_h"><?php echo $icons_options?>
 						</select>
 						<span id="icon_h" class="help-block">Какую иконку делать?</span>
-						<input type="hidden" name="reason" value="123">
 					</div>
+					<div class="form-group" style="margin: 0">
+						<label class="control-label" for="icon_name">Название иконки:</label>
+						<input type="text" class="form-control" name="icon_name" id="icon_name" aria-describedby="icon_name_h">
+						<span id="icon_name_h" class="help-block">Чтобы оставить первоначальное оставьте поле пустым</span>
+					</div>
+					<input type="hidden" name="reason" value="123">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
-					<button type="submit" name="submit" value="icon" class="btn btn-primary"><i class="fa fa-check"></i> Изменить</button>
+					<button type="submit" name="submit" value="add_icon" class="btn btn-primary"><i class="fa fa-check"></i> Изменить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="remove_icon_modal" tabindex="-1" role="dialog" aria-labelledby="remove_icon_modal_label">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="remove_icon_modal_label">Установить иконку</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<div class="modal-body">
+					<div class="form-group" style="margin: 0">
+						Все иконки пользователя:
+						<?php foreach($pl->icons() as $key=>$icon) {echo "<p>$key: " . User::ShowFullIcon($icon); var_dump($icon);} ?>
+						<label class="control-label" for="icon">Удалить иконку:</label>
+						<select class="form-control" id="icon" name="icon" aria-describedby="icon_h">
+							<?php foreach($pl->icons() as $key=>$icon) echo "<option value='$key'>$key</option>" ?>
+						</select>
+						<span id="icon_h" class="help-block">Какую иконку удалить?</span>
+					</div>
+					<input type="hidden" name="reason" value="123">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Отмена</button>
+					<button type="submit" name="submit" value="remove_icon" class="btn btn-primary"><i class="fa fa-check"></i> Изменить</button>
 				</div>
 			</form>
 		</div>
@@ -291,6 +324,7 @@
 				<?php if ($logged_user and (int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><li><a data-toggle="modal" data-target="#tc_modal" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Забрать талон</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("change_group")) { ?><li><a data-toggle="modal" data-target="#setrank_modal" style="cursor: pointer;"><i class="fa fa-bolt"></i> Установить ранг</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?><li><a data-toggle="modal" data-target="#icon_modal" style="cursor: pointer;"><i class="fa fa-picture-o"></i> Выдать иконку</a></li><?php } ?>
+				<?php if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?><li><a data-toggle="modal" data-target="#remove_icon_modal" style="cursor: pointer;"><i class="fa fa-picture-o"></i> Забрать иконку</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("admin_panel")) { ?><li><a href="/profile/<?php echo $pl->steamid() ?>/renew" style="cursor: pointer;"><i class="fa fa-refresh"></i> Обновить данные</a></li><?php } ?>
 				<?php if ($logged_user and $logged_user->take_group_info("tickets")) { ?><li><a href="/admin_tickets/<?php echo $pl->steamid() ?>/" style="cursor: pointer;"><i class="fa fa-ticket"></i> Тикеты</a></li><?php } ?>
 			</ul>

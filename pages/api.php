@@ -19,6 +19,7 @@ switch ($lnk[1]) {
 		$query or die($db->error());
 		if ($db->num_rows($query)) {
 			$query = $db->fetch_array($query);
+			header('Content-Type: application/json');
 			exit($query['icon']);
 		}
 		break;
@@ -29,6 +30,7 @@ switch ($lnk[1]) {
 		while ($ban = $db->fetch_array($query)) {
 			array_push($bans, array('steamid'=>$ban['mag_steam_id'],'reason'=>$ban['mag_reason'],'unban_date'=>strtotime($ban['mag_unban_date']),));
 		}
+		header('Content-Type: application/json');
 		exit(json_encode($bans));
 		break;
 	case 'key_check':
@@ -184,6 +186,7 @@ switch ($lnk[1]) {
 			);
 			array_push($pl_warns_array, $pl_warn_array);
 		}
+		header('Content-Type: application/json');
 		$pl_exams_array = array();
 		while ($pl_exam = $db->fetch_array($pl_exams)) {
 			$pl_exam_array = array(
@@ -196,6 +199,10 @@ switch ($lnk[1]) {
 			);
 			array_push($pl_exams_array, $pl_exam_array);
 		}
+		$pl_rights = array();
+		foreach(Mitrastroi::$RIGHTS as $RIGHT)
+			if ($pl->take_group_info($RIGHT) AND $RIGHT != 'txtid' AND $RIGHT != 'name')
+				array_push($pl_rights, $RIGHT);
 		$pl_array = array(
 			'nick' => $pl->take_steam_info('nickname'),
 			'rank' => $pl->take_group_info('txtid'),
@@ -213,7 +220,9 @@ switch ($lnk[1]) {
 			),
 			'violations' => $pl_warns_array,
 			'exam' => $pl_exams_array,
-			'icon' => (int) $pl->icon_id(),
+			'icon' => (int) $pl->max_icon_id(),
+			'icons' => $pl->icons(),
+			'rights' => $pl_rights, //Хелл, твою мать, на большее не рассчитывай
 		);
 		exit(json_encode($pl_array));
 		break;
@@ -224,6 +233,7 @@ switch ($lnk[1]) {
 		}
 		$pls_array = array();
 		$query = $db->execute("SELECT `id` FROM `players` LEFT JOIN `user_info_cache` ON `SID`=`steamid` WHERE `SID`='{$db->safe($lnk[2])}' OR `nickname` LIKE '%{$db->safe($lnk[2])}%'");
+		header('Content-Type: application/json');
 		while ($plid = $db->fetch_array($query)) {
 			$pl = new User($plid['id'], 'players`.`id');
 			if ($pl->uid() < 1) continue;
@@ -239,6 +249,10 @@ switch ($lnk[1]) {
 				);
 				array_push($pl_warns_array, $pl_warn_array);
 			}
+			$pl_rights = array();
+			foreach(Mitrastroi::$RIGHTS as $RIGHT)
+				if ($pl->take_group_info($RIGHT) AND $RIGHT != 'txtid' AND $RIGHT != 'name')
+					array_push($pl_rights, $RIGHT);
 			$pl_exams_array = array();
 			while ($pl_exam = $db->fetch_array($pl_exams)) {
 				$pl_exam_array = array(
@@ -266,9 +280,10 @@ switch ($lnk[1]) {
 					'admin' => $pl->take_coupon_info('admin'),
 					'date' => (string)$pl->take_coupon_info('date'),
 				),
+				'rights' => $pl_rights,
 				'violations' => $pl_warns_array,
 				'exam' => $pl_exams_array,
-				'icon' => (int)$pl->icon_id(),
+				'icon' => (int)$pl->max_icon_id(),
 			);
 			array_push($pls_array, $pl_array);
 		}
@@ -284,9 +299,11 @@ switch ($lnk[1]) {
 			);
 			array_push($groups_array, $group_array);
 		}
+		header('Content-Type: application/json');
 		exit(json_encode($groups_array));
 		break;
 	case 'icons':
+		header('Content-Type: application/json');
 		exit(json_encode(Mitrastroi::$ICONS));
 		break;
 	default:

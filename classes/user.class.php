@@ -31,7 +31,7 @@ class User {
 		$this->id = $user['id'];
 		$this->SID = $user['SID'];
 		$this->SessionID = $user['session_id'];
-		$this->icon = (int) $user['icon'];
+		$this->icon = (is_array(json_decode($user['icon'])))? json_decode($user['icon']): array((object) array('id' => $user['icon']));
 		$this->coupon_info = json_decode($user['status']);
 		$this->id = $user['id'];
 		foreach (Mitrastroi::$RIGHTS as $right)
@@ -55,30 +55,76 @@ class User {
 	}
 
 	/**
-	 * Shows icon
+	 * Shows icon by provided id
 	 * @param $id - ID of icon
 	 * @return string
 	 */
-	public static function ShowIcon($id) {
+	public static function ShowIconById($id) {
 		if (!isset(Mitrastroi::$ICONS[$id])) return '';
 		return "<div class=\"label label-" . Mitrastroi::$ICONS[$id]['color'] . " stt\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"" . Mitrastroi::$ICONS[$id]['name'] . "\"><i class=\"fa fa-" . Mitrastroi::$ICONS[$id]['icon'] . "\"></i></div>";
 	}
 
 	/**
-	 * Shows full user's icon
+	 * Shows full icon by provided id
 	 * @return string
 	 */
-	public function show_full_icon() {
-		if (!isset(Mitrastroi::$ICONS[$this->icon])) return '';
-		return "<div class=\"label label-" . Mitrastroi::$ICONS[$this->icon]['color'] . "\"><i class=\"fa fa-" . Mitrastroi::$ICONS[$this->icon]['icon'] . "\"></i> " . Mitrastroi::$ICONS[$this->icon]['name'] . "</div>";
+	public function ShowFullIconById($id) {
+		if (!isset(Mitrastroi::$ICONS[$id])) return '';
+		return "<div class=\"label label-" . Mitrastroi::$ICONS[$id]['color'] . "\"><i class=\"fa fa-" . Mitrastroi::$ICONS[$id]['icon'] . "\"></i> " . Mitrastroi::$ICONS[$id]['name'] . "</div>";
 	}
 
 	/**
-	 * Shows user's icon
+	 * Shows icon
+	 * @param $icon - array icon
+	 * @return string
+	 */
+	public static function ShowIcon($icon) {
+		if (!isset(Mitrastroi::$ICONS[$icon->id])) return '';
+		return "<div class=\"label label-" . Mitrastroi::$ICONS[$icon->id]['color'] . " stt\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"" . ((isset($icon->name))? $icon->name: Mitrastroi::$ICONS[$icon->id]['name']) . "\"><i class=\"fa fa-" . ((isset($icon->icon))? $icon->icon: Mitrastroi::$ICONS[$icon->id]['icon']) . "\"></i></div>";
+	}
+
+	/**
+	 * Shows icons
+	 * @param $icons - array icons
+	 * @return string
+	 */
+	public static function ShowIcons($icons) {
+		$result = '';
+		foreach($icons as $icon)
+			$result .= self::ShowIcon($icon);
+		return $result;
+	}
+
+	/**
+	 * Shows full icon
+	 * @param $icon - array icon
+	 * @return string
+	 */
+	public static function ShowFullIcon($icon) {
+		if (!isset(Mitrastroi::$ICONS[$icon->id])) return '';
+		return "<div class=\"label label-" . Mitrastroi::$ICONS[$icon->id]['color'] . "\"><i class=\"fa fa-" . ((isset($icon->icon))? $icon->icon: Mitrastroi::$ICONS[$icon->id]['icon']) . "\"></i> " . ((isset($icon->name))? $icon->name: Mitrastroi::$ICONS[$icon->id]['name']) . "</div>";
+	}
+
+	/**
+	 * Shows user's icons
 	 * @return string
 	 */
 	public function show_icon() {
-		return self::ShowIcon($this->icon);
+		$result = '';
+		foreach($this->icon as $icon)
+			$result .= self::ShowIcon($icon);
+		return $result;
+	}
+
+	/**
+	 * Shows user's icons
+	 * @return string
+	 */
+	public function show_full_icon() {
+		$result = '';
+		foreach($this->icon as $icon)
+			$result .= self::ShowFullIcon($icon);
+		return $result;
 	}
 
 	/**
@@ -90,11 +136,44 @@ class User {
 	}
 
 	/**
+	 * Returns user's icons array
+	 * @return int
+	 */
+	public function icons() {
+		return $this->icon;
+	}
+
+	/**
 	 * Returns user's icon ID
 	 * @return int
 	 */
-	public function icon_id() {
-		return $this->icon;
+	public function max_icon_id() {
+		$result = -100;
+		foreach($this->icon as $icon)
+			$result = max($result, $icon->id);
+		return $result;
+	}
+
+	/**
+	 * Adds user's icon
+	 * @return int
+	 */
+	public function add_icon($icon) {
+		global $db;
+		array_push($this->icon, $icon);
+		$db->execute("UPDATE `players` SET `icon`='{$db->safe(json_encode($this->icon))}' WHERE `id`='{$db->safe($this->id)}'");
+	}
+
+	/**
+	 * Adds user's icon
+	 * @return int
+	 */
+	public function remove_icon($icon) {
+		global $db;
+		if(!isset($this->icon[$icon]))
+			return;
+		unset($this->icon[$icon]);
+		$db->execute("UPDATE `players` SET `icon`='{$db->safe(json_encode($this->icon))}' WHERE `id`='{$db->safe($this->id)}'")or die($db->error());
 	}
 
 	/**

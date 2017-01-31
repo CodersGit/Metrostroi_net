@@ -1,5 +1,5 @@
 <?php
-if (!$logged_user or $logged_user->icon_id() < 6) {
+if (!$logged_user or $logged_user->max_icon_id() < 6) {
 	include MITRASTROI_ROOT . "pages/403.php";
 	exit();
 }

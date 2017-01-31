@@ -43,12 +43,12 @@ class Mitrastroi {
 			'icon'=>'subway',
 		),
 		4 => array(
-			'name'=>'Чемпион новогоднего турнира 2017',
+			'name'=>'Че-то там на каком-то турнире отметился',
 			'color'=>'warning',
 			'icon'=>'trophy',
 		),
 		5 => array(
-			'name'=>'Владелец партнерского сервера',
+			'name'=>'Админ партнерского сервера',
 			'color'=>'primary',
 			'icon'=>'server',
 		),
@@ -125,8 +125,13 @@ class Mitrastroi {
 	}
 
 	public static function DetectTimeZone() {
+		global $lnk;
 		if (isset ($_COOKIE['mitrastroi_timezone']) and in_array($timezone = $_COOKIE['mitrastroi_timezone'], timezone_identifiers_list())) {
 			date_default_timezone_set($_COOKIE['mitrastroi_timezone']);
+			return;
+		}
+		if (isset($lnk) and $lnk[0] == 'api') {//Хелл, твою мать, гори в аду
+			date_default_timezone_set('Europe/London');
 			return;
 		}
 		$ip = Mitrastroi::GetRealIp(); // means we got user's IP address

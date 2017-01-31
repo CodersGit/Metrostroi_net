@@ -165,7 +165,7 @@ class Menu {
 		global $logged_user;
 		$c = 0; $sub = '';
 		if (isset($item['right']) and !($logged_user and $logged_user->take_group_info($item['right']))) {
-			if (isset($item['icon']) and !($logged_user and $logged_user->icon_id() >= $item['icon']))
+			if (isset($item['icon']) and !($logged_user and $logged_user->max_icon_id() >= $item['icon']))
 				return '';
 			elseif (!isset($item['icon']))
 				return '';

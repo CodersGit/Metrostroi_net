@@ -63,11 +63,20 @@ if ($logged_user and isset($_POST['submit']) and isset($_POST['reason']) and str
 			$db->execute("INSERT INTO `violations` (`SID`, `date`, `admin`, `server`, `violation`)"
 				. " VALUES('{$pl->steamid()}', " . time() . ", '{$logged_user->steamid()}', 'Сайт Метростроя', '{$db->safe($_POST['reason'])}')");
 			break;
-		case 'icon':
+		case 'add_icon':
+			if (!$logged_user->take_group_info("admin_panel") or !isset($_POST['icon']))
+				if (!isset(Mitrastroi::$ICONS[$_POST['icon']]))
+					break;
+				$icon = (object) array('id' => $_POST['icon']);
+				if (isset($_POST['icon_name']) and strlen($_POST['icon_name']))
+					$icon->name = htmlspecialchars($_POST['icon_name']);
+				$pl->add_icon($icon);
+				break;
+			break;
+		case 'remove_icon':
 			if (!$logged_user->take_group_info("admin_panel") or !isset($_POST['icon']))
 				break;
-			$db->execute("UPDATE `players` SET `icon`='{$db->safe((int)$_POST['icon'])}' WHERE `id`={$pl->uid()}");
-			$pl = new User($pl->steamid(), 'SID');
+			$pl->remove_icon((int) $_POST['icon']);
 			break;
 		case 'rc':
 			if(!((int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")))
