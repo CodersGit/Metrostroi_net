@@ -280,10 +280,11 @@ switch ($lnk[1]) {
 					'admin' => $pl->take_coupon_info('admin'),
 					'date' => (string)$pl->take_coupon_info('date'),
 				),
-				'rights' => $pl_rights,
 				'violations' => $pl_warns_array,
 				'exam' => $pl_exams_array,
 				'icon' => (int)$pl->max_icon_id(),
+				'icons' => $pl->icons(),
+				'rights' => $pl_rights, //Хелл, твою мать, на большее не рассчитывай
 			);
 			array_push($pls_array, $pl_array);
 		}
