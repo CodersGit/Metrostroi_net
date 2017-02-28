@@ -1,1 +1,13 @@
-<tr><td><a href="/profile/<?php echo $typical_ple['SID'] ?>"><img src="<?php echo $typical_ple['avatar_url'] ?>" class="img-circle" height="32" style="margin-right: 5px;"> <?php echo ($typical_ple['nickname'] != NULL)? $typical_ple['nickname']: $typical_ple['SID'] ?></a>  <a href="<?php echo ($typical_ple['steam_url'] != NULL)? $typical_ple['steam_url']: ("http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($typical_ple['SID'])) ?>" target="_blank"><i class="fa fa-steam"></i></a> <?php echo (is_array(json_decode($typical_ple['icon'])))? User::ShowIcons(json_decode($typical_ple['icon'])):User::ShowIconById($typical_ple['icon']) ?></td><td><?php echo $typical_ple['name'] ?></td></tr>
+<tr>
+	<td>
+		<a href="/profile/<?php echo $typical_ple['SID'] ?>">
+			<img src="<?php echo $typical_ple['avatar_url'] ?>" class="img-circle" height="32" style="margin-right: 5px;"> <?php echo ($typical_ple['nickname'] != NULL)? $typical_ple['nickname']: $typical_ple['SID'] ?>
+		</a>
+		<a href="<?php echo ($typical_ple['steam_url'] != NULL)? $typical_ple['steam_url']: ("http://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($typical_ple['SID'])) ?>" target="_blank">
+			<i class="fa fa-steam"></i></a>
+		<?php echo (is_array(json_decode($typical_ple['icon'])))? User::ShowIcons(json_decode($typical_ple['icon'])):User::ShowIconById($typical_ple['icon']) ?>
+	</td>
+	<td>
+		<?php if (User::ShowRankIcon($typical_ple['txtid'])) { ?><img src="<?php echo User::ShowRankIcon($typical_ple['txtid']) ?>" height="32" /><?php } ?>
+		<?php echo $typical_ple['name'] ?></td>
+</tr>

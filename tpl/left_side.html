@@ -3,7 +3,7 @@
 		<?php if($logged_user) { ?>
 			<div class="panel panel-default">
 				<div class="panel-heading"><i class="fa fa-user"></i> <a href="/profile/<?php echo $logged_user->steamid(); ?>" class="black_link"><?php echo $logged_user->take_steam_info('nickname'); ?></a> <a class="black_link" href="<?php echo $logged_user->take_steam_info('steam_url'); ?>" target="_blank"><i class="fa fa-steam-square"></i></a> <?php echo $logged_user->show_icon(); ?></div>
-				<div class="panel-body">
+				<div class="panel-body miniprofile">
 					<div class="row">
 						<div class="col-xs-5">
 							<img src="<?php echo $logged_user->take_steam_info('avatar_url'); ?>" class="img-rounded">
@@ -14,6 +14,11 @@
 							<p><b><i class="fa fa-check-square-o"></i> <a class="black_link" href="/tests">Мои тесты</a></b></p>
 							<p><b><i class="fa fa-info-circle"></i> <a class="black_link" href="/tickets">Тикеты</a></b> <?php echo $logged_user->count_new_tickets(); ?></p>
 						</div>
+					</div>
+					<hr style="margin: 10px;" />
+					<div class="row">
+						<div class="col-xs-6" style="margin-top: 6px;"><?php echo $logged_user->take_group_info('name'); ?></div>
+						<?php if($logged_user->show_rank_icon()) { ?><div class="col-xs-6" align="right"><img src="<?php echo $logged_user->show_rank_icon() ?>" height="32" style="transform: rotate(180deg)" /></div><?php } ?>
 					</div>
 				</div>
 			</div>

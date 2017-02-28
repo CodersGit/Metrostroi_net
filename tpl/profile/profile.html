@@ -379,6 +379,7 @@
 				</div>
 				<div class="col-xs-9">
 					<?php echo $pl->take_group_info("name") ?>
+					<?php if($pl->show_rank_icon()) { ?><br /><img src="<?php echo $pl->show_rank_icon() ?>" height="64" style="transform: rotate(180deg)" /><?php } ?>
 				</div>
 			</div>
 			<div class="row">

@@ -117,6 +117,24 @@ class User {
 	}
 
 	/**
+	 * Shows rank icon
+	 * @param $icon - string rank
+	 * @return string
+	 */
+	public static function ShowRankIcon($icon) {
+		$path = (date('dm') == 104)? "tpl/img/ranks/" . $icon . ".png" : "tpl/img/ranks/" . $icon . ".png";
+		return (file_exists(MITRASTROI_ROOT . $path)) ? ("/" . $path): false;
+	}
+
+	/**
+	 * Shows user's rank icon
+	 * @return string
+	 */
+	public function show_rank_icon() {
+		return self::ShowRankIcon($this->take_group_info('txtid'));
+	}
+
+	/**
 	 * Shows user's icons
 	 * @return string
 	 */

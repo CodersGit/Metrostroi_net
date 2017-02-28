@@ -327,3 +327,11 @@ td {
 	font-size: 70%;
 	vertical-align: text-top;
 }
+
+.panel-heading {
+	padding: 10px;
+}
+
+.miniprofile {
+	padding-bottom: 10px !important;
+}
