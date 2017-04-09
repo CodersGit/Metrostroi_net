@@ -1,6 +1,9 @@
 ErrorDocument 404 /404
 ErrorDocument 403 /403
 
+<Files config.php>
+Deny from all
+</Files>
 <IfModule mod_rewrite.c>
   RewriteEngine on
   RewriteRule ^metadmin/version/?$ index.php?page=api/metadmin_version [L,NE]

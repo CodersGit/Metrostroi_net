@@ -1,4 +1,7 @@
 <?php
+if (!defined('MITRASTROI_ROOT')) {
+	exit('Toxin Leniviy Pidor');
+}
 $config = array(
 	"db_base" => "metrostroi",
 	"db_host" => "46.36.216.234",

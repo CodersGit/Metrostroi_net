@@ -90,16 +90,6 @@ class Mitrastroi {
 		}
 	}
 
-	public static function GetRealIp(){
-		if (!empty($_SERVER['HTTP_CLIENT_IP']))
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		else
-			$ip = $_SERVER['REMOTE_ADDR'];
-		return substr($ip, 0, 16);
-	}
-
 	public static function ToSteamID($id) {
 		if (is_numeric($id) && strlen($id) >= 16) {
 			$z = bcdiv(bcsub($id, '76561197960265728'), '2');
@@ -110,6 +100,16 @@ class Mitrastroi {
 		}
 		$y = bcmod($id, '2');
 		return 'STEAM_0:' . $y . ':' . floor($z);
+	}
+
+	public static function GetRealIp(){
+		if (!empty($_SERVER['HTTP_CLIENT_IP']))
+			$ip = $_SERVER['HTTP_CLIENT_IP'];
+		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		else
+			$ip = $_SERVER['REMOTE_ADDR'];
+		return substr($ip, 0, 16);
 	}
 
 	public static function randString($pass_len = 50) {
@@ -126,24 +126,11 @@ class Mitrastroi {
 
 	public static function DetectTimeZone() {
 		global $lnk;
-		if (isset ($_COOKIE['mitrastroi_timezone']) and in_array($timezone = $_COOKIE['mitrastroi_timezone'], timezone_identifiers_list())) {
-			date_default_timezone_set($_COOKIE['mitrastroi_timezone']);
+		if (isset ($_COOKIE['mitrastroi_timezone']) and in_array($timezone = urldecode($_COOKIE['mitrastroi_timezone']), timezone_identifiers_list())) {
+			date_default_timezone_set($timezone);
 			return;
 		}
-		if (isset($lnk) and $lnk[0] == 'api') {//Хелл, твою мать, гори в аду
-			date_default_timezone_set('Europe/London');
-			return;
-		}
-		$ip = Mitrastroi::GetRealIp(); // means we got user's IP address
-		$json = file_get_contents( 'http://ip-api.com/json/' . $ip); // this one service we gonna use to obtain timezone by IP
-// maybe it's good to add some checks (if/else you've got an answer and if json could be decoded, etc.)
-		$ipData = json_decode( $json, true);
-		if (isset($ipData['timezone']) and $ipData['timezone']) {
-			date_default_timezone_set($ipData['timezone']);
-			setcookie("mitrastroi_timezone", $ipData['timezone'], time() + 3600 * 24, '/');
-		} else {
-			date_default_timezone_set('Europe/Moscow');
-		}
+		date_default_timezone_set('Europe/Moscow');
 	}
 
 	public static function GenerateTest ($id) {
