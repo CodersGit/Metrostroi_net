@@ -8,6 +8,11 @@
 </div>
 
 <?php if ($test['status'] == 3) { ?>
+	<?php if (strtotime($test['completed_date']) - strtotime($test['recived_date']) > 60*15) { ?>
+		<div class="alert alert-danger" role="alert">
+		  Превышено допустимое время для написания теста.
+		</div>
+	<?php } ?>
 	<p>
 		За этот тест выставлена оценка
 		<?php if ($test['passed']) {?>

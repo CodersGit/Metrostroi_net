@@ -7,6 +7,11 @@
 </div>
 
 <?php if ($test['status'] == 3) { ?>
+	<?php if (strtotime($test['completed_date']) - strtotime($test['recived_date']) > 60*15) { ?>
+		<div class="alert alert-danger" role="alert">
+		  Превышено допустимое время для написания теста.
+		</div>
+	<?php } ?>
 	<p>
 		Ответы на тест получены <?php echo date("H:i d.m.Y", strtotime($test['completed_date'])) ?>,
 		тест решен за <?php echo ((int)((strtotime($test['completed_date']) - strtotime($test['recived_date']))/60)) . ":" . str_pad((strtotime($test['completed_date']) - strtotime($test['recived_date']))%60, 2, 0, STR_PAD_LEFT) ?>, результат теста
