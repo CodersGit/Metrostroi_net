@@ -39,14 +39,7 @@ if (!isset($lnk[1]) or $lnk[1]=='') {
 		foreach ($questions as $number=>$question) {
 			$tmp_answers[$number] = (isset($_POST['answer' . $number]))? $_POST['answer' . $number]: '';
 		}
-		if (time() - strtotime($test['recived_date']) > 60*15)
-		{
-			$db->execute("UPDATE `tests_results` SET `status`=3, `reviewer`='BOT', `passed`=0, `review_date`=NOW(), `completed_date`=NOW(), `answers`='{$db->safe(json_encode($tmp_answers))}' WHERE `trid`='{$db->safe($test['trid'])}'");
-		}
-		else
-		{
-			$db->execute("UPDATE `tests_results` SET `status`=2, `completed_date`=NOW(), `answers`='{$db->safe(json_encode($tmp_answers))}' WHERE `trid`='{$db->safe($test['trid'])}'");
-		}
+		$db->execute("UPDATE `tests_results` SET `status`=2, `completed_date`=NOW(), `answers`='{$db->safe(json_encode($tmp_answers))}' WHERE `trid`='{$db->safe($test['trid'])}'");
 		header('Location: /tests');
 	}
 	if($test['status'] == 0)
