@@ -2,12 +2,12 @@ ErrorDocument 404 /404
 ErrorDocument 403 /403
 
 <Files config.php>
-Deny from all
+    Deny from all
 </Files>
-<Directorymatch "^/.*/\.git/">
-Order deny,allow
-Deny from all
-</Directorymatch>
+<Directory .git>
+    order allow,deny
+    deny from all
+</Directory>
 <IfModule mod_rewrite.c>
   RewriteEngine on
   RewriteRule ^metadmin/version/?$ index.php?page=api/metadmin_version [L,NE]
