@@ -4,9 +4,9 @@ ErrorDocument 403 /403
 <Files config.php>
 Deny from all
 </Files>
-<Files .git/*>
+<Directory .git>
 Deny from all
-</Files>
+</Directory>
 <IfModule mod_rewrite.c>
   RewriteEngine on
   RewriteRule ^metadmin/version/?$ index.php?page=api/metadmin_version [L,NE]
