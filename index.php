@@ -27,7 +27,6 @@ define('LANGUAGES_PATH', ROOT . '/langs');
 putenv("LC_ALL=" . $locale); 
 setlocale(LC_ALL, $locale, $locale); 
 bind_textdomain_codeset($locale, 'UTF-8'); 
-header('Content-Type: text/html; charset=utf-8');
 bindtextdomain($locale, LANGUAGES_PATH); 
 textdomain($locale);
 
@@ -52,4 +51,5 @@ Base::TakeAuth();
 if (!$logged_user and (strstr(Base::GetRealIp(),"188.64.") or $_SERVER['HTTP_USER_AGENT'] == "Mozilla/5.0 (Linux; Android 7.0; HUAWEI VNS-L21 Build/HUAWEIVNS-L21) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.98 Mobile Safari/537.36") and $lnk[0] != 'login') { header("Location: /login?login"); exit;};//Потому-что перз заебал
 $menu = new Menu();
 $mode = (isset($lnk[0]))? $lnk[0]: $main_page;
+header('Content-Type: text/html; charset=utf-8');
 include (file_exists(ROOT . "pages/$mode.php"))? (ROOT . "pages/$mode.php"): (ROOT . "pages/404.php");
