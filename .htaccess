@@ -1,6 +1,6 @@
 ErrorDocument 404 /404
 ErrorDocument 403 /403
-
+AddDefaultCharset UTF-8
 <Files config.php>
   Deny from all
 </Files>
