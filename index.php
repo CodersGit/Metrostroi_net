@@ -27,6 +27,7 @@ define('LANGUAGES_PATH', ROOT . '/langs');
 putenv("LC_ALL=" . $locale); 
 setlocale(LC_ALL, $locale, $locale); 
 bind_textdomain_codeset($locale, 'UTF-8'); 
+header('Content-Type: text/html; charset=utf-8');
 bindtextdomain($locale, LANGUAGES_PATH); 
 textdomain($locale);
 
