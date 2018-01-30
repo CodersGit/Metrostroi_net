@@ -1,16 +1,15 @@
 <?php
 if (!$logged_user or $logged_user->max_icon_id() < 9) {
-	include MITRASTROI_ROOT . "pages/403.php";
+	include ROOT . "pages/403.php";
 	exit();
 }
 
 $add = !(isset($lnk[1]) and (int) $lnk[1]);
-$what = ($add)? 'Добавить':'Отредактировать';
 
 if (!$add) {
 	$query = $db->execute("SELECT * FROM `news` WHERE `id`='{$db->safe($lnk[1])}'");
 	if ($db->num_rows($query) != 1) {
-		include MITRASTROI_ROOT . "pages/404.php";
+		include ROOT . "pages/404.php";
 		exit();
 	}
 	$query = $db->fetch_array($query);
@@ -26,22 +25,33 @@ if (isset($_POST['submit']) and strlen($title) and strlen($text) and strlen($tit
 		($add)? "INSERT INTO `news` (`title`,`text`,`cat`,`date`,`author`) VALUES ('{$db->safe($title)}','{$db->safe($text)}','{$db->safe($cat)}',NOW(),'{$db->safe($logged_user->steamid())}')":
 			"UPDATE `news` SET `title`='{$db->safe($title)}', `text`='{$db->safe($text)}', `cat`='{$db->safe($cat)}'$update_time WHERE `id`='{$db->safe($lnk[1])}'"
 	);
-	header ('Location: /news/view/' . (($add)?$db->insert_id():$lnk[1]));
+	$id = (($add)?$db->insert_id():$lnk[1]);
+	if ($add) 
+	{
+		Base::SendToSocket('news',array('news_id'=>$id));
+		Logger::Log(11, 0, '', array('title'=>$title,'id'=>$id), $logged_user->steamid());
+	}
+	else
+	{
+		Logger::Log(13, 0, '', array('title'=>$title,'id'=>$id), $logged_user->steamid());
+	}
+	header ('Location: /news/view/' . $id);
 } elseif (isset($_POST['submit']))
-	$status = "<div class=\"alert alert-danger\">Заголовок должен быть заполнен и быть не длиннее 250 символов, текст новости тоже должен быть.</div>";
+	$status = "<div class=\"alert alert-danger\">"._('Заголовок должен быть заполнен и быть не длиннее 250 символов, текст новости тоже должен быть.')."</div>";
 
 $query = $db->execute("SELECT * FROM `news_cats` ORDER BY `priority` DESC");
 $cats_select = '';
 while ($tmp_cat = $db->fetch_array($query)) {
-	$cats_select .= "<option value=\"{$tmp_cat['id']}\"" . (($cat == $tmp_cat['id'])?'selected':'') . ">{$tmp_cat['name']}";
+	if ($cat == $tmp_cat['id']) $cat_name = $tmp_cat['name'];
+	$cats_select .= "<div class=\"item".(($cat == $tmp_cat['id'])?' selected item':'')."\" data-value=\"{$tmp_cat['id']}\">{$tmp_cat['name']}</div>";
 }
 
-$page_fucking_title = $what . " новость";
+$page_fucking_title = ($add)? _('Добавление новости'):_('Редактирование новости');
 $menu->set_item_active('news_add');
-include Mitrastroi::PathTPL("header");
-include Mitrastroi::PathTPL("left_side");
+include Base::PathTPL("header");
+include Base::PathTPL("left_side");
 
-include Mitrastroi::PathTPL("news/news_add");
+include Base::PathTPL("news/news_add");
 
-include Mitrastroi::PathTPL("right_side");
-include Mitrastroi::PathTPL("footer");
+include Base::PathTPL("right_side");
+include Base::PathTPL("footer");

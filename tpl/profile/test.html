@@ -1,32 +1,29 @@
-<div class="panel panel-default" style="margin: 10px 0 0;">
-	<div class="panel-heading" role="tab" id="heading-test-<?php echo $pl_test['trid'] ?>">
-		<h4 class="panel-title">
-			<?php if ($logged_user and ($logged_user->take_group_info("up_down") or $logged_user->uid() == $pl->uid())) { ?><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-test-<?php echo $pl_test['trid'] ?>" aria-expanded="false" aria-controls="collapse-test-<?php echo $pl_test['trid'] ?>"><?php } ?>
-				<?php if ($pl_test['status'] == 3) if ($pl_test['passed']) {?>
-					<span class="text-success"><i class="fa fa-check stt" title="Сдал"></i> </span>
-				<?php } else { ?>
-					<span class="text-danger"><i class="fa fa-times stt" title="Не сдал"></i> </span>
-				<?php } else { ?>
-					<span class="text-info"><i class="fa fa-question-circle stt" title="Непроверено"></i> </span>
-				<?php } ?>
-				| <?php echo $pl_test['trname'] ?> | Дата: <?php echo date("H:i:s - d/m/Y", strtotime($pl_test['recived_date'])) ?>
-				<?php if ($pl_test['status'] == 3) { ?>| Проверил: <a href="/profile/<?php echo $pl_test['reviewer'] ?>"><?php echo $pl_test['nickname'] ?></a><?php } ?>
-			<?php if ($logged_user and ($logged_user->take_group_info("up_down") or $logged_user->uid() == $pl->uid())) { ?></a><?php } ?>
-		</h4>
-	</div>
-	<?php if ($logged_user and ($logged_user->take_group_info("up_down") or $logged_user->uid() == $pl->uid())) { ?>
-		<div id="collapse-test-<?php echo $pl_test['trid'] ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-test-<?php echo $pl_test['trid'] ?>">
-			<div class="panel-body">
-				<?php foreach ($questions as $number => $question) { ?>
-					<div class="form-group<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo " has-" . ((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number]) ?>">
-						<label class="control-label"><b><?php echo $question ?></b></label>
-						<textarea class="form-control" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
-					</div>
-				<?php }?>
-				<?php if ($logged_user->take_group_info("up_down")) { ?>
-					<a class="btn btn-default btn-xs btn-block" href="/admin_tests/<?php echo $pl_test['trid'] ?>" style="margin-top: 10px"><i class="fa fa-eye"></i> Глянуть в админке / изменить оценку</a>
-				<?php }?>
-			</div>
-		</div>
-	<?php } ?>
-</div>
+                  <div class="title" <?php if (!($logged_user and ($logged_user->take_group_info("up_down") or $logged_user->uid() == $pl->uid()))) { ?>style="cursor: default;pointer-events: none;"<?php } ?>>
+					<?php if ($pl_test['status'] == 3) if ($pl_test['passed']) {?>
+                    <i class="green check icon"></i>
+					<?php } else { ?>
+					<i class="red remove icon"></i>
+					<?php } else { ?>
+                    <i class="wait icon"></i>
+					<?php } ?>
+                    <?php echo $pl_test['trname'] ?> | <?php echo _('Дата:') ?> <?php echo date("H:i:s - d.m.Y", strtotime($pl_test['recived_date'])) ?><?php if ($pl_test['status'] == 3) { ?> | <?php echo _('Проверил: ') ?><a href="/profile/<?php echo $pl_test['reviewer'] ?>"><?php echo htmlspecialchars($pl_test['nickname']) ?></a><?php } ?>
+                  </div>
+                  <div class="content">
+                    <?php if ($logged_user and ($logged_user->take_group_info("up_down") or $logged_user->uid() == $pl->uid())) { ?>
+					<p class="transition hidden">
+                      <div class="ui form">
+                        <?php foreach ($questions as $number => $question) { ?>
+						<div class="field">
+                          <label style="text-align: center;"><?php echo htmlspecialchars($question) ?> <?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo $marks[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])] ?></label>
+                          <textarea name="<?php echo 'answer' . $number ?>" rows="4" style="margin-top: 0px; margin-bottom: 0px;<?php if($answers_marks and (isset($answers->$number) or isset($answers[$number]))) echo ' border-color: '.$marks_color[((isset($answers_marks->$number))?$answers_marks->$number:$answers_marks[$number])].';' ?>" readonly><?php echo htmlspecialchars(($answers)?(isset($answers->$number))?$answers->$number:$answers[$number]:'') ?></textarea>
+                        </div>
+						<?php } ?>
+						<?php if ($logged_user->take_group_info("up_down")) { ?>
+                        <div class="field">
+                          <a href="/admin_tests/<?php echo $pl_test['trid'] ?>" class="ui fluid primary button"><i class="eye icon"></i> <?php echo _('Посмотреть тест в панели управления') ?></a>
+                        </div>
+						<?php } ?>
+                      </div>
+                    </p>
+					<?php } ?>
+                  </div>

@@ -1,18 +1,18 @@
 <?php
-Mitrastroi::TakeClass('openid');
+Base::TakeClass('openid');
 if($logged_user) {
-	include MITRASTROI_ROOT . "pages/404.php";
+	include ROOT . "pages/404.php";
 	return;
 }
 try {
 	$redirect = (isset($_GET['rdrct']))? $_GET['rdrct']: '';
-	$openid = new LightOpenID('http://' . $_SERVER['SERVER_NAME'] . '/login?rdrct='.$redirect);
+	$openid = new LightOpenID('https://' . $_SERVER['SERVER_NAME'] . '/login?rdrct='.$redirect);
 	if (!$openid->mode) {
 		if (isset($_GET['login'])) {
 			$openid->identity = 'http://steamcommunity.com/openid/?l=english';
 			header('Location: ' . $openid->authUrl());
 		}
-//		include (MITRASTROI_ROOT."pages/404.php");
+//		include (ROOT."pages/404.php");
 	} elseif ($openid->mode == 'cancel') {
 		echo 'User has canceled authentication!';
 	} else {
@@ -44,20 +44,19 @@ try {
 						'date'=>time()
 					)
 				);
-				$sessionID = Mitrastroi::randString(128);
+				$sessionID = Base::randString(128);
 				$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
-				$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', 'user', '$status')");
-				$db->execute("INSERT INTO `sessions` (`session_id`, `session_steamid`, `session_date`) VALUES ('$sessionID', '" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', NOW())");
-				$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Mitrastroi::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
+				$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('" . $db->safe(Base::ToSteamID($player->steamid)) . "', 'user', '$status')");
+				$db->execute("INSERT INTO `sessions` (`session_id`, `session_steamid`, `session_date`) VALUES ('$sessionID', '" . $db->safe(Base::ToSteamID($player->steamid)) . "', NOW())");
+				$db->execute("INSERT INTO `user_info_cache` (`steamid`, `steam_url`, `avatar_url`, `nickname`) VALUES ('" . $db->safe(Base::ToSteamID($player->steamid)) . "', '" . $db->safe($player->profileurl) . "', '" . $db->safe($player->avatarfull) . "', '" . $db->safe($player->personaname) . "')"
 					. "ON DUPLICATE KEY UPDATE `steam_url`='" . $db->safe($player->profileurl) . "', `avatar_url`='" . $db->safe($player->avatarfull) . "', `nickname`='" . $db->safe($player->personaname) . "'") or die($db->error());
-				setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
+				setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/', $_SERVER['HTTP_HOST']);
+				$db->execute("INSERT INTO `login_log` (`SID`, `ip`) VALUES ('" . $db->safe(Base::ToSteamID($player->steamid)) . "', '".Base::GetRealIp()."')");
 				header("Location: /$redirect");
-				var_dump($_GET);
 			}
 
 		} else {
 			header("Location: /$redirect");
-			var_dump($_GET);
 		}
 	}
 } catch (ErrorException $e) {

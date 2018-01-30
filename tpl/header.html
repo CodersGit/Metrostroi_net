@@ -1,51 +1,50 @@
-<!DOCTYPE HTML>
-<!-- PolarFox Engine Concept -->
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="author" content="STRELOK2022 and glebqip and Black Phoenix">
-		<link rel="stylesheet" href="/tpl/css/bootstrap.css">
-		<link rel="stylesheet" href="/tpl/css/font-awesome.css">
-		<link rel="stylesheet" href="/tpl/css/style.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<script src="/tpl/js/jquery.js"></script>
-		<script src="/tpl/js/app.js"></script>
-		<script src="/tpl/js/bootstrap.js"></script>
-		<script>
-			window.onload = function () {$('.stt').tooltip(); $('.spp').popover();checkTimezone();}
-		</script>
-		<title><?php echo $page_fucking_title?></title>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Metrostroi &raquo; <?php echo $page_fucking_title?></title>
 
-		<link rel="shortcut icon" href="/tpl/img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/tpl/img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/tpl/img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/tpl/img/favicon.png">
-		<link rel="apple-touch-icon-precomposed" href="/tpl/img/favicon.png">
-	</head>
-	<body data-spy="scroll" data-target="#guide-parts">
-		<script type="application/javascript">
-			function Search() {
-				document.location.href = "/search/" +  document.getElementById('search').value;
-			}
-		</script>
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="/">Metrostroi</a>
-				</div>
+    <link rel="stylesheet" href="/dist/semantic4.css" type="text/css">
 
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<?php echo $menu->show('menu', $show_login) ?>
-				</div><!-- /.navbar-collapse -->
-			</div><!-- /.container-fluid -->
-		</nav>
-		<?php if ($logged_user and strlen($logged_user->count_new_tickets())) include Mitrastroi::PathTPL('tickets/tickets_unread_modal') ?>
-		<div class="container" style="margin-top: 65px;">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@2.0.4/dist/tippy.all.min.js"></script>
+    <script src="/dist/semantic.js"></script>
+    <!--<script src="/kek"></script>-->
+	<link rel="stylesheet" href="https://atomiks.github.io/tippyjs/tippy/themes.css" type="text/css">
+	<?php if ($lnk[0] == 'servers') { ?>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<?php } ?>
+	<link rel="stylesheet" href="/tpl/css/style2.css" type="text/css">
+	<style>
+      .ui.search > .results > .message .header:before {
+        visibility: visible;
+        content: '<?php echo _('Нет совпадений') ?>';
+      }
+	</style>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+		<?php if ($logged_user) {?>_paq.push(["setUserId","<?php echo $logged_user->steamid() ?>"]);
+<?php } ?>
+        (function() {
+            var u="//anal.metrostroi.net/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+  </head>
+
+  <body style="display: flex; min-height: 100vh; flex-direction: column;">
+    <div class="ui container" style="flex: 1;">
+      <div class="ui fixed inverted menu">
+        <div class="ui container">
+          <?php echo $menu->show('menu', $show_login) ?>
+        </div>
+      </div>
+      <div class="ui main container">
+        <div class="ui stackable grid">
+          <div class="five wide column">

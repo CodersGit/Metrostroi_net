@@ -1,2 +1,2 @@
 <?php
-include MITRASTROI_ROOT . 'pages/news_add.php';
+include ROOT . 'pages/news_add.php';

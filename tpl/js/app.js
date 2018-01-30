@@ -40,11 +40,11 @@ function deleteCookie(name) {
 function checkTimezone() {
 	if(!getCookie('mitrastroi_timezone')) {
 		$.ajax({
-			url: 'http://ip-api.com/json'
+			url: 'https://geoip.nekudo.com/api/'
 		}).done(
 			function (response) {
-				if (response && response.timezone) {
-					setCookie('mitrastroi_timezone', response.timezone, {expires: 60*60*24})
+				if (response && response.location && response.location.time_zone) {
+					setCookie('mitrastroi_timezone', response.location.time_zone, {expires: 60*60*24})
 				}
 			}
 		)

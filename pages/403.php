@@ -1,10 +1,4 @@
 <?php
 ob_clean();
 header("HTTP/1.0 403 Forbidden");
-$show_login = true;
-$page_fucking_title = "Доступ запрещен";
-include Mitrastroi::PathTPL("header");
-
-include Mitrastroi::PathTPL("403");
-
-include Mitrastroi::PathTPL("footer");
+include Base::PathTPL("403");

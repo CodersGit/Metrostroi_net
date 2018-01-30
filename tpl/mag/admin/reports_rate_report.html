@@ -1,25 +1,49 @@
-<div class="ticket">
-	<div class="row">
-		<div class="col-xs-3">
-			<img src="<?php echo $report['avatar_url']?>" width="100%" class="img-rounded" style="margin: 0px;">
-		</div>
-		<div class="col-xs-9">
-			<div class="pull-right"><b>Сервер:</b> <?php echo $report['mag_rserver']?> &laquo; <b>#</b><?php echo $report['mag_rid']?></div>
-			<b><a href="/profile/<?php echo $report['mag_reporter']?>" class="black_link"><?php echo $report['nickname']?></a></b> &raquo; <?php echo date("H:i:s - d/m/Y", strtotime($report['mag_rdate'])) ?>
-			<hr style="margin: 5px" />
-			<?php echo nl2br(htmlspecialchars($report['mag_reason']))?>
-			<hr style="margin: 10px 5px 10px;" />
-			<a href="/admin_tickets/<?php echo $report['mag_reporter']?>" class="black_link">Написать тикет</a>
-			<hr style="margin: 10px 5px -5px;" />
-			<p>
-				<input type="hidden" value="1" name="mag_viewed_<?php echo $report['mag_rid']?>">
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="mag_heavy_<?php echo $report['mag_rid']?>"> Это обоснованный репорт
-					</label>
-					<span class="help-block">Ставьте эту галку только если АБСОЛЮТНО УВЕРЕНЫ в его обоснованности и разумности</span>
-				</div>
-			</p>
-		</div>
-	</div>
-</div>
+
+                  <div class="ui segment">
+                    <div class="ui left aligned grid">
+                      <div class="three wide column">
+                        <div class="item"><img class="ui small circular image" src="<?php echo $report['avatar_url']?>"></div>
+                      </div>
+                    
+                      <div class="thirteen wide column">
+                        <div class="ui middle aligned grid">
+                          <div class="row" style="padding-bottom: 0;">
+                            <div class="eleven wide column"><b><a href="/profile/<?php echo $report['mag_reporter']?>" class="blacklink"><?php echo htmlspecialchars($report['nickname'])?></a></b> &raquo; <?php echo date(_("d.m.Y в H:i:s"), strtotime($report['mag_rdate'])) ?></div>
+                            <div class="five wide column" align="right">
+                              <div class="ui horizontal list">
+                                <div class="item">
+                                  #<?php echo $report['mag_rid']?>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row" style="padding-top: 0;">
+                            <div class="sixteen wide column"><b><?php echo _('Сервер:') ?></b> <?php echo (($report['mag_rserver_id'] == -1) ? $report['mag_rserver'] : $servers[$report['mag_rserver_id']]['name']) ?></div>
+                          </div>
+                        </div>
+                        
+                        <div class="ui divider" style="margin: 0.2em 0 0.2em 0;"></div>
+                        
+                        <span>
+                          <?php echo nl2br(htmlspecialchars($report['mag_reason']))?>
+                        </span>
+                        
+                        <div class="ui middle aligned horizontal list" style="margin-top: 0.5rem; display: block;">
+                          <div class="item">
+                            <a class="ui compact primary mini icon button" href="/admin_tickets/<?php echo $report['mag_reporter']?>">
+                              <i class="info circle icon"></i>
+                              <?php echo _('Написать тикет') ?>
+                            </a>
+                          </div>
+                          
+                          <div class="item">
+							<input type="hidden" value="1" name="mag_viewed_<?php echo $report['mag_rid']?>">
+                            <div class="ui checkbox">
+                              <input type="checkbox" name="mag_heavy_<?php echo $report['mag_rid']?>">
+                              <label><?php echo _('Подтвердить жалобу') ?></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>

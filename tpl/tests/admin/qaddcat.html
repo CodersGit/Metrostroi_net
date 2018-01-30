@@ -1,10 +1,9 @@
-<form class="form-horizontal" method="post">
-	<div class="input-group input-group-lg">
-		<div class="input-group-addon">Название:</div>
-		<input class="form-control" type="text" name="name">
-		<span class="input-group-btn">
-			<button type="submit" class="btn btn-primary">Добавить</button>
-		</span>
-	</div>
+<form class="ui form" method="post">
+  <div class="ui labeled action input">
+    <div class="ui label">
+      <?php echo _('Название категории:') ?>
+    </div>
+    <input type="text" name="name" placeholder="<?php echo _('Название категории...') ?>">
+    <button class="ui primary button" type="submit"><?php echo _('Добавить') ?></button>
+  </div>
 </form>
-<span style="color: white">Да,тут пусто</span>

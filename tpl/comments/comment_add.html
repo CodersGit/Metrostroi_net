@@ -1,10 +1,23 @@
-<div class="panel panel-default" style="margin-top: 10px;">
-	<div class="panel-heading"><i class="fa fa-pencil"></i> Добавить комментарий</div>
-	<div class="panel-body">
-		<form method="post">
-			<textarea class="form-control" placeholder="Текст комментария" style="margin-bottom: 10px;" name="message" maxlength="255"></textarea>
-			<button class="btn btn-primary pull-right btn-xs"><i class="fa fa-pencil"></i> Отправить</button>
-			Максимум 255 символов
-		</form>
-	</div>
-</div>
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="align left icon"></i> <?php echo _('Добавить комментарий') ?></div>
+
+                <form method="post">
+                  <div class="ui form">
+                    <div class="field">
+                      <textarea name="message" placeholder="Текст комментария&hellip;" style="height: 112px;"></textarea>
+                    </div>
+
+                    <div class="filed">
+                      <div class="ui middle aligned grid">
+                        <div class="eight wide column">
+                          <?php echo _('Максимальная длина сообщения &mdash; 255 символов') ?>
+                        </div>
+
+                        <div class="eight wide column" align="right">
+                          <button class="ui green labeled submit icon button" type="submit"><i class="send icon"></i> <?php echo _('Отправить') ?></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div>

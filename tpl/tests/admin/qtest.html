@@ -1,20 +1,36 @@
-<div class="jumbotron">
-	<h1>Редактировать тест</h1>
-</div>
-
-<form class="form-horizontal" method="post">
-	<p><b>Название теста</b></p>
-	<input type="text" class="form-control" name="name" value="<?php echo $test['tname'] ?>">
-	<p><b>Приоритет (чем больше, тем выше в списках)</b></p>
-	<input type="text" class="form-control" name="priority" value="<?php echo $test['tpriority'] ?>">
-	<p><b>Категории вопросов</b></p>
-	<input type="text" class="form-control" name="qcats" value="<?php echo $testcats ?>">
-	<span class="help-block">
-		Для того, чтобы все работало перечислите ID категорий через точку с запятой БЕЗ пробелов, в конце точку с запятой
-		НЕ СТАВИТЬ! Ниже перечислены все категории вопросов и их ID:<br />
-		<?php while ($cat = $db->fetch_array($cats)) { ?>
-			<?php echo $cat ['qcid'] ?>: <?php echo $cat ['qcname'] ?><br />
-		<?php } ?>
-	</span>
-	<button type="submit" class="btn btn-primary">Отредактировать</button>
-</form>
+            <div class="ui segment" style="min-height: 8rem; margin-bottom: 2rem !important;">
+              <div class="ui top attached label"><i class="edit icon"></i> <?php echo _('Редактирование теста') ?></div>
+              
+              <div class="ui container" style="margin-top: 2rem !important;">
+                <form class="ui form" method="post">
+                  <div class="field">
+                    <label><?php echo _('Название теста') ?></label>
+                    <input type="text" name="name" placeholder="<?php echo _('Название теста...') ?>" value="<?php echo $test['tname'] ?>">
+                  </div>
+                  <div class="field">
+                    <label><?php echo _('Приоритет теста (чем больше, тем выше в списках)') ?></label>
+                    <input type="text" name="priority" placeholder="<?php echo _('Приоритет теста...') ?>" value="<?php echo $test['tpriority'] ?>">
+                  </div>
+                  <div class="field">
+                    <label><?php echo _('Категории вопросов') ?></label>
+                    <input type="text" name="qcats" placeholder="<?php echo _('Категории вопросов...') ?>" value="<?php echo $testcats ?>">
+                    <?php echo _('Перечисляйте ID категорий через точку с запятой, без пробелов. В конце точку с запятой не ставить!') ?>
+                  </div>
+                  <table class="ui compact table">
+                    <thead>
+                      <th><?php echo _('Название категории') ?></th>
+                      <th><?php echo _('ID категории') ?></th>
+                    </thead>
+                    <tbody>
+                      <?php while ($cat = $db->fetch_array($cats)) { ?>
+					    <tr>
+						  <td class="eight wide column"><?php echo $cat ['qcname'] ?></td>
+						  <td class="eight wide column"><?php echo $cat ['qcid'] ?></td>
+						</tr>
+                      <?php } ?>
+                    </tbody>
+                  </table>
+                  <button class="ui primary fluid button" type="submit"><?php echo _('Отредактировать') ?></button>
+                </form>
+              </div>
+            </div>

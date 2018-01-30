@@ -13,12 +13,10 @@ class Comments
 			$db->execute("DELETE FROM `comments` WHERE  `cid`='{$db->safe($_POST['delete'])}'") or die($db->error());
 		}
 		$comments = $db->execute("SELECT `comments`.*, `user_info_cache`.*, `players`.`icon` FROM `comments` LEFT JOIN `user_info_cache` ON `comments`.`author`=`user_info_cache`.`steamid` LEFT JOIN `players` ON `comments`.`author`=`players`.`SID` WHERE `type`='{$db->safe($type)}' AND `item_id`='{$db->safe($id)}' ORDER BY `comments`.`date` DESC");
-		if ($access > 0) include Mitrastroi::PathTPL("comments/comment_add");
+		if ($access > 0) include Base::PathTPL("comments/comment_add");
 		if ($db->num_rows($comments))
 			while ($comment = $db->fetch_array($comments)) {
-				include Mitrastroi::PathTPL("comments/comment");
+				include Base::PathTPL("comments/comment");
 			}
-		elseif ($hold_place and $access == 0)
-			Mitrastroi::TakeTPL('comments/no_comments');
 	}
 }

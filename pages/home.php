@@ -1,2 +1,2 @@
 <?php
-include Mitrastroi::PathTPL("home");
+include Base::PathTPL("home");

@@ -1,7 +1,7 @@
 <?php
-class Mitrastroi {
+class Base {
 	public static $RIGHTS = array(
-		'txtid', 'name', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets', 'mag_bans', 'edit_tests', 'mag_reports'
+		'txtid', 'name', 'name_en', 'change_group', 'warn', 'news_add', 'delete_comment', 'blacklist_edit', 'tests_edit', 'give_coupon', 'up_down', 'admin_panel', 'tickets', 'mag_bans', 'edit_tests', 'mag_reports', 'statistics', 'up_to_driver', 'log', 'adm'
 	);
 	public static $STEAM_INFO = array(
 		'steamid', 'nickname', 'steam_url', 'avatar_url'
@@ -24,22 +24,22 @@ class Mitrastroi {
 	public static $ICONS = array(
 		-1 => array(
 			'name'=>'Недоверенный игрок',
-			'color'=>'danger',
+			'color'=>'#d9534f',
 			'icon'=>'ban',
 		),
 		1 => array(
 			'name'=>'Заслуженный игрок',
-			'color'=>'warning',
-			'icon'=>'star-o',
+			'color'=>'#f0ad4e',
+			'icon'=>'star',
 		),
 		2 => array(
 			'name'=>'Доверенный игрок',
-			'color'=>'success',
-			'icon'=>'star',
+			'color'=>'#5cb85c',
+			'icon'=>'checkmark',
 		),
 		3 => array(
 			'name'=>'Сотрудник реального метрополитена',
-			'color'=>'danger',
+			'color'=>'#d9534f',
 			'icon'=>'subway',
 		),
 		4 => array(
@@ -49,36 +49,40 @@ class Mitrastroi {
 		),
 		5 => array(
 			'name'=>'Админ партнерского сервера',
-			'color'=>'primary',
+			'color'=>'#337ab7',
 			'icon'=>'server',
 		),
 		6 => array(
 			'name'=>'Владелец партнерских серверов',
-			'color'=>'info',
+			'color'=>'#5bc0de',
 			'icon'=>'sitemap',
 		),
 		9 => array(
 			'name'=>'Пресс-служба',
-			'color'=>'warning',
-			'icon'=>'pencil',
+			'color'=>'#f0ad4e',
+			'icon'=>'newspaper',
 		),
 		10 => array(
 			'name'=>'Модератор системы',
-			'color'=>'danger',
-			'icon'=>'comments-o',
+			'color'=>'#d9534f',
+			'icon'=>'comments outline',
 		),
 		11 => array(
 			'name'=>'Разработчик системы',
-			'color'=>'primary',
-			'icon'=>'wrench',
+			'color'=>'#337ab7',
+			'icon'=>'wizard',
 		),
 		12 => array(
 			'name'=>'Разработчик мода',
-			'color'=>'success',
-			'icon'=>'subway',
+			'color'=>'#5cb85c',
+			'icon'=>'wrench',
 		),
 	);
-	private static $DATA;
+	public static $langs = array(
+		'ru_RU' => array('Русский язык','ru'),
+		'uk_UA' => array('Українська мова','ua'),
+		'en_US' => array('English language','us')
+	);
 	public static function ToCommunityID($id) {
 		if (preg_match('/^STEAM_/', $id)) {
 			$parts = explode(':', $id);
@@ -100,16 +104,6 @@ class Mitrastroi {
 		}
 		$y = bcmod($id, '2');
 		return 'STEAM_0:' . $y . ':' . floor($z);
-	}
-
-	public static function GetRealIp(){
-		if (!empty($_SERVER['HTTP_CLIENT_IP']))
-			$ip = $_SERVER['HTTP_CLIENT_IP'];
-		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		else
-			$ip = $_SERVER['REMOTE_ADDR'];
-		return substr($ip, 0, 16);
 	}
 
 	public static function randString($pass_len = 50) {
@@ -177,48 +171,29 @@ class Mitrastroi {
 			return;
 		}
 		$logged_user = $user;
-		$sessionID = Mitrastroi::randString(128);
+		$sessionID = Base::randString(128);
 		$db->execute("UPDATE `sessions` SET `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
-//		$db->execute("UPDATE `sessions` SET `session_id`='$sessionID', `session_date`=NOW() WHERE `session_id`='{$db->safe($_COOKIE['mitrastroi_sid'])}'");
-//		setcookie("mitrastroi_sid", $sessionID, time() + 3600 * 24 * 30, '/');
-//		$_COOKIE['mitrastroi_sid'] = $sessionID;
-	}
-
-	public static function SetData($key, $value) {
-		global $db;
-		$query = $db->execute("INSERT INTO `data` (`key`,`value`) VALUES ('{$db->safe($key)}','{$db->safe($value)}')"
-			. "ON DUPLICATE KEY UPDATE `value`='{$db->safe($value)}'");
-		return self::$DATA[$key] = ($query)? $value:false;
-	}
-
-	public static function GetData($key) {
-		global $db;
-		if (isset(self::$DATA[$key]))
-			return self::$DATA[$key];
-		$query = $db->execute("SELECT `value` FROM `data` WHERE `key`='{$db->safe($key)}'");
-		$value = $db->fetch_array($query);
-		return self::$DATA[$key] = ($db->num_rows($query))? $value['value']:false;
 	}
 
 	public static function TakeClass ($class) {
-		if (file_exists(MITRASTROI_ROOT . "classes/$class.class.php")) {
-			require_once (MITRASTROI_ROOT . "classes/$class.class.php");
+		if (file_exists(ROOT . "classes/$class.class.php")) {
+			require_once (ROOT . "classes/$class.class.php");
 			return true;
 		}
 		return false;
 	}
 
 	public static function TakeTPL ($tpl) {
-		if (file_exists(MITRASTROI_ROOT . "tpl/$tpl.html")) {
-			include(MITRASTROI_ROOT . "tpl/$tpl.html");
+		if (file_exists(ROOT . "tpl/$tpl.html")) {
+			include(ROOT . "tpl/$tpl.html");
 			return true;
 		}
 		return false;
 	}
 
 	public static function PathTPL ($tpl) {
-		if (file_exists(MITRASTROI_ROOT . "tpl/$tpl.html")) {
-			return (MITRASTROI_ROOT . "tpl/$tpl.html");
+		if (file_exists(ROOT . "tpl/$tpl.html")) {
+			return (ROOT . "tpl/$tpl.html");
 		}
 		return false;
 	}
@@ -231,35 +206,63 @@ class Mitrastroi {
 		if ($page <= 5){
 			for ($p = 1; $p < $page; $p++){
 				$l = $link . $p;
-				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+				include Base::PathTPL("pagination/pagin_item_inactive");
 			}
 		} else {
 			$p = "&laquo;";
 			$l = $link . 1;
-			include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+			include Base::PathTPL("pagination/pagin_item_inactive");
 			for ($p = $page - 3; $p < $page; $p++){
 				$l = $link . $p;
-				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+				include Base::PathTPL("pagination/pagin_item_inactive");
 			}
 		}
 		$p = $page;
 		$l = $link . $page;
-		include Mitrastroi::PathTPL("pagination/pagin_item_active");
+		include Base::PathTPL("pagination/pagin_item_active");
 		if ($pages_count - $page <= 5){
 			for ($p = $page + 1; $p <= $pages_count; $p++){
 				$l = $link . $p;
-				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+				include Base::PathTPL("pagination/pagin_item_inactive");
 			}
 		} else {
 			for ($p = $page + 1; $p <= $page + 3; $p++){
 				$l = $link . $p;
-				include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+				include Base::PathTPL("pagination/pagin_item_inactive");
 			}
 			$p = "&raquo;";
 			$l = $link . $pages_count;
-			include Mitrastroi::PathTPL("pagination/pagin_item_inactive");
+			include Base::PathTPL("pagination/pagin_item_inactive");
 		}
 		self::TakeTPL("pagination/pagin_end");
 		return ob_get_clean();
 	}
+	
+	
+	public static function SendToSocket($method,$data) {
+		global $db;
+		if ($socket = stream_socket_client( 'tls://socket.metrostroi.net:7777', $errno, $errstr, 10, STREAM_CLIENT_CONNECT) ) {
+			$input = array();
+			$input['method'] = $method;
+			$input['data'] = $data;
+			fwrite($socket, json_encode($input, JSON_UNESCAPED_UNICODE));
+			fclose($socket);
+		}
+	}
+	
+	
+	public static function GetRealIP()
+	{
+		return (isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR']); //Ну вот так надо
+	}
 }
+Base::$ICONS[-1]['name'] = _('Недоверенный игрок');
+Base::$ICONS[1]['name'] = _('Заслуженный игрок');
+Base::$ICONS[2]['name'] = _('Доверенный игрок');
+Base::$ICONS[3]['name'] = _('Сотрудник реального метрополитена');
+Base::$ICONS[5]['name'] = _('Админ партнерского сервера');
+Base::$ICONS[6]['name'] = _('Владелец партнерских серверов');
+Base::$ICONS[9]['name'] = _('Пресс-служба');
+Base::$ICONS[10]['name'] = _('Модератор системы');
+Base::$ICONS[11]['name'] = _('Разработчик системы');
+Base::$ICONS[12]['name'] = _('Разработчик мода');

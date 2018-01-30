@@ -1,7 +1,0 @@
-<div class="jumbotron">
-	<h1>Что делаем?</h1>
-	<p>
-		<?php if($logged_user and $logged_user->take_group_info('change_group')) { ?><a class="btn btn-success btn-lg" href="/player_add" role="button">Меняем звание</a><?php } ?>
-		<?php if($logged_user and $logged_user->take_group_info('blacklist_edit')) { ?><a class="btn btn-danger btn-lg" href="/blacklist_add" role="button">Кидаем в ЧС</a><?php } ?>
-	</p>
-</div>
