@@ -253,7 +253,7 @@ class Base {
 	
 	public static function GetRealIP()
 	{
-		return (isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : $_SERVER['REMOTE_ADDR']); //Ну вот так надо
+		return $_SERVER['HTTP_X_REAL_IP']); //Ну вот так надо
 	}
 }
 Base::$ICONS[-1]['name'] = _('Недоверенный игрок');
