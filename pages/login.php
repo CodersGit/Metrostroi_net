@@ -44,7 +44,7 @@ try {
 						'date'=>time()
 					)
 				);
-				$sessionID = Base::randString(128);
+				$sessionID = $player->steamid . "_". Base::randString(100);
 				$db->execute("DELETE FROM `sessions` WHERE `session_date` < NOW() - INTERVAL 1 MONTH ");
 				$db->execute("INSERT INTO `players` (`SID`, `group`, `status`) VALUES ('" . $db->safe(Base::ToSteamID($player->steamid)) . "', 'user', '$status')");
 				$db->execute("INSERT INTO `sessions` (`session_id`, `session_steamid`, `session_date`) VALUES ('$sessionID', '" . $db->safe(Base::ToSteamID($player->steamid)) . "', NOW())");
