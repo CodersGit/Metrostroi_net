@@ -29,7 +29,8 @@
                       <?php if ($pl->take_mag_info("mag_reason")) { ?><b style="color: red;"><i class="warning sign icon"></i> <?php echo ($pl->take_mag_info("mag_unban_date"))?"Данный игрок имеет блокировку MAG (истекает: ".date(_("d.m.Y в H:i"), strtotime($pl->take_mag_info("mag_unban_date"))).").":_("Данный игрок имеет перманентную блокировку MAG.")?></b><br><?php } ?>
                       <?php if ($pl->count_mag_reports()) { ?><b style="color: red;"><i class="info circle icon"></i> <?php echo _('Количество подтверждённых MAG-жалоб:') ?> <?php echo $pl->count_mag_reports()?>.</b><br><?php } ?>
 					  <?php if ($pl->take_mag_info("mag_reason") or $pl->count_mag_reports()) { ?><br><?php } ?>
-                      <?php if ($pl->server_id() != -1) { ?><b><?php echo _('На сервере:') ?> <a href="steam://connect/<?php echo $servers[$pl->server_id()]['ip'].':'.$servers[$pl->server_id()]['port']; ?>"><?php echo htmlspecialchars($servers[$pl->server_id()]['name']);?></a>.</b><br><?php } ?>
+                      <?php if ($pl->old_group()) { ?><b style="color: red;"><i class="warning icon"></i> Данный "<?php echo $groups[$pl->old_group()]; ?>" находится в отпуске.</b><br><br><?php } ?>
+					  <?php if ($pl->server_id() != -1) { ?><b><?php echo _('На сервере:') ?> <a href="steam://connect/<?php echo $servers[$pl->server_id()]['ip'].':'.$servers[$pl->server_id()]['port']; ?>"><?php echo htmlspecialchars($servers[$pl->server_id()]['name']);?></a>.</b><br><?php } ?>
                       <b><?php echo _('Звание:') ?></b> <?php echo $pl->take_group_info("name") ?>.<br>
                       <?php if ($pl->show_icon()) { ?><b><?php echo _('Отличительные знаки:') ?></b> <?php echo $pl->show_icon(); } ?>
                       <div class="ui list">
