@@ -13,6 +13,7 @@ class User {
 	private $violations;
 	private $new_tickets;
 	private $social_info;
+	private $old_group;
 
 	/**
 	 * User constructor.
@@ -44,6 +45,7 @@ class User {
 		}
 		$this->coupon_info = json_decode($user['status']);
 		$this->server_id = $user['server_id'];
+		$this->old_group = $user['old_group'];
 		foreach (Base::$RIGHTS as $right)
 			$this->rights[$right] = $user[$right];
 		foreach (Base::$MAG_INFO as $mag)
@@ -150,6 +152,10 @@ class User {
 	 */
 	public function steamid() {
 		return $this->SID;
+	}
+	
+	public function old_group() {
+		return $this->old_group;
 	}
 
 	
