@@ -61,9 +61,9 @@ Class DB {
 				}
 		}
 		$this->execute("SET time_zone = '".date('P')."'");
-		$this->execute("SET character_set_client='utf8'");
-		$this->execute("SET character_set_results='utf8'");
-		$this->execute("SET collation_connection='utf8_general_ci'");
+		$this->execute("SET character_set_client='utf8mb4'");
+		$this->execute("SET character_set_results='utf8mb4'");
+		$this->execute("SET collation_connection='utf8mb4_unicode_ci'");
 //		if ($die)
 //			CanAccess(2);
 		return 0;
