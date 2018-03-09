@@ -11,7 +11,7 @@
                         <img src="<?php echo $pl->show_rank_icon() ?>" height="44" style="position: absolute; top: 9.2em;">
                       </div>
                       <h1 style="margin-top: 0.2em; margin-bottom: 0;"><?php echo htmlspecialchars($pl->take_steam_info("nickname")) ?></h1>
-                      <p style="margin-bottom: 0.5em;"><i class="steam icon fix"></i> <a href="<?php echo ("https://steamcommunity.com/profiles/" . Mitrastroi::ToCommunityID($pl->steamid())) ?>"><?php echo $pl->steamid() ?></a></p>
+                      <p style="margin-bottom: 0.5em;"><i class="steam icon fix"></i> <a href="<?php echo ("https://steamcommunity.com/profiles/" . Base::ToCommunityID($pl->steamid())) ?>"><?php echo $pl->steamid() ?></a></p>
                       <div class="ui middle aligned horizontal list">
                         <?php if ($pl->take_social_info('vk_id')) { ?><div class="item"><a href="http://vk.com/id<?php echo $pl->take_social_info("vk_id") ?>" target="_blank"><i class="vk icon fix"></i></a></div><?php } ?>
                         <?php if ($pl->take_social_info('twitter')) { ?><div class="item"><a href="http://twitter.com/<?php echo $pl->take_social_info("twitter") ?>" target="_blank"><i class="twitter icon fix"></i></a></div><?php } ?>
@@ -76,15 +76,15 @@
                     <i class="options icon"></i>
                   </a>
 				  <?php } ?>
-				  <?php if ($logged_user and ($logged_user->take_group_info("tickets") or $logged_user->take_group_info("warn") or $logged_user->take_group_info("change_group") or $logged_user->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) or ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN)))) { ?>
+				  <?php if ($logged_user and ($logged_user->take_group_info("tickets") or $logged_user->take_group_info("warn") or $logged_user->take_group_info("change_group") or $logged_user->take_group_info("blacklist_edit") or ((int) $pl->take_coupon_info('num') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) or ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN)))) { ?>
                   <div class="ui right aligned dropdown item" id="admin-dropdown">
                     <i class="settings icon"></i>
                     <i class="dropdown icon"></i>
                     <div class="menu">
                       <?php if ($logged_user->take_group_info("warn")) { ?><a class="item" id="violation-add-lnk"><i class="info circle icon"></i> <?php echo _('Добавить нарушение') ?></a><?php } ?>
                       <?php if ($logged_user->take_group_info("up_down")) { ?><a class="item" id="give-test-lnk"><i class="checkmark box icon"></i> <?php echo _('Выдать тест') ?></a><?php } ?>
-                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 4) { ?><a class="item" id="promote-lnk"><i class="up arrow icon"></i> <?php echo _('Повысить') ?></a><?php } ?>
-                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Mitrastroi::$GROUPS_UP_DOWN) != 0) { ?><a class="item" id="demote-lnk"><i class="down arrow icon"></i> <?php echo _('Понизить') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) != 4) { ?><a class="item" id="promote-lnk"><i class="up arrow icon"></i> <?php echo _('Повысить') ?></a><?php } ?>
+                      <?php if ($logged_user->take_group_info("up_down") and in_array($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) and array_search($pl->take_group_info('txtid'), Base::$GROUPS_UP_DOWN) != 0) { ?><a class="item" id="demote-lnk"><i class="down arrow icon"></i> <?php echo _('Понизить') ?></a><?php } ?>
                       <?php if ((int) $pl->take_coupon_info('nom') > 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><a class="item" id="return-ticket-lnk"><i class="plus circle icon"></i> <?php echo _('Вернуть талон') ?></a><?php } ?>
                       <?php if ((int) $pl->take_coupon_info('nom') >= 1 and (int) $pl->take_coupon_info('num') <= 3 and $logged_user->take_group_info("give_coupon")) { ?><a class="item" id="take-ticket-lnk"><i class="minus circle icon"></i> <?php echo _('Забрать талон') ?></a><?php } ?>
                       <?php if ($logged_user->take_group_info("change_group")) { ?><a class="item" id="set-rank-lnk"><i class="lightning icon"></i> <?php echo _('Установить ранг') ?></a><?php } ?>
