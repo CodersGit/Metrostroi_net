@@ -20,7 +20,7 @@ try {
 			$id = $openid->identity;
 			// identity is something like: http://steamcommunity.com/openid/id/76561197960435530
 			// we only care about the unique account ID at the end of the URL.
-			$ptn = "/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
+			$ptn = "/^https:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/";
 			preg_match($ptn, $id, $matches);
 //			echo "User is logged in (steamID: $matches[1])\n";
 
