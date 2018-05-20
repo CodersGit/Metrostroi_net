@@ -1,7 +1,7 @@
 <?php
 $config = array(
 	"db_base" => "metrostroi",
-	"db_host" => "46.36.216.234",
+	"db_host" => "185.4.75.45",
 	"db_user" => "metrostroi",
 	"db_pass" => "e41k94a71Q6i41p3",
 	"db_port" => 3306,
