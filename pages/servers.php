@@ -31,7 +31,7 @@ $menu->set_item_active('servers');
 include Base::PathTPL("header");
 include Base::PathTPL("left_side");
 $where = ($logged_user)?($logged_user->take_group_info("admin_panel"))?"":" AND `active`=1 AND `show_for_everyone`=1 OR `owner`='{$logged_user->steamid()}'":" AND `active`=1 AND `show_for_everyone`=1";
-$query = $db->execute("SELECT `server_id`,`name`,`ip`,`port`,`name`,`owner`,`show_for_everyone`,`active`,`deleted`,`status`,`maxplayers`,`wagons`,`maxwagons`,`map`,`mapstats` FROM `servers_info` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`servers_info`.`owner` WHERE `deleted` = 0 $where ORDER BY `servers_info`.`server_id`") or die($db->error());
+$query = $db->execute("SELECT `server_id`,`name`,`ip`,`port`,`name`,`owner`,`show_for_everyone`,`active`,`deleted`,`status`,`maxplayers`,`wagons`,`maxwagons`,`map`,`mapstats`,`user_info_cache`.* FROM `servers_info` LEFT JOIN `user_info_cache` ON `user_info_cache`.`steamid`=`servers_info`.`owner` WHERE `deleted` = 0 $where ORDER BY `servers_info`.`server_id`") or die($db->error());
 Base::TakeTPL("servers/servers_head");
 $servers2 = array();
 while($server = $db->fetch_array($query)) {
