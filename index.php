@@ -44,7 +44,7 @@ $query = $db->execute("SELECT * FROM `groups`");
 while ($gr = $db->fetch_array($query))
 	$groups[$gr['txtid']] = (($locale != 'ru_RU' and $locale != 'uk_UA') ? $gr['name_en'] : $gr['name']);
 
-$query = $db->execute("SELECT * FROM `servers_info`");
+$query = $db->execute("SELECT `server_id`,`name`,`ip`,`port`,`name`,`owner`,`show_for_everyone`,`active`,`deleted`,`status`,`maxplayers`,`wagons`,`maxwagons`,`map`,`mapstats` FROM `servers_info`");
 while ($sv = $db->fetch_array($query))
 	$servers[$sv['server_id']] = array('server_id'=>$sv['server_id'],'name'=>$sv['name'],'ip'=>$sv['ip'],'port'=>$sv['port'],'api_key'=>$sv['api_key'],'owner'=>$sv['owner'],'show_for_everyone'=>$sv['show_for_everyone'],'active'=>$sv['active'],'deleted'=>$sv['deleted']);
 Base::TakeAuth();
